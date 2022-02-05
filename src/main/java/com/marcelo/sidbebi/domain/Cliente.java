@@ -3,21 +3,36 @@ package com.marcelo.sidbebi.domain;
 import java.sql.Date;
 import java.util.Set;
 
-public class Cliente {
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+@Entity
+public class Cliente  {
 	
+	@Id
 	private Integer idInteger;
 	private String nomeString;
+	
+	@Column(unique = true)
 	private String cpfCnpjString;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascDate;
 	private String telefoneString;
 	private String enderecoString;
+	
+	@Column(unique = true)
+	private String emailString;
 	
 	public Cliente() {
 		super();
 	}
 
 	public Cliente(Integer idInteger, String nomeString, String cpfCnpjString, Date dataNascDate, String telefoneString,
-			String enderecoString) {
+			String enderecoString, String emailString) {
 		super();
 		this.idInteger = idInteger;
 		this.nomeString = nomeString;
@@ -25,6 +40,7 @@ public class Cliente {
 		this.dataNascDate = dataNascDate;
 		this.telefoneString = telefoneString;
 		this.enderecoString = enderecoString;
+		this.emailString = emailString;
 	}
 
 	public Integer getIdInteger() {
@@ -69,6 +85,14 @@ public class Cliente {
 
 	public String getEnderecoString() {
 		return enderecoString;
+	}
+
+	public void setEmailString(String emailString) {
+		this.emailString = emailString;
+	}
+	
+	public String getEmailString() {
+		return emailString;
 	}
 
 	public void setEnderecoString(String enderecoString) {

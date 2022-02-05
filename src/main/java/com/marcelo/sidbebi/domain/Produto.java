@@ -1,19 +1,102 @@
 package com.marcelo.sidbebi.domain;
 
-import javax.swing.plaf.multi.MultiPopupMenuUI;
 
-import org.springframework.core.type.filter.AbstractClassTestingTypeFilter;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
+@Entity
 public class Produto {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idInteger;
+	
 	private Tipo tipo;
 	private String nomeString;
+	private Integer quantidadeInteger;
 	private double valorUnit;
 	private double valorTotal;
 	
+	@OneToOne
+	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
-	private Produto produto;
+
+	public Produto() {
+		super();
+	}
+
+	public Produto(Integer idInteger, Tipo tipo, String nomeString, Integer quantidadeInteger, double valorUnit,
+			double valorTotal, Fornecedor fornecedor) {
+		super();
+		this.idInteger = idInteger;
+		this.tipo = tipo;
+		this.nomeString = nomeString;
+		this.quantidadeInteger = quantidadeInteger;
+		this.valorUnit = valorUnit;
+		this.valorTotal = valorTotal;
+		this.fornecedor = fornecedor;
+	}
+
+	public Integer getIdInteger() {
+		return idInteger;
+	}
+
+	public void setIdInteger(Integer idInteger) {
+		this.idInteger = idInteger;
+	}
+
+	public Tipo getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getNomeString() {
+		return nomeString;
+	}
+
+	public void setNomeString(String nomeString) {
+		this.nomeString = nomeString;
+	}
+
+	public Integer getQuantidadeInteger() {
+		return quantidadeInteger;
+	}
+
+	public void setQuantidadeInteger(Integer quantidadeInteger) {
+		this.quantidadeInteger = quantidadeInteger;
+	}
+
+	public double getValorUnit() {
+		return valorUnit;
+	}
+
+	public void setValorUnit(double valorUnit) {
+		this.valorUnit = valorUnit;
+	}
+
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public Fornecedor getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
+	}	
+	
 }

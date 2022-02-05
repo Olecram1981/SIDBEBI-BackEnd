@@ -1,33 +1,55 @@
 package com.marcelo.sidbebi.domain;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.enums.Status;
 
-import antlr.collections.List;
 
+@Entity
 public class Agendamento {
-	
+		
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idInteger;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataDate = LocalDate.now();
 	private LocalDateTime hora = LocalDateTime.now();
+	
 	private String nomeString;
 	private double valorUnitario;
 	private double valorTotal;
 	private String endString;
+	
 	private Status status;
 	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
-	private Produto produto;
+	
+	@OneToMany
+	private Set<Produto> produto;
 	
 	public Agendamento() {
 		super();
 	}
 
-	public Agendamento(Integer idInteger, String nomeString, double valorUnitario, double valorTotal, String endString,
-			Status status, Cliente cliente, Produto produto) {
+	
+
+	public Agendamento(Integer idInteger, String nomeString, double valorUnitario,
+			double valorTotal, String endString, Status status, Cliente cliente, Set<Produto> produto) {
 		super();
 		this.idInteger = idInteger;
 		this.nomeString = nomeString;
@@ -39,28 +61,14 @@ public class Agendamento {
 		this.produto = produto;
 	}
 
+
+
 	public Integer getIdInteger() {
 		return idInteger;
 	}
 
 	public void setIdInteger(Integer idInteger) {
 		this.idInteger = idInteger;
-	}
-
-	public LocalDate getDataDate() {
-		return dataDate;
-	}
-
-	public void setDataDate(LocalDate dataDate) {
-		this.dataDate = dataDate;
-	}
-
-	public LocalDateTime getHora() {
-		return hora;
-	}
-
-	public void setHora(LocalDateTime hora) {
-		this.hora = hora;
 	}
 
 	public String getNomeString() {
@@ -111,11 +119,11 @@ public class Agendamento {
 		this.cliente = cliente;
 	}
 
-	public Produto getProduto() {
+	public Set<Produto> getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(Set<Produto> produto) {
 		this.produto = produto;
 	}
 
