@@ -1,11 +1,7 @@
 package com.marcelo.sidbebi.domain;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 
@@ -26,7 +21,7 @@ public class Venda {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataDate = LocalDate.now();
-	private LocalDateTime horaDateTime = LocalDateTime.now();
+	//private LocalDateTime horaDateTime = LocalDateTime.now();
 	
 	@OneToMany(mappedBy = "idInteger")
 	private List<Produto> produto = new ArrayList<>();
