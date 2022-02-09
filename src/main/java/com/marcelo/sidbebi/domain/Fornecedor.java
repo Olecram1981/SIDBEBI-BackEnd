@@ -85,6 +85,5 @@ public class Fornecedor {
 	public void setEmailString(String emailString) {
 		this.emailString = emailString;
 	}
-
 	
 }

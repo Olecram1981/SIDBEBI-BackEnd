@@ -2,13 +2,17 @@ package com.marcelo.sidbebi.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
@@ -24,8 +28,12 @@ public class Venda {
 	private LocalDate dataDate = LocalDate.now();
 	private LocalDateTime horaDateTime = LocalDateTime.now();
 	
-	@OneToMany
-	private Set<Produto> produto;
+	@OneToMany(mappedBy = "idInteger")
+	private List<Produto> produto = new ArrayList<>();
+	
+	@OneToOne	
+	@JoinColumn
+	private	Cliente cliente;
 	
 	private Integer quantidadeInteger;
 	private double valorUnit;
@@ -36,7 +44,7 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer idInteger, Set<Produto> produto, Integer quantidadeInteger, double valorUnit, double total,
+	public Venda(Integer idInteger, List<Produto> produto, Integer quantidadeInteger, double valorUnit, double total,
 			Pagamento pagamento) {
 		super();
 		this.idInteger = idInteger;
@@ -55,11 +63,11 @@ public class Venda {
 		this.idInteger = idInteger;
 	}
 
-	public Set<Produto> getProduto() {
+	public List<Produto> getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Set<Produto> produto) {
+	public void setProduto(List<Produto> produto) {
 		this.produto = produto;
 	}
 

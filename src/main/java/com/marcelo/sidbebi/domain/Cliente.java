@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -13,7 +15,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Cliente  {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer idInteger;
+	
 	private String nomeString;
 	
 	@Column(unique = true)

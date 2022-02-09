@@ -20,18 +20,19 @@ public class Produto {
 	private Tipo tipo;
 	private String nomeString;
 	private Integer quantidadeInteger;
+	private Integer quantidadeTotalInteger;
 	private double valorUnit;
 	private double valorTotal;
 	
 	@OneToOne
-	@JoinColumn(name = "fornecedor_id")
+	@JoinColumn
 	private Fornecedor fornecedor;
 
 	public Produto() {
 		super();
 	}
 
-	public Produto(Integer idInteger, Tipo tipo, String nomeString, Integer quantidadeInteger, double valorUnit,
+	public Produto(Integer idInteger, Tipo tipo, String nomeString, Integer quantidadeInteger, Integer quantidadeTotalInteger, double valorUnit,
 			double valorTotal, Fornecedor fornecedor) {
 		super();
 		this.idInteger = idInteger;
@@ -41,6 +42,7 @@ public class Produto {
 		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
 		this.fornecedor = fornecedor;
+		this.quantidadeTotalInteger = quantidadeTotalInteger;
 	}
 
 	public Integer getIdInteger() {
@@ -97,6 +99,14 @@ public class Produto {
 
 	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
+	}
+
+	public Integer getQuantidadeTotalInteger() {
+		return quantidadeTotalInteger;
+	}
+
+	public void setQuantidadeTotalInteger(Integer quantidadeTotalInteger) {
+		this.quantidadeTotalInteger = quantidadeTotalInteger;
 	}	
 	
 }

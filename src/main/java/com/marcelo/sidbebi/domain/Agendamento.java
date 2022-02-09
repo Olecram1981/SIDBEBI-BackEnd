@@ -2,6 +2,8 @@ package com.marcelo.sidbebi.domain;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -35,21 +37,19 @@ public class Agendamento {
 	
 	private Status status;
 	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@ManyToOne	
+	@JoinColumn
 	private Cliente cliente;
 	
-	@OneToMany
-	private Set<Produto> produto;
+	@OneToMany(mappedBy = "idInteger")	
+	private List<Produto> produto = new ArrayList<>();
 	
 	public Agendamento() {
 		super();
 	}
 
-	
-
 	public Agendamento(Integer idInteger, String nomeString, double valorUnitario,
-			double valorTotal, String endString, Status status, Cliente cliente, Set<Produto> produto) {
+			double valorTotal, String endString, Status status, Cliente cliente, List<Produto> produto) {
 		super();
 		this.idInteger = idInteger;
 		this.nomeString = nomeString;
@@ -60,8 +60,6 @@ public class Agendamento {
 		this.cliente = cliente;
 		this.produto = produto;
 	}
-
-
 
 	public Integer getIdInteger() {
 		return idInteger;
@@ -119,11 +117,11 @@ public class Agendamento {
 		this.cliente = cliente;
 	}
 
-	public Set<Produto> getProduto() {
+	public List<Produto> getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Set<Produto> produto) {
+	public void setProduto(List<Produto> produto) {
 		this.produto = produto;
 	}
 
