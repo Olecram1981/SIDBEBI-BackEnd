@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
+import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
 public class ClienteService {
@@ -16,7 +17,7 @@ public class ClienteService {
 	
 	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
-		return obj.orElse(null);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
-
+	
 }
