@@ -11,79 +11,104 @@ public class Fornecedor {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idInteger;
+	private Integer id;
 	
-	private String nomeString;
-	
-	@Column(unique = true)
-	private String cpfCnpjString;
-	private String endString;
-	private String telefoneString;
+	private String nome;
 	
 	@Column(unique = true)
-	private String emailString;
+	private String cpfCnpj;
+	private String end;
+	private String telefone;
+	
+	@Column(unique = true)
+	private String email;
 
 	public Fornecedor() {
 		super();
 	}
 
-	public Fornecedor(Integer idInteger, String nomeString, String cpfCnpjString, String endString,
-			String telefoneString, String emailString) {
+	public Fornecedor(Integer id, String nome, String cpfCnpj, String end, String telefone, String email) {
 		super();
-		this.idInteger = idInteger;
-		this.nomeString = nomeString;
-		this.cpfCnpjString = cpfCnpjString;
-		this.endString = endString;
-		this.telefoneString = telefoneString;
-		this.emailString = emailString;
+		this.id = id;
+		this.nome = nome;
+		this.cpfCnpj = cpfCnpj;
+		this.end = end;
+		this.telefone = telefone;
+		this.email = email;
 	}
 
-	public Integer getIdInteger() {
-		return idInteger;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
-		this.idInteger = idInteger;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getNomeString() {
-		return nomeString;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeString(String nomeString) {
-		this.nomeString = nomeString;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getCpfCnpjString() {
-		return cpfCnpjString;
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setCpfCnpjString(String cpfCnpjString) {
-		this.cpfCnpjString = cpfCnpjString;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
-	public String getEndString() {
-		return endString;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setEndString(String endString) {
-		this.endString = endString;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
-	public String getTelefoneString() {
-		return telefoneString;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefoneString(String telefoneString) {
-		this.telefoneString = telefoneString;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public String getEmailString() {
-		return emailString;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailString(String emailString) {
-		this.emailString = emailString;
+	public void setEmail(String email) {
+		this.email = email;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Fornecedor other = (Fornecedor) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 	
 }

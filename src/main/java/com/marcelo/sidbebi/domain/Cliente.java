@@ -12,99 +12,98 @@ public class Cliente  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idInteger;
+	private Integer id;
 	
-	private String nomeString;
+	private String nome;
 	
 	@Column(unique = true)
-	private String cpfCnpjString;
+	private String cpfCnpj;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dataNascDate;
-	private String telefoneString;
-	private String enderecoString;
+	private Date dataNasc;
+	private String telefone;
+	private String endereco;
 	
 	@Column(unique = true)
-	private String emailString;
+	private String email;
 	
 	public Cliente() {
 		super();
 	}
 
-	public Cliente(Integer idInteger, String nomeString, String cpfCnpjString, Date dataNascDate, String telefoneString,
-			String enderecoString, String emailString) {
+	public Cliente(Integer id, String nome, String cpfCnpj, Date dataNasc, String telefone, String endereco,
+			String email) {
 		super();
-		this.idInteger = idInteger;
-		this.nomeString = nomeString;
-		this.cpfCnpjString = cpfCnpjString;
-		this.dataNascDate = dataNascDate;
-		this.telefoneString = telefoneString;
-		this.enderecoString = enderecoString;
-		this.emailString = emailString;
+		this.id = id;
+		this.nome = nome;
+		this.cpfCnpj = cpfCnpj;
+		this.dataNasc = dataNasc;
+		this.telefone = telefone;
+		this.endereco = endereco;
+		this.email = email;
 	}
 
-	public Integer getIdInteger() {
-		return idInteger;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
-		this.idInteger = idInteger;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getNomeString() {
-		return nomeString;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeString(String nomeString) {
-		this.nomeString = nomeString;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public String getCpfCnpjString() {
-		return cpfCnpjString;
+	public String getCpfCnpj() {
+		return cpfCnpj;
 	}
 
-	public void setCpfCnpjString(String cpfCnpjString) {
-		this.cpfCnpjString = cpfCnpjString;
+	public void setCpfCnpj(String cpfCnpj) {
+		this.cpfCnpj = cpfCnpj;
 	}
 
-	public Date getDataNascDate() {
-		return dataNascDate;
+	public Date getDataNasc() {
+		return dataNasc;
 	}
 
-	public void setDataNascDate(Date dataNascDate) {
-		this.dataNascDate = dataNascDate;
+	public void setDataNasc(Date dataNasc) {
+		this.dataNasc = dataNasc;
 	}
 
-	public String getTelefoneString() {
-		return telefoneString;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setTelefoneString(String telefoneString) {
-		this.telefoneString = telefoneString;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
 	}
 
-	public String getEnderecoString() {
-		return enderecoString;
+	public String getEndereco() {
+		return endereco;
 	}
 
-	public void setEmailString(String emailString) {
-		this.emailString = emailString;
-	}
-	
-	public String getEmailString() {
-		return emailString;
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
 	}
 
-	public void setEnderecoString(String enderecoString) {
-		this.enderecoString = enderecoString;
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cpfCnpjString == null) ? 0 : cpfCnpjString.hashCode());
-		result = prime * result + ((idInteger == null) ? 0 : idInteger.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -117,18 +116,14 @@ public class Cliente  {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		if (cpfCnpjString == null) {
-			if (other.cpfCnpjString != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!cpfCnpjString.equals(other.cpfCnpjString))
-			return false;
-		if (idInteger == null) {
-			if (other.idInteger != null)
-				return false;
-		} else if (!idInteger.equals(other.idInteger))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
+		
 	
 }

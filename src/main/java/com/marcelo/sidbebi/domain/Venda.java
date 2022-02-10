@@ -1,13 +1,17 @@
 package com.marcelo.sidbebi.domain;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
@@ -17,61 +21,70 @@ public class Venda {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idInteger;
+	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataDate = LocalDate.now();
-	//private LocalDateTime horaDateTime = LocalDateTime.now();
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
-	@OneToMany(mappedBy = "idInteger")
-	private List<Produto> produto = new ArrayList<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinColumn
+	private List<ItensVenda> itens = new ArrayList<>();
 	
 	@OneToOne	
 	@JoinColumn
-	private	Cliente cliente;
+	private	Cliente idCliente;
 	
-	private Integer quantidadeInteger;
+	private Integer quantidade;
 	private double valorUnit;
-	private double total;
+	private double valorTotal;
 	private Pagamento pagamento;
 	
 	public Venda() {
 		super();
 	}
 
-	public Venda(Integer idInteger, List<Produto> produto, Integer quantidadeInteger, double valorUnit, double total,
-			Pagamento pagamento) {
+	public Venda(Integer id, List<ItensVenda> itens, Cliente idCliente, Integer quantidade, double valorUnit,
+			double valorTotal, Pagamento pagamento) {
 		super();
-		this.idInteger = idInteger;
-		this.produto = produto;
-		this.quantidadeInteger = quantidadeInteger;
+		this.id = id;
+		this.itens = itens;
+		this.idCliente = idCliente;
+		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
-		this.total = total;
+		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
 	}
 
-	public Integer getIdInteger() {
-		return idInteger;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
-		this.idInteger = idInteger;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public List<Produto> getProduto() {
-		return produto;
+	public List<ItensVenda> getItens() {
+		return itens;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setItens(List<ItensVenda> itens) {
+		this.itens = itens;
 	}
 
-	public Integer getQuantidadeInteger() {
-		return quantidadeInteger;
+	public Cliente getIdCliente() {
+		return idCliente;
 	}
 
-	public void setQuantidadeInteger(Integer quantidadeInteger) {
-		this.quantidadeInteger = quantidadeInteger;
+	public void setIdCliente(Cliente idCliente) {
+		this.idCliente = idCliente;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public double getValorUnit() {
@@ -82,12 +95,12 @@ public class Venda {
 		this.valorUnit = valorUnit;
 	}
 
-	public double getTotal() {
-		return total;
+	public double getValorTotal() {
+		return valorTotal;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public Pagamento getPagamento() {
@@ -97,9 +110,30 @@ public class Venda {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	
-	public void atualizarEstoque() {
-		//for(this.produto :: ) {}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venda other = (Venda) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }

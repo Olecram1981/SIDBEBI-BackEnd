@@ -1,14 +1,15 @@
 package com.marcelo.sidbebi.domain;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.enums.Status;
 
@@ -18,65 +19,54 @@ public class Agendamento {
 		
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idInteger;
+	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataDate = LocalDate.now();
-	//private LocalDateTime hora = LocalDateTime.now();
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
-	private String nomeString;
-	private double valorUnitario;
+	private double valorUnit;
 	private double valorTotal;
-	private String endString;
-	
+	private String end;
 	private Status status;
 	
 	@ManyToOne	
 	@JoinColumn
-	private Cliente cliente;
+	private Cliente idCliente;
 	
-	@OneToMany(mappedBy = "idInteger")	
-	private List<Produto> produto = new ArrayList<>();
+	@ElementCollection(fetch = FetchType.EAGER)
+	@JoinColumn
+	private List<ItensVenda> itens = new ArrayList<>();
 	
 	public Agendamento() {
 		super();
 	}
 
-	public Agendamento(Integer idInteger, String nomeString, double valorUnitario,
-			double valorTotal, String endString, Status status, Cliente cliente, List<Produto> produto) {
+	public Agendamento(Integer id, double valorUnit, double valorTotal, String end, Status status, Cliente idCliente,
+			List<ItensVenda> itens) {
 		super();
-		this.idInteger = idInteger;
-		this.nomeString = nomeString;
-		this.valorUnitario = valorUnitario;
+		this.id = id;
+		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
-		this.endString = endString;
+		this.end = end;
 		this.status = status;
-		this.cliente = cliente;
-		this.produto = produto;
+		this.idCliente = idCliente;
+		this.itens = itens;
 	}
 
-	public Integer getIdInteger() {
-		return idInteger;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
-		this.idInteger = idInteger;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
-	public String getNomeString() {
-		return nomeString;
+	public double getValorUnit() {
+		return valorUnit;
 	}
 
-	public void setNomeString(String nomeString) {
-		this.nomeString = nomeString;
-	}
-
-	public double getValorUnitario() {
-		return valorUnitario;
-	}
-
-	public void setValorUnitario(double valorUnitario) {
-		this.valorUnitario = valorUnitario;
+	public void setValorUnit(double valorUnit) {
+		this.valorUnit = valorUnit;
 	}
 
 	public double getValorTotal() {
@@ -87,12 +77,12 @@ public class Agendamento {
 		this.valorTotal = valorTotal;
 	}
 
-	public String getEndString() {
-		return endString;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setEndString(String endString) {
-		this.endString = endString;
+	public void setEnd(String end) {
+		this.end = end;
 	}
 
 	public Status getStatus() {
@@ -103,27 +93,27 @@ public class Agendamento {
 		this.status = status;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
+	public Cliente getIdCliente() {
+		return idCliente;
 	}
 
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
+	public void setIdCliente(Cliente idCliente) {
+		this.idCliente = idCliente;
 	}
 
-	public List<Produto> getProduto() {
-		return produto;
+	public List<ItensVenda> getItens() {
+		return itens;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setItens(List<ItensVenda> itens) {
+		this.itens = itens;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((idInteger == null) ? 0 : idInteger.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
 
@@ -136,12 +126,12 @@ public class Agendamento {
 		if (getClass() != obj.getClass())
 			return false;
 		Agendamento other = (Agendamento) obj;
-		if (idInteger == null) {
-			if (other.idInteger != null)
+		if (id == null) {
+			if (other.id != null)
 				return false;
-		} else if (!idInteger.equals(other.idInteger))
+		} else if (!id.equals(other.id))
 			return false;
 		return true;
 	}
-	
+
 }

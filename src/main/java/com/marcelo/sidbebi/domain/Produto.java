@@ -15,12 +15,11 @@ public class Produto {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idInteger;
+	private Integer id;
 	
 	private Tipo tipo;
-	private String nomeString;
-	private Integer quantidadeInteger;
-	private Integer quantidadeTotalInteger;
+	private String nome;
+	private Integer quantidade;
 	private double valorUnit;
 	private double valorTotal;
 	
@@ -32,25 +31,24 @@ public class Produto {
 		super();
 	}
 
-	public Produto(Integer idInteger, Tipo tipo, String nomeString, Integer quantidadeInteger, Integer quantidadeTotalInteger, double valorUnit,
-			double valorTotal, Fornecedor fornecedor) {
+	public Produto(Integer id, Tipo tipo, String nome, Integer quantidade, double valorUnit, double valorTotal,
+			Fornecedor fornecedor) {
 		super();
-		this.idInteger = idInteger;
+		this.id = id;
 		this.tipo = tipo;
-		this.nomeString = nomeString;
-		this.quantidadeInteger = quantidadeInteger;
+		this.nome = nome;
+		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
 		this.fornecedor = fornecedor;
-		this.quantidadeTotalInteger = quantidadeTotalInteger;
 	}
 
-	public Integer getIdInteger() {
-		return idInteger;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setIdInteger(Integer idInteger) {
-		this.idInteger = idInteger;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public Tipo getTipo() {
@@ -61,20 +59,20 @@ public class Produto {
 		this.tipo = tipo;
 	}
 
-	public String getNomeString() {
-		return nomeString;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setNomeString(String nomeString) {
-		this.nomeString = nomeString;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
-	public Integer getQuantidadeInteger() {
-		return quantidadeInteger;
+	public Integer getQuantidade() {
+		return quantidade;
 	}
 
-	public void setQuantidadeInteger(Integer quantidadeInteger) {
-		this.quantidadeInteger = quantidadeInteger;
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
 	}
 
 	public double getValorUnit() {
@@ -101,12 +99,29 @@ public class Produto {
 		this.fornecedor = fornecedor;
 	}
 
-	public Integer getQuantidadeTotalInteger() {
-		return quantidadeTotalInteger;
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
 
-	public void setQuantidadeTotalInteger(Integer quantidadeTotalInteger) {
-		this.quantidadeTotalInteger = quantidadeTotalInteger;
-	}	
-	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+
 }
