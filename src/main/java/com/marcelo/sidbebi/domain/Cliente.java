@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 
 @Entity
 public class Cliente  {
@@ -41,6 +42,17 @@ public class Cliente  {
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.email = email;
+	}
+	
+	public Cliente(ClienteDTO obj) {
+		super();
+		this.id = obj.getId();
+		this.nome = obj.getNome();
+		this.cpfCnpj = obj.getCpfCnpj();
+		this.dataNasc = obj.getDataNasc();
+		this.telefone = obj.getTelefone();
+		this.endereco = obj.getEndereco();
+		this.email = obj.getEmail();
 	}
 
 	public Integer getId() {

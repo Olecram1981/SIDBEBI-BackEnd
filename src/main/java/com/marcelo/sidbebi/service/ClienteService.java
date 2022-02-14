@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Cliente;
+import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
@@ -23,6 +24,12 @@ public class ClienteService {
 
 	public List<Cliente> findAll() {
 		return repository.findAll();
+	}
+
+	public Cliente create(ClienteDTO objDTO) {
+		objDTO.setId(null);
+		Cliente newObj = new Cliente(objDTO);
+		return repository.save(newObj);
 	}
 	
 }
