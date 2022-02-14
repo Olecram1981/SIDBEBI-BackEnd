@@ -1,28 +1,22 @@
 package com.marcelo.sidbebi.service;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.marcelo.sidbebi.domain.Cliente;
-import com.marcelo.sidbebi.repositories.ClienteRepository;
+import com.marcelo.sidbebi.domain.Venda;
+import com.marcelo.sidbebi.repositories.VendaRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
-public class ClienteService {
+public class VendaService {
 	
 	@Autowired
-	private ClienteRepository repository;
+	private VendaRepository repository;
 	
-	public Cliente findById(Integer id) {
-		Optional<Cliente> obj = repository.findById(id);
+	public Venda findById(Integer id) {
+		Optional<Venda> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
-	}
-
-	public List<Cliente> findAll() {
-		return repository.findAll();
 	}
 	
 }
