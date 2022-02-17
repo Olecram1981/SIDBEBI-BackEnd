@@ -1,13 +1,10 @@
 package com.marcelo.sidbebi.domain;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
 @Entity
@@ -21,16 +18,16 @@ public class Produto {
 	private String nome;
 	private Integer quantidade;
 	private double valorUnit;
-	private double valorTotal;
+	private double valorTotal;	
 	
 	@OneToOne
-	@JoinColumn
+	@JoinColumn(name = "fornecedor_id")
 	private Fornecedor fornecedor;
 
 	public Produto() {
 		super();
 	}
-
+	
 	public Produto(Integer id, Tipo tipo, String nome, Integer quantidade, double valorUnit, double valorTotal,
 			Fornecedor fornecedor) {
 		super();
@@ -90,7 +87,7 @@ public class Produto {
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
 	}
-
+	
 	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}

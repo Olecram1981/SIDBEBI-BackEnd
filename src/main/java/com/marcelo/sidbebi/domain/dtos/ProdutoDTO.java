@@ -1,11 +1,11 @@
 package com.marcelo.sidbebi.domain.dtos;
+
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
 public class ProdutoDTO {
 
-private Integer id;
-	
+	private Integer id;
 	private Tipo tipo;
 	private String nome;
 	private Integer quantidade;
@@ -83,5 +83,5 @@ private Integer id;
 	public void setFornecedor(Integer fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
 }
