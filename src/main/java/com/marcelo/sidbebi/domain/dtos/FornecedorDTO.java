@@ -1,20 +1,17 @@
 package com.marcelo.sidbebi.domain.dtos;
 
-import java.util.List;
-
 import com.marcelo.sidbebi.domain.Fornecedor;
-import com.marcelo.sidbebi.domain.Produto;
 
 public class FornecedorDTO {
 
-	private Integer id;	
+private Integer id;
+	
 	private String nome;
 	private String cpfCnpj;
-	private List<Produto> produto;
+	private Integer estoque;
 	private String end;
 	private String telefone;
 	private String email;
-	
 	
 	public FornecedorDTO() {
 		super();
@@ -25,7 +22,7 @@ public class FornecedorDTO {
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpfCnpj = obj.getCpfCnpj();
-		this.produto = obj.getProduto();
+		this.estoque = obj.getEstoque().getId();
 		this.end = obj.getEnd();
 		this.telefone = obj.getTelefone();
 		this.email = obj.getEmail();
@@ -54,14 +51,13 @@ public class FornecedorDTO {
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
-	
 
-	public List<Produto> getProduto() {
-		return produto;
+	public Integer getEstoque() {
+		return estoque;
 	}
 
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setEstoque(Integer estoque) {
+		this.estoque = estoque;
 	}
 
 	public String getEnd() {
@@ -87,5 +83,5 @@ public class FornecedorDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 }

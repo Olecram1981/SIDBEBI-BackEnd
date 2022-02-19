@@ -4,7 +4,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
 @Entity
@@ -15,17 +17,21 @@ public class Produto {
 	private Integer id;
 	
 	private Tipo tipo;
-	private String nome;
-	private Integer quantidade;
-	private double valorUnit;
-	private double valorTotal;	
+	private String nome;	
 	
-	@OneToOne
-	@JoinColumn(name = "fornecedor_id")
-	private Fornecedor fornecedor;
+	@ManyToOne
+	@JoinColumn(name = "curso_id")
+	private Estoque estoque;
 
 	public Produto() {
 		super();
+	}
+	
+	public Produto(ProdutoDTO obj) {
+		super();
+		this.id = obj.getId();
+		this.tipo = obj.getTipo();
+		this.nome = obj.getNome();		
 	}
 	
 	public Produto(Integer id, Tipo tipo, String nome, Integer quantidade, double valorUnit, double valorTotal,
@@ -33,11 +39,7 @@ public class Produto {
 		super();
 		this.id = id;
 		this.tipo = tipo;
-		this.nome = nome;
-		this.quantidade = quantidade;
-		this.valorUnit = valorUnit;
-		this.valorTotal = valorTotal;
-		this.fornecedor = fornecedor;
+		this.nome = nome;		
 	}
 
 	public Integer getId() {
@@ -62,38 +64,6 @@ public class Produto {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
-	}
-
-	public double getValorTotal() {
-		return valorTotal;
-	}
-
-	public void setValorTotal(double valorTotal) {
-		this.valorTotal = valorTotal;
-	}
-	
-	public Fornecedor getFornecedor() {
-		return fornecedor;
-	}
-
-	public void setFornecedor(Fornecedor fornecedor) {
-		this.fornecedor = fornecedor;
 	}
 
 	@Override

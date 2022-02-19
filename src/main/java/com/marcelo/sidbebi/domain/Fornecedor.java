@@ -1,17 +1,12 @@
 package com.marcelo.sidbebi.domain;
 
-
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Fornecedor {
@@ -25,8 +20,9 @@ public class Fornecedor {
 	@Column(unique = true)
 	private String cpfCnpj;
 	
-	@OneToMany	
-	private List<Produto> produto;
+	@ManyToOne
+	@JoinColumn(name = "estoque_id")
+	private Estoque estoque;
 	
 	private String end;
 	private String telefone;
@@ -37,104 +33,75 @@ public class Fornecedor {
 	public Fornecedor() {
 		super();
 	}
-
-	public Fornecedor(Integer id, String nome, String cpfCnpj, List<Produto> produto, String end, String telefone,
+	
+	public Fornecedor(Integer id, String nome, String cpfCnpj, Estoque estoque, String end, String telefone,
 			String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpfCnpj = cpfCnpj;
-		this.produto = produto;
+		this.estoque = estoque;
 		this.end = end;
 		this.telefone = telefone;
 		this.email = email;
 	}
 
 	
-
 	public Integer getId() {
 		return id;
 	}
-
-
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-
-
 	public String getNome() {
 		return nome;
 	}
-
-
 
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
-
 	public String getCpfCnpj() {
 		return cpfCnpj;
 	}
-
-
 
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
 	}
 
-
-
-	public List<Produto> getProduto() {
-		return produto;
+	public Estoque getEstoque() {
+		return estoque;
 	}
 
-
-
-	public void setProduto(List<Produto> produto) {
-		this.produto = produto;
+	public void setEstoque(Estoque estoque) {
+		this.estoque = estoque;
 	}
-
-
 
 	public String getEnd() {
 		return end;
 	}
 
-
-
 	public void setEnd(String end) {
 		this.end = end;
 	}
-
-
 
 	public String getTelefone() {
 		return telefone;
 	}
 
-
-
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-
-
 
 	public String getEmail() {
 		return email;
 	}
 
-
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-
 
 	@Override
 	public int hashCode() {
@@ -160,6 +127,5 @@ public class Fornecedor {
 			return false;
 		return true;
 	}
-
 	
 }
