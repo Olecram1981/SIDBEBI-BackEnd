@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
+import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
-import com.valdir.helpdesk.domain.Tecnico;
 
 @Service
 public class ClienteService {
@@ -28,10 +28,11 @@ public class ClienteService {
 
 	public Cliente create(ClienteDTO objDTO) {
 		objDTO.setId(null);
+		validaPorCpfEmail(objDTO);
 		Cliente newObj = new Cliente(objDTO);
 		return repository.save(newObj);
-	}
-	
+	}	
+
 	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
 		objDTO.setId(id);
 		Cliente oldObj = findById(id);
@@ -43,5 +44,18 @@ public class ClienteService {
 		Cliente obj = findById(id);
 		repository.deleteById(id);
 	}
+	
+	private void validaPorCpfEmail(ClienteDTO objDTO) {
+		Optional<Cliente> obj = repository.findByCpfCnpj(objDTO.getCpfCnpj());
+		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("CPF já cadastrado no sitema.");
+		}
+		
+		obj = repository.findByEmail(objDTO.getEmail());
+		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sitema.");
+		}
+	}
+	
 
 }
