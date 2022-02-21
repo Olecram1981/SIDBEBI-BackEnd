@@ -1,6 +1,5 @@
 package com.marcelo.sidbebi.domain.dtos;
 
-import java.util.List;
 import com.marcelo.sidbebi.domain.Estoque;
 import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.Produto;
@@ -9,11 +8,11 @@ public class EstoqueDTO {
 	
 private Integer id;
 	
-	private List<Produto> produtos;
+	private Produto produto;
 	private Integer quantidade;
 	private double valorUnit;
 	private double valorTotal;
-	private List<Fornecedor> fornecedores;
+	private Fornecedor fornecedor;
 	public EstoqueDTO() {
 		super();
 	}
@@ -21,11 +20,11 @@ private Integer id;
 	public EstoqueDTO(Estoque obj) {
 		super();
 		this.id = obj.getId();
-		this.produtos = obj.getProdutos();
+		this.produto = obj.getProduto();
 		this.quantidade = obj.getQuantidade();
 		this.valorUnit = obj.getValorUnit();
 		this.valorTotal = obj.getValorTotal();
-		this.fornecedores = obj.getFornecedores();
+		this.fornecedor = obj.getFornecedor();
 	}
 
 	public Integer getId() {
@@ -36,12 +35,12 @@ private Integer id;
 		this.id = id;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getQuantidade() {
@@ -68,12 +67,12 @@ private Integer id;
 		this.valorTotal = valorTotal;
 	}
 
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
+	public Fornecedor getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
+	public void setFornecedores(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 }

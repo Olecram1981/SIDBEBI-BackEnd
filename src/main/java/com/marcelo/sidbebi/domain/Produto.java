@@ -3,9 +3,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
+import javax.persistence.OneToOne;
 import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
@@ -19,10 +17,9 @@ public class Produto {
 	private Tipo tipo;
 	private String nome;	
 	
-	@ManyToOne
-	@JoinColumn(name = "curso_id")
+	@OneToOne(mappedBy = "produto")
 	private Estoque estoque;
-
+	
 	public Produto() {
 		super();
 	}

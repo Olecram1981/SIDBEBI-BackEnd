@@ -2,14 +2,14 @@ package com.marcelo.sidbebi.service;
 
 import java.util.List;
 import java.util.Optional;
-
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
+import com.valdir.helpdesk.domain.Tecnico;
 
 @Service
 public class ClienteService {
@@ -32,4 +32,16 @@ public class ClienteService {
 		return repository.save(newObj);
 	}
 	
+	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
+		objDTO.setId(id);
+		Cliente oldObj = findById(id);
+		oldObj = new Cliente(objDTO);
+		return repository.save(oldObj);
+	}
+
+	public void delete(Integer id) {
+		Cliente obj = findById(id);
+		repository.deleteById(id);
+	}
+
 }

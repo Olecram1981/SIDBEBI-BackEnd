@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Fornecedor {
@@ -20,7 +20,7 @@ public class Fornecedor {
 	@Column(unique = true)
 	private String cpfCnpj;
 	
-	@ManyToOne
+	@OneToOne
 	@JoinColumn(name = "estoque_id")
 	private Estoque estoque;
 	

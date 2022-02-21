@@ -1,10 +1,9 @@
 package com.marcelo.sidbebi.domain;
 
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Estoque {
@@ -12,30 +11,30 @@ public class Estoque {
 	@Id
 	private Integer id;
 	
-	@OneToMany
-	@JoinColumn(name = "estoque")	
-	private List<Produto> produtos;
+	@OneToOne
+	@JoinColumn(name = "produto_id")	
+	private Produto produto;
 	
 	private Integer quantidade;
 	private double valorUnit;
 	private double valorTotal;
 	
-	@OneToMany(mappedBy = "estoque")
-	private List<Fornecedor> fornecedores;
+	@OneToOne(mappedBy = "estoque")
+	private Fornecedor fornecedor;
 
 	public Estoque() {
 		super();
 	}
 
-	public Estoque(Integer id, List<Produto> produtos, Integer quantidade, double valorUnit, double valorTotal,
-			List<Fornecedor> fornecedores) {
+	public Estoque(Integer id, Produto produtos, Integer quantidade, double valorUnit, double valorTotal,
+			Fornecedor fornecedores) {
 		super();
 		this.id = id;
-		this.produtos = produtos;
+		this.produto = produtos;
 		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
-		this.fornecedores = fornecedores;
+		this.fornecedor = fornecedores;
 	}
 	
 	public Integer getId() {
@@ -46,12 +45,12 @@ public class Estoque {
 		this.id = id;
 	}
 
-	public List<Produto> getProdutos() {
-		return produtos;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setProdutos(List<Produto> produtos) {
-		this.produtos = produtos;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getQuantidade() {
@@ -78,12 +77,12 @@ public class Estoque {
 		this.valorTotal = valorTotal;
 	}
 
-	public List<Fornecedor> getFornecedores() {
-		return fornecedores;
+	public Fornecedor getFornecedor() {
+		return fornecedor;
 	}
 
-	public void setFornecedores(List<Fornecedor> fornecedores) {
-		this.fornecedores = fornecedores;
+	public void setFornecedor(Fornecedor fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 	
 }
