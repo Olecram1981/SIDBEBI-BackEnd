@@ -2,20 +2,27 @@ package com.marcelo.sidbebi.domain.dtos;
 
 import java.sql.Date;
 
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Cliente;
 
 public class ClienteDTO {
 	
 	private Integer id;
+	
+	@NotNull(message = "O campo NOME é requerido")
 	private String nome;
+	
+	@NotNull(message = "O campo CPF/CNPJ é requerido")
 	private String cpfCnpj;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	
+	@JsonFormat(pattern = "dd/MM/yyyy")	
 	private Date dataNasc;
 	private String telefone;
 	private String endereco;
+	
+	@NotNull(message = "O campo E-mail é requerido")
 	private String email;
 	
 	public ClienteDTO() {
@@ -24,7 +31,7 @@ public class ClienteDTO {
 
 	public ClienteDTO(Cliente obj) {
 		super();
-		this.id = obj.getId();
+		this.id = obj.getId();	
 		this.nome = obj.getNome();
 		this.cpfCnpj = obj.getCpfCnpj();
 		this.dataNasc = obj.getDataNasc();
