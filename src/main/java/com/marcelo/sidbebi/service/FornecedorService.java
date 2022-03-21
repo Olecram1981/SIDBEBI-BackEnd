@@ -2,13 +2,14 @@ package com.marcelo.sidbebi.service;
 
 import java.util.List;
 import java.util.Optional;
-
+import javax.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.marcelo.sidbebi.domain.Estoque;
 import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.dtos.FornecedorDTO;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
+import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -16,9 +17,6 @@ public class FornecedorService {
 	
 	@Autowired
 	private FornecedorRepository repository;
-	
-	@Autowired
-	private EstoqueService service;
 	
 	public Fornecedor findById(Integer id) {
 		Optional<Fornecedor> obj = repository.findById(id);
@@ -31,18 +29,33 @@ public class FornecedorService {
 	
 	public Fornecedor create(FornecedorDTO objDTO) {			
 		objDTO.setId(null);
-		Estoque estoque = service.findById(objDTO.getEstoque());
-		Fornecedor fornecedor = new Fornecedor();
-		
-		fornecedor.setEstoque(estoque);
-		fornecedor.setId(objDTO.getId());
-		fornecedor.setNome(objDTO.getNome());
-		fornecedor.setCpfCnpj(objDTO.getCpfCnpj());
-		fornecedor.setEnd(objDTO.getEnd());
-		fornecedor.setTelefone(objDTO.getTelefone());
-		fornecedor.setEmail(objDTO.getEmail());
-		
+		validaPorCpfEmail(objDTO);		
+		Fornecedor fornecedor = new Fornecedor();		
+		BeanUtils.copyProperties(objDTO, fornecedor);		
 		return repository.save(fornecedor);
 	}
 	
+	public Fornecedor update(Integer id, @Valid FornecedorDTO objDTO) {
+		objDTO.setId(id);
+		Fornecedor oldObj = findById(id);
+		BeanUtils.copyProperties(objDTO, oldObj);
+		return repository.save(oldObj);
+	}
+
+	public void delete(Integer id) {
+		Fornecedor obj = findById(id);
+		repository.deleteById(id);
+	}
+	
+	private void validaPorCpfEmail(FornecedorDTO objDTO) {
+		Optional<Fornecedor> obj = repository.findByCpfCnpj(objDTO.getCpfCnpj());
+		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("CPF/CNPJ já cadastrado no sitema.");
+		}
+		
+		obj = repository.findByEmail(objDTO.getEmail());
+		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sitema.");
+		}
+	}
 }

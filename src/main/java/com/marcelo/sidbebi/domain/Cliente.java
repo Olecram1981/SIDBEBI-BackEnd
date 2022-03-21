@@ -1,4 +1,6 @@
 package com.marcelo.sidbebi.domain;
+
+import java.io.Serializable;
 import java.sql.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,11 +8,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 
 @Entity
-public class Cliente  {
+public class Cliente implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -22,6 +25,7 @@ public class Cliente  {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNasc;
+	
 	private String telefone;
 	private String endereco;
 	
@@ -44,17 +48,6 @@ public class Cliente  {
 		this.email = email;
 	}
 	
-	public Cliente(ClienteDTO obj) {
-		super();
-		this.id = obj.getId();
-		this.nome = obj.getNome();
-		this.cpfCnpj = obj.getCpfCnpj();
-		this.dataNasc = obj.getDataNasc();
-		this.telefone = obj.getTelefone();
-		this.endereco = obj.getEndereco();
-		this.email = obj.getEmail();
-	}
-
 	public Integer getId() {
 		return id;
 	}
@@ -135,7 +128,5 @@ public class Cliente  {
 			return false;
 		return true;
 	}
-
-		
 	
 }

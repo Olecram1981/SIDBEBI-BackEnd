@@ -1,42 +1,51 @@
 package com.marcelo.sidbebi.domain;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
+
+import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
 @Entity
-public class Produto {
+public class Produto implements Serializable {
 	
-	@Id
+	private static final long serialVersionUID = 1L;
+	
+	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private Tipo tipo;
-	private String nome;	
-	
-	@OneToOne(mappedBy = "produto")
-	private Estoque estoque;
+	private String nome;
+	private String tamanho;
+	private Integer qtd;
+	private double valorUnit;
+	private double valorTotal;
+	private NivelEstoque nivel;
 	
 	public Produto() {
 		super();
 	}
-	
-	public Produto(ProdutoDTO obj) {
-		super();
-		this.id = obj.getId();
-		this.tipo = obj.getTipo();
-		this.nome = obj.getNome();		
-	}
-	
-	public Produto(Integer id, Tipo tipo, String nome, Integer quantidade, double valorUnit, double valorTotal,
-			Fornecedor fornecedor) {
+
+	public Produto(Integer id, Tipo tipo, String nome, String tamanho, Integer qtd, double valorUnit, double valorTotal,
+			NivelEstoque nivel, List<ItensVenda> itemVenda, EntradaEstoque entrada) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
-		this.nome = nome;		
+		this.nome = nome;
+		this.tamanho = tamanho;
+		this.qtd = qtd;
+		this.valorUnit = valorUnit;
+		this.valorTotal = valorTotal;
+		this.nivel = nivel;
 	}
 
 	public Integer getId() {
@@ -63,6 +72,46 @@ public class Produto {
 		this.nome = nome;
 	}
 
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public Integer getQtd() {
+		return qtd;
+	}
+
+	public void setQtd(Integer qtd) {
+		this.qtd = qtd;
+	}
+
+	public double getValorUnit() {
+		return valorUnit;
+	}
+
+	public void setValorUnit(double valorUnit) {
+		this.valorUnit = valorUnit;
+	}
+
+	public double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(double valorTotal) {
+		this.valorTotal = valorTotal;
+	}
+
+	public NivelEstoque getNivel() {
+		return nivel;
+	}
+
+	public void setNivel(NivelEstoque nivel) {
+		this.nivel = nivel;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -88,4 +137,6 @@ public class Produto {
 		return true;
 	}
 
+	
+	
 }

@@ -2,9 +2,9 @@ package com.marcelo.sidbebi.domain;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,13 +23,11 @@ public class Venda {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinColumn
-	private List<ItensVenda> itens = new ArrayList<>();
+	@OneToOne
+	@JoinColumn(name = "itensVenda_id")
+	private ItensVenda itens;
 	
-	@OneToOne	
-	@JoinColumn
-	private	Cliente idCliente;
+	private	Cliente cliente;
 	
 	private Integer quantidade;
 	private double valorUnit;
@@ -40,12 +38,13 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, List<ItensVenda> itens, Cliente idCliente, Integer quantidade, double valorUnit,
-			double valorTotal, Pagamento pagamento) {
+	public Venda(Integer id, LocalDateTime dataHora, ItensVenda itens, Cliente idCliente, Integer quantidade,
+			double valorUnit, double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
+		this.dataHora = dataHora;
 		this.itens = itens;
-		this.idCliente = idCliente;
+		this.cliente = idCliente;
 		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
@@ -60,20 +59,28 @@ public class Venda {
 		this.id = id;
 	}
 
-	public List<ItensVenda> getItens() {
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
+
+	public ItensVenda getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItensVenda> itens) {
+	public void setItens(ItensVenda itens) {
 		this.itens = itens;
 	}
 
 	public Cliente getIdCliente() {
-		return idCliente;
+		return cliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
+	public void setIdCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public Integer getQuantidade() {

@@ -1,8 +1,6 @@
 package com.marcelo.sidbebi.resourcies.exceptions;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.SystemMenuBar;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;

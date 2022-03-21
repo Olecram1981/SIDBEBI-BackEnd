@@ -1,11 +1,12 @@
 package com.marcelo.sidbebi.domain;
 
+import java.util.List;
+
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class ItensVenda {
@@ -14,20 +15,19 @@ public class ItensVenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn
-	private Produto itemProduto;
+	@ElementCollection
+	private List<Produto> item;
 	
 	private Integer quantidade;
-
+		
 	public ItensVenda() {
 		super();
 	}
 
-	public ItensVenda(Integer id, Produto itemProduto, Integer quantidade) {
+	public ItensVenda(Integer id, List<Produto> item, Integer quantidade, Venda venda) {
 		super();
 		this.id = id;
-		this.itemProduto = itemProduto;
+		this.item = item;
 		this.quantidade = quantidade;
 	}
 
@@ -39,12 +39,12 @@ public class ItensVenda {
 		this.id = id;
 	}
 
-	public Produto getItemProduto() {
-		return itemProduto;
+	public List<Produto> getItem() {
+		return item;
 	}
 
-	public void setItemProduto(Produto itemProduto) {
-		this.itemProduto = itemProduto;
+	public void setItem(List<Produto> item) {
+		this.item = item;
 	}
 
 	public Integer getQuantidade() {
@@ -53,6 +53,31 @@ public class ItensVenda {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItensVenda other = (ItensVenda) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }

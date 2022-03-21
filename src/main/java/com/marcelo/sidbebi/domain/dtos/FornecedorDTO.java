@@ -1,16 +1,28 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
 import com.marcelo.sidbebi.domain.Fornecedor;
 
-public class FornecedorDTO {
+public class FornecedorDTO implements Serializable {
 
-private Integer id;
+	private static final long serialVersionUID = 1L;
+
+	private Integer id;
 	
+	@NotNull(message = "O campo NOME é requerido")
 	private String nome;
+	
+	@NotNull(message = "O campo CPF/CNPJ é requerido")
 	private String cpfCnpj;
-	private Integer estoque;
 	private String end;
+	
+	@NotNull(message = "O campo TELEFONE é requerido")
 	private String telefone;
+	
+	@NotNull(message = "O campo E-MAIL é requerido")
 	private String email;
 	
 	public FornecedorDTO() {
@@ -22,7 +34,6 @@ private Integer id;
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.cpfCnpj = obj.getCpfCnpj();
-		this.estoque = obj.getEstoque().getId();
 		this.end = obj.getEnd();
 		this.telefone = obj.getTelefone();
 		this.email = obj.getEmail();
@@ -52,14 +63,6 @@ private Integer id;
 		this.cpfCnpj = cpfCnpj;
 	}
 
-	public Integer getEstoque() {
-		return estoque;
-	}
-
-	public void setEstoque(Integer estoque) {
-		this.estoque = estoque;
-	}
-
 	public String getEnd() {
 		return end;
 	}
@@ -83,5 +86,5 @@ private Integer id;
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 }

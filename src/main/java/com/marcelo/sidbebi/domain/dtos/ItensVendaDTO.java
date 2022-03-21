@@ -1,12 +1,19 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+
+import javax.validation.constraints.NotNull;
+
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
 
 public class ItensVendaDTO {
 	
 	private Integer id;
-	private Produto itemProduto;
+	
+	@NotNull(message = "O campo ITEM DO PRODUTO é requerido")
+	private Produto item;
+	
+	@NotNull(message = "O campo QUANTIDADE é requerido")
 	private Integer quantidade;
 	
 	public ItensVendaDTO() {
@@ -16,7 +23,7 @@ public class ItensVendaDTO {
 	public ItensVendaDTO(ItensVenda obj) {
 		super();
 		this.id = obj.getId();
-		this.itemProduto = obj.getItemProduto();
+		//this.itens = obj.getItens();
 		this.quantidade = obj.getQuantidade();
 	}
 
@@ -28,14 +35,6 @@ public class ItensVendaDTO {
 		this.id = id;
 	}
 
-	public Produto getItemProduto() {
-		return itemProduto;
-	}
-
-	public void setItemProduto(Produto itemProduto) {
-		this.itemProduto = itemProduto;
-	}
-
 	public Integer getQuantidade() {
 		return quantidade;
 	}
@@ -44,4 +43,12 @@ public class ItensVendaDTO {
 		this.quantidade = quantidade;
 	}
 
+	public Produto getItem() {
+		return item;
+	}
+
+	public void setItem(Produto item) {
+		this.item = item;
+	}
+	
 }

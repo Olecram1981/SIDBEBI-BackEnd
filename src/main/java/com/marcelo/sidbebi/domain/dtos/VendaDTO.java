@@ -3,6 +3,9 @@ package com.marcelo.sidbebi.domain.dtos;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
@@ -15,11 +18,22 @@ public class VendaDTO {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime dataHora = LocalDateTime.now();
-	private List<ItensVenda> itens = new ArrayList<>();
+	
+	@NotNull(message = "O campo ITENS é requerido")
+	private ItensVenda itens;
+	
+	@NotNull(message = "O campo CLIENTE é requerido")
 	private	Cliente idCliente;
+	
+	@NotNull(message = "O campo QUANTIDADE é requerido")
 	private Integer quantidade;
+	
+	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
 	private double valorUnit;
+	
 	private double valorTotal;
+	
+	@NotNull(message = "O campo FORMA DO PAGAMENTO é requerido")
 	private Pagamento pagamento;
 	
 	public VendaDTO() {
@@ -54,11 +68,11 @@ public class VendaDTO {
 		this.dataHora = dataHora;
 	}
 
-	public List<ItensVenda> getItens() {
+	public ItensVenda getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItensVenda> itens) {
+	public void setItens(ItensVenda itens) {
 		this.itens = itens;
 	}
 

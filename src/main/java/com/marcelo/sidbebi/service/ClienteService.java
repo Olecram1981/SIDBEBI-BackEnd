@@ -2,7 +2,8 @@ package com.marcelo.sidbebi.service;
 
 import java.util.List;
 import java.util.Optional;
-import javax.validation.Valid;
+
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.marcelo.sidbebi.domain.Cliente;
@@ -29,14 +30,16 @@ public class ClienteService {
 	public Cliente create(ClienteDTO objDTO) {
 		objDTO.setId(null);
 		validaPorCpfEmail(objDTO);
-		Cliente newObj = new Cliente(objDTO);
+		Cliente newObj = new Cliente();
+		BeanUtils.copyProperties(objDTO, newObj);
 		return repository.save(newObj);
 	}	
 
-	public Cliente update(Integer id, @Valid ClienteDTO objDTO) {
+	public Cliente update(Integer id, ClienteDTO objDTO) {
 		objDTO.setId(id);
 		Cliente oldObj = findById(id);
-		oldObj = new Cliente(objDTO);
+		oldObj = new Cliente();
+		BeanUtils.copyProperties(objDTO, oldObj);
 		return repository.save(oldObj);
 	}
 
@@ -48,7 +51,7 @@ public class ClienteService {
 	private void validaPorCpfEmail(ClienteDTO objDTO) {
 		Optional<Cliente> obj = repository.findByCpfCnpj(objDTO.getCpfCnpj());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("CPF já cadastrado no sitema.");
+			throw new DataIntegrityViolationException("CPF/CNPJ já cadastrado no sitema.");
 		}
 		
 		obj = repository.findByEmail(objDTO.getEmail());
@@ -56,6 +59,5 @@ public class ClienteService {
 			throw new DataIntegrityViolationException("E-mail já cadastrado no sitema.");
 		}
 	}
-	
 
 }

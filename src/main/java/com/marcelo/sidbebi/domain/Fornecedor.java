@@ -1,15 +1,16 @@
 package com.marcelo.sidbebi.domain;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 @Entity
-public class Fornecedor {
+public class Fornecedor implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +21,7 @@ public class Fornecedor {
 	@Column(unique = true)
 	private String cpfCnpj;
 	
-	@OneToOne
-	@JoinColumn(name = "estoque_id")
-	private Estoque estoque;
-	
+		
 	private String end;
 	private String telefone;
 	
@@ -34,19 +32,17 @@ public class Fornecedor {
 		super();
 	}
 	
-	public Fornecedor(Integer id, String nome, String cpfCnpj, Estoque estoque, String end, String telefone,
+	public Fornecedor(Integer id, String nome, String cpfCnpj, String end, String telefone,
 			String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
-		this.cpfCnpj = cpfCnpj;
-		this.estoque = estoque;
+		this.cpfCnpj = cpfCnpj;		
 		this.end = end;
 		this.telefone = telefone;
 		this.email = email;
 	}
 
-	
 	public Integer getId() {
 		return id;
 	}
@@ -69,14 +65,6 @@ public class Fornecedor {
 
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
-	}
-
-	public Estoque getEstoque() {
-		return estoque;
-	}
-
-	public void setEstoque(Estoque estoque) {
-		this.estoque = estoque;
 	}
 
 	public String getEnd() {
@@ -102,7 +90,7 @@ public class Fornecedor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -127,5 +115,5 @@ public class Fornecedor {
 			return false;
 		return true;
 	}
-	
+
 }

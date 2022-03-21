@@ -2,6 +2,9 @@ package com.marcelo.sidbebi.domain.dtos;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import javax.validation.constraints.NotNull;
+
 import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
@@ -11,11 +14,20 @@ public class AgendamentoDTO {
 
 	private Integer id;
 	private LocalDateTime dataHora;
+	
+	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
 	private double valorUnit;
+	
 	private double valorTotal;
 	private String end;
+	
+	@NotNull(message = "O campo STATUS DO AGENDAMENTO é requerido")
 	private Status status;
+	
+	@NotNull(message = "O campo CLIENTE é requerido")
 	private Cliente idCliente;
+	
+	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private List<ItensVenda> itens;
 	
 	public AgendamentoDTO() {
@@ -97,5 +109,5 @@ public class AgendamentoDTO {
 	public void setItens(List<ItensVenda> itens) {
 		this.itens = itens;
 	}
-
+	
 }

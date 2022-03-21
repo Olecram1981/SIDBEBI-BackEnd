@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import javax.validation.constraints.NotNull;
@@ -7,8 +8,10 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Cliente;
 
-public class ClienteDTO {
+public class ClienteDTO implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	
 	@NotNull(message = "O campo NOME é requerido")
@@ -19,7 +22,10 @@ public class ClienteDTO {
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")	
 	private Date dataNasc;
+	
+	@NotNull(message = "O campo TELEFONE é requerido")
 	private String telefone;
+	
 	private String endereco;
 	
 	@NotNull(message = "O campo E-mail é requerido")
