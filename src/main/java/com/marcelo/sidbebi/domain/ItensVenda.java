@@ -1,12 +1,11 @@
 package com.marcelo.sidbebi.domain;
 
-import java.util.List;
-
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class ItensVenda {
@@ -15,20 +14,25 @@ public class ItensVenda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ElementCollection
-	private List<Produto> item;
+	@ManyToOne
+	@JoinColumn(name = "venda_id")
+	private Venda venda;
 	
+	private String item;
 	private Integer quantidade;
+	private double valorUnit;
 		
 	public ItensVenda() {
 		super();
 	}
 
-	public ItensVenda(Integer id, List<Produto> item, Integer quantidade, Venda venda) {
+	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda) {
 		super();
 		this.id = id;
 		this.item = item;
 		this.quantidade = quantidade;
+		this.valorUnit = valorUnit;
+		this.venda = venda;
 	}
 
 	public Integer getId() {
@@ -39,11 +43,11 @@ public class ItensVenda {
 		this.id = id;
 	}
 
-	public List<Produto> getItem() {
+	public String getItem() {
 		return item;
 	}
 
-	public void setItem(List<Produto> item) {
+	public void setItem(String item) {
 		this.item = item;
 	}
 
@@ -53,6 +57,22 @@ public class ItensVenda {
 
 	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
+	}
+	
+	public double getValorUnit() {
+		return valorUnit;
+	}
+
+	public void setValorUnit(double valorUnit) {
+		this.valorUnit = valorUnit;
+	}
+	
+	public Venda getVenda() {
+		return venda;
+	}
+
+	public void setVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	@Override

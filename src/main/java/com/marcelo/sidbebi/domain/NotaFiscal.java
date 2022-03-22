@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,26 +10,34 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class NotaFiscal {
+public class NotaFiscal implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDateTime dataHora = LocalDateTime.now();
     
     @Id
     private Integer numeroNF;
     
-    @ElementCollection(fetch = FetchType.EAGER)
-	@JoinColumn
-    private List<ItensVenda> itens = new ArrayList<>();
-    
     @OneToOne	
 	@JoinColumn
     private Cliente cliente;
+    
+    @OneToMany (mappedBy = "venda")	
+	private List<ItensVenda> itens;
+    
+    @ManyToOne
+	@JoinColumn(name = "venda_id")
+	private Venda venda;
+    
     private Integer quantidade;
     private double valorUnit;    
     private double subtotal;
@@ -41,14 +50,14 @@ public class NotaFiscal {
 		super();
 	}
 
-	public NotaFiscal(LocalDateTime dataHora, Integer numeroNF, List<ItensVenda> itens, Cliente cliente,
+	public NotaFiscal(LocalDateTime dataHora, Integer numeroNF, Cliente cliente, List<ItensVenda> itens,
 			Integer quantidade, double valorUnit, double subtotal, double imposto, double juros, double desconto,
 			double total) {
 		super();
 		this.dataHora = dataHora;
 		this.numeroNF = numeroNF;
-		this.itens = itens;
 		this.cliente = cliente;
+		this.itens = itens;
 		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.subtotal = subtotal;
@@ -74,20 +83,20 @@ public class NotaFiscal {
 		this.numeroNF = numeroNF;
 	}
 
-	public List<ItensVenda> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItensVenda> itens) {
-		this.itens = itens;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public List<ItensVenda> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensVenda> itens) {
+		this.itens = itens;
 	}
 
 	public Integer getQuantidade() {
@@ -144,6 +153,31 @@ public class NotaFiscal {
 
 	public void setTotal(double total) {
 		this.total = total;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((numeroNF == null) ? 0 : numeroNF.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NotaFiscal other = (NotaFiscal) obj;
+		if (numeroNF == null) {
+			if (other.numeroNF != null)
+				return false;
+		} else if (!numeroNF.equals(other.numeroNF))
+			return false;
+		return true;
 	}
 
 }

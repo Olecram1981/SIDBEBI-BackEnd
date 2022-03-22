@@ -26,7 +26,7 @@ public class ClienteResource {
 	@Autowired
 	private ClienteService service;
 	
-	@GetMapping(value = "/{id}") //variável de path
+	@GetMapping(value = "/{id}") 
 	public ResponseEntity<ClienteDTO> findById(@PathVariable Integer id){
 		Cliente obj = service.findById(id);
 		return ResponseEntity.ok().body(new ClienteDTO(obj));

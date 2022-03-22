@@ -20,13 +20,10 @@ public class VendaDTO {
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	@NotNull(message = "O campo ITENS é requerido")
-	private ItensVenda itens;
+	private List<ItensVenda> itens;
 	
 	@NotNull(message = "O campo CLIENTE é requerido")
-	private	Cliente idCliente;
-	
-	@NotNull(message = "O campo QUANTIDADE é requerido")
-	private Integer quantidade;
+	private	String cliente;
 	
 	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
 	private double valorUnit;
@@ -45,9 +42,7 @@ public class VendaDTO {
 		this.id = obj.getId();
 		// this.dataHora = obj
 		this.itens = obj.getItens();
-		this.idCliente = obj.getIdCliente();
-		this.quantidade = obj.getQuantidade();
-		this.valorUnit = obj.getValorUnit();
+		this.cliente = obj.getCliente();
 		this.valorTotal = obj.getValorTotal();
 		this.pagamento = obj.getPagamento();
 	}
@@ -68,36 +63,20 @@ public class VendaDTO {
 		this.dataHora = dataHora;
 	}
 
-	public ItensVenda getItens() {
+	public List<ItensVenda> getItens() {
 		return itens;
 	}
 
-	public void setItens(ItensVenda itens) {
+	public void setItens(List<ItensVenda> itens) {
 		this.itens = itens;
 	}
 
-	public Cliente getIdCliente() {
-		return idCliente;
+	public String getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
 	}
 
 	public double getValorTotal() {

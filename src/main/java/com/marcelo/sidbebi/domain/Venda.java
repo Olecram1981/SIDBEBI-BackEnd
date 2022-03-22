@@ -1,16 +1,14 @@
 package com.marcelo.sidbebi.domain;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 
 @Entity
@@ -20,17 +18,12 @@ public class Venda {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDateTime dataHora = LocalDateTime.now();
+	@JsonIgnore
+	@OneToMany (mappedBy = "venda")	
+	private List<ItensVenda> itens;
 	
-	@OneToOne
-	@JoinColumn(name = "itensVenda_id")
-	private ItensVenda itens;
+	private	String cliente;
 	
-	private	Cliente cliente;
-	
-	private Integer quantidade;
-	private double valorUnit;
 	private double valorTotal;
 	private Pagamento pagamento;
 	
@@ -38,15 +31,13 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, LocalDateTime dataHora, ItensVenda itens, Cliente idCliente, Integer quantidade,
-			double valorUnit, double valorTotal, Pagamento pagamento) {
+	public Venda(Integer id, LocalDateTime dataHora, List<ItensVenda> itens, String idCliente, 
+			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
-		this.dataHora = dataHora;
+		//this.dataHora = dataHora;
 		this.itens = itens;
 		this.cliente = idCliente;
-		this.quantidade = quantidade;
-		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
 	}
@@ -58,7 +49,7 @@ public class Venda {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	/**
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
@@ -66,37 +57,21 @@ public class Venda {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-
-	public ItensVenda getItens() {
+	**/
+	public List<ItensVenda> getItens() {
 		return itens;
 	}
 
-	public void setItens(ItensVenda itens) {
+	public void setItens(List<ItensVenda> itens) {
 		this.itens = itens;
 	}
 
-	public Cliente getIdCliente() {
+	public String getCliente() {
 		return cliente;
 	}
 
-	public void setIdCliente(Cliente cliente) {
+	public void setCliente(String cliente) {
 		this.cliente = cliente;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
 	}
 
 	public double getValorTotal() {

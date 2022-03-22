@@ -1,5 +1,4 @@
 package com.marcelo.sidbebi.domain;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.ElementCollection;
@@ -21,27 +20,20 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDateTime dataHora = LocalDateTime.now();
-	
 	private double valorUnit;
 	private double valorTotal;
 	private String end;
 	private Status status;
 	
 	@ManyToOne	
-	@JoinColumn
-	private Cliente idCliente;
-	
-	@ElementCollection(fetch = FetchType.EAGER)
-	@JoinColumn
-	private List<ItensVenda> itens = new ArrayList<>();
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	
 	public Agendamento() {
 		super();
 	}
 
-	public Agendamento(Integer id, double valorUnit, double valorTotal, String end, Status status, Cliente idCliente,
+	public Agendamento(Integer id, double valorUnit, double valorTotal, String end, Status status, Cliente cliente,
 			List<ItensVenda> itens) {
 		super();
 		this.id = id;
@@ -49,8 +41,7 @@ public class Agendamento {
 		this.valorTotal = valorTotal;
 		this.end = end;
 		this.status = status;
-		this.idCliente = idCliente;
-		this.itens = itens;
+		this.cliente = cliente;
 	}
 
 	public Integer getId() {
@@ -94,19 +85,11 @@ public class Agendamento {
 	}
 
 	public Cliente getIdCliente() {
-		return idCliente;
+		return cliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
-	}
-
-	public List<ItensVenda> getItens() {
-		return itens;
-	}
-
-	public void setItens(List<ItensVenda> itens) {
-		this.itens = itens;
+	public void setIdCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

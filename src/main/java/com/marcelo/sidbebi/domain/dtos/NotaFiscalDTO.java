@@ -14,7 +14,7 @@ public class NotaFiscalDTO {
     private LocalDateTime dataHora = LocalDateTime.now();
 	
     private Integer numeroNF;
-    private List<ItensVenda> itens = new ArrayList<>();
+    private List<ItensVenda> itens;
     private Cliente cliente;
     private Integer quantidade;
     private double valorUnit;    

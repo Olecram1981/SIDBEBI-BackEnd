@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
@@ -13,7 +14,9 @@ import com.marcelo.sidbebi.domain.enums.Status;
 public class AgendamentoDTO {
 
 	private Integer id;
-	private LocalDateTime dataHora;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
 	private double valorUnit;
@@ -43,7 +46,6 @@ public class AgendamentoDTO {
 		this.end = obj.getEnd();
 		this.status = obj.getStatus();
 		this.idCliente = obj.getIdCliente();
-		this.itens = obj.getItens();
 	}
 
 	public Integer getId() {
@@ -53,7 +55,7 @@ public class AgendamentoDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
+	/**
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
@@ -61,7 +63,7 @@ public class AgendamentoDTO {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-
+	**/
 	public double getValorUnit() {
 		return valorUnit;
 	}

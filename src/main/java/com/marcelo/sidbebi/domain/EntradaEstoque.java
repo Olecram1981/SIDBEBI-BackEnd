@@ -20,7 +20,6 @@ public class EntradaEstoque implements Serializable {
     private String produto;
     private String fornecedor;
     private Integer qtd;
-    //private LocalDateTime dataHora = LocalDateTime.now();
     private double valor;
     
 	public EntradaEstoque() {

@@ -1,7 +1,10 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.EntradaEstoque;
 import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.Produto;
@@ -18,8 +21,9 @@ public class EntradaEstoqueDTO {
     @NotNull(message = "A QUANTIDADE é requerida")
     private Integer qtd;
     
-   // @JsonFormat(pattern = "dd/MM/yyyy")
-   // private LocalDateTime dataHora = LocalDateTime.now();
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataHora = LocalDateTime.now();
+    
     private double valor;
     
 	public EntradaEstoqueDTO() {
