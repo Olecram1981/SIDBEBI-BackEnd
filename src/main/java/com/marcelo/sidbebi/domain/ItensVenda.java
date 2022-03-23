@@ -21,18 +21,20 @@ public class ItensVenda {
 	private String item;
 	private Integer quantidade;
 	private double valorUnit;
+	private double subTotal;
 		
 	public ItensVenda() {
 		super();
 	}
 
-	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda) {
+	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda, double subTotal) {
 		super();
 		this.id = id;
 		this.item = item;
 		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.venda = venda;
+		this.subTotal = subTotal;
 	}
 
 	public Integer getId() {
@@ -73,6 +75,14 @@ public class ItensVenda {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+
+	public double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
 	}
 
 	@Override

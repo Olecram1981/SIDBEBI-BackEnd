@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.ItensVenda;
+import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
+import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.SaidaEstoqueRespository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
@@ -20,6 +22,9 @@ public class VendaService {
 	
 	@Autowired
 	private VendaRepository repository;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
 	
 	public Venda findById(Integer id) {
 		Optional<Venda> obj = repository.findById(id);

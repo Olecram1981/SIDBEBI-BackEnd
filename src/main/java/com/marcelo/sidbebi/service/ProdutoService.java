@@ -11,6 +11,7 @@ import com.marcelo.sidbebi.domain.EntradaEstoque;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.EntradaEstoqueDTO;
 import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
+import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.repositories.EntradaEstoqueRespository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
@@ -40,6 +41,17 @@ public class ProdutoService {
 	public Produto create(ProdutoDTO objDTO) {			
 		objDTO.setId(null);
 		Produto produto = new Produto();
+		objDTO.setValorTotal(objDTO.getQtd() * objDTO.getValorUnit());
+		
+		if(objDTO.getQtd() <= 10) {
+			objDTO.setNivel(NivelEstoque.BAIXO);
+		}else {
+		if (objDTO.getQtd() >10 && objDTO.getQtd() <=50) {
+				objDTO.setNivel(NivelEstoque.NORMAL);
+		}else
+			objDTO.setNivel(NivelEstoque.ALTO);
+			}
+		
 		BeanUtils.copyProperties(objDTO, produto);
 		return repository.save(produto);
 	}

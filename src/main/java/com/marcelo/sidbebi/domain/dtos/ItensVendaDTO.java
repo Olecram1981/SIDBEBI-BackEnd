@@ -18,8 +18,8 @@ public class ItensVendaDTO {
 	private Integer quantidade;
 	
 	private double valorUnit;
-	
 	private Venda venda;
+	private double subTotal;
 	
 	public ItensVendaDTO() {
 		super();
@@ -32,6 +32,7 @@ public class ItensVendaDTO {
 		this.quantidade = obj.getQuantidade();
 		this.valorUnit = obj.getValorUnit();
 		this.venda = obj.getVenda();
+		this.subTotal = obj.getSubTotal();
 	}
 
 	public Integer getId() {
@@ -72,6 +73,14 @@ public class ItensVendaDTO {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+
+	public double getSubTotal() {
+		return subTotal;
+	}
+
+	public void setSubTotal(double subTotal) {
+		this.subTotal = subTotal;
 	}
 	
 }
