@@ -31,13 +31,13 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, LocalDateTime dataHora, List<ItensVenda> itens, String idCliente, 
+	public Venda(Integer id, LocalDateTime dataHora, List<ItensVenda> itens, String cliente, 
 			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
 		//this.dataHora = dataHora;
 		this.itens = itens;
-		this.cliente = idCliente;
+		this.cliente = cliente;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
 	}

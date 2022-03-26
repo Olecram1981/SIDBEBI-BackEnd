@@ -1,15 +1,12 @@
 package com.marcelo.sidbebi.domain;
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import com.fasterxml.jackson.annotation.JsonFormat;
+import javax.persistence.OneToMany;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.domain.enums.Status;
 
 
@@ -20,28 +17,33 @@ public class Agendamento {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private double valorUnit;
+	@JsonIgnore
+	@OneToMany (mappedBy = "agendamento")	
+	private List<ItensAgendamento> itens;
+	
 	private double valorTotal;
 	private String end;
 	private Status status;
-	
-	@ManyToOne	
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	private String cliente;
+	private String telefone;
+	private Pagamento pagamento;
 	
 	public Agendamento() {
 		super();
 	}
 
-	public Agendamento(Integer id, double valorUnit, double valorTotal, String end, Status status, Cliente cliente,
-			List<ItensVenda> itens) {
+	public Agendamento(Integer id, double valorTotal, String end, Status status, String cliente,
+			List<ItensAgendamento> itens, String telefone, Pagamento pagamento) {
 		super();
+		
 		this.id = id;
-		this.valorUnit = valorUnit;
 		this.valorTotal = valorTotal;
 		this.end = end;
 		this.status = status;
 		this.cliente = cliente;
+		this.itens = itens;
+		this.telefone = telefone;
+		this.pagamento = pagamento;
 	}
 
 	public Integer getId() {
@@ -50,14 +52,6 @@ public class Agendamento {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
 	}
 
 	public double getValorTotal() {
@@ -84,12 +78,36 @@ public class Agendamento {
 		this.status = status;
 	}
 
-	public Cliente getIdCliente() {
+	public String getCliente() {
 		return cliente;
 	}
 
-	public void setIdCliente(Cliente cliente) {
+	public void setCliente(String cliente) {
 		this.cliente = cliente;
+	}
+	
+	public List<ItensAgendamento> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensAgendamento> itens) {
+		this.itens = itens;
+	}
+	
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
 	}
 
 	@Override

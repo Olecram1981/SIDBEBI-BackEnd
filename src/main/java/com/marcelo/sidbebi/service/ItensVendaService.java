@@ -37,14 +37,16 @@ public class ItensVendaService {
 	
 	public ItensVenda create(ItensVendaDTO objItensDTO) {
 		objItensDTO.setId(null);
-		ItensVenda newObjItens = new ItensVenda();
 		Optional<Produto> produto = produtoRepository.findByNome(objItensDTO.getItem());
 		objItensDTO.setValorUnit(produto.get().getValorUnit());
-		objItensDTO.setSubTotal(objItensDTO.getSubTotal() + (objItensDTO.getQuantidade() * objItensDTO.getValorUnit()));
+		objItensDTO.setSubTotal(objItensDTO.getQuantidade() * objItensDTO.getValorUnit());
 		Optional<Venda> venda = vendaRepository.findById(objItensDTO.getVenda().getId());		
 		venda.get().setValorTotal(venda.get().getValorTotal() + objItensDTO.getSubTotal());
-		objItensDTO.setVenda(venda.get());		
 		vendaRepository.save(venda.get());	
+		objItensDTO.setVenda(venda.get());	
+		produto.get().setQtd(produto.get().getQtd() - objItensDTO.getQuantidade());
+		produtoRepository.save(produto.get());
+		ItensVenda newObjItens = new ItensVenda();
 		BeanUtils.copyProperties(objItensDTO, newObjItens);
 		return repository.save(newObjItens);
 	}	

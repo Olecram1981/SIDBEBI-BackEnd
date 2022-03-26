@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,18 +9,19 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.Cliente;
+import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensVenda;
+import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.domain.enums.Status;
 
-public class AgendamentoDTO {
+public class AgendamentoDTO implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDateTime dataHora = LocalDateTime.now();
-	
-	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
-	private double valorUnit;
 	
 	private double valorTotal;
 	private String end;
@@ -28,10 +30,16 @@ public class AgendamentoDTO {
 	private Status status;
 	
 	@NotNull(message = "O campo CLIENTE é requerido")
-	private Cliente idCliente;
+	private String cliente;
 	
 	@NotNull(message = "O campo ITENS DA VENDA é requerido")
-	private List<ItensVenda> itens;
+	private List<ItensAgendamento> itens;
+	
+	@NotNull(message = "O campo ITENS DA VENDA é requerido")
+	private String telefone;
+	
+	@NotNull(message = "O campo FORMA DE PAGAMENTO é requerido")
+	private Pagamento pagamento;
 	
 	public AgendamentoDTO() {
 		super();
@@ -41,11 +49,13 @@ public class AgendamentoDTO {
 		super();
 		this.id = obj.getId();
 		//this.dataHora = LocalDateTime().now();
-		this.valorUnit = obj.getValorUnit();
 		this.valorTotal = obj.getValorTotal();
 		this.end = obj.getEnd();
 		this.status = obj.getStatus();
-		this.idCliente = obj.getIdCliente();
+		this.cliente = obj.getCliente();
+		this.itens = obj.getItens();
+		this.telefone = obj.getTelefone();
+		this.pagamento = obj.getPagamento();
 	}
 
 	public Integer getId() {
@@ -64,13 +74,6 @@ public class AgendamentoDTO {
 		this.dataHora = dataHora;
 	}
 	**/
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
-	}
 
 	public double getValorTotal() {
 		return valorTotal;
@@ -96,20 +99,62 @@ public class AgendamentoDTO {
 		this.status = status;
 	}
 
-	public Cliente getIdCliente() {
-		return idCliente;
+	public String getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Cliente idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
 	}
 
-	public List<ItensVenda> getItens() {
+	public List<ItensAgendamento> getItens() {
 		return itens;
 	}
 
-	public void setItens(List<ItensVenda> itens) {
+	public void setItens(List<ItensAgendamento> itens) {
 		this.itens = itens;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
+	
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		AgendamentoDTO other = (AgendamentoDTO) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 	
 }
