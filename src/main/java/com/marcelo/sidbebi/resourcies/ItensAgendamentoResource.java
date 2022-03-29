@@ -1,6 +1,7 @@
 package com.marcelo.sidbebi.resourcies;
 
 import java.net.URI;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,13 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcelo.sidbebi.domain.ItensAgendamento;
-import com.marcelo.sidbebi.domain.ItensVenda;
-import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
-import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
-import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.service.ItensAgendamentoService;
-import com.marcelo.sidbebi.service.ItensVendaService;
 
 @RestController
 @RequestMapping(value="/itensagendamentos")

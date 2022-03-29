@@ -1,8 +1,11 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.time.LocalDateTime;
+
 import javax.validation.constraints.NotNull;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.marcelo.sidbebi.domain.SaidaEstoque;
 
 public class SaidaEstoqueDTO {

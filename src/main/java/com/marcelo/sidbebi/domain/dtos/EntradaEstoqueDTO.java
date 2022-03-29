@@ -5,9 +5,8 @@ import java.time.LocalDateTime;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.marcelo.sidbebi.domain.EntradaEstoque;
-import com.marcelo.sidbebi.domain.Fornecedor;
-import com.marcelo.sidbebi.domain.Produto;
 
 public class EntradaEstoqueDTO {
 	

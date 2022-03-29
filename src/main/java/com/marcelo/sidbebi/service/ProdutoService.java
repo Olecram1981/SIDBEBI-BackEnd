@@ -2,21 +2,16 @@ package com.marcelo.sidbebi.service;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
-import com.marcelo.sidbebi.domain.EntradaEstoque;
 import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.dtos.EntradaEstoqueDTO;
 import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
-import com.marcelo.sidbebi.repositories.EntradaEstoqueRespository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
-
-import net.bytebuddy.implementation.bytecode.Throw;
 
 @Service
 public class ProdutoService {
@@ -42,16 +37,7 @@ public class ProdutoService {
 		objDTO.setId(null);
 		Produto produto = new Produto();
 		objDTO.setValorTotal(objDTO.getQtd() * objDTO.getValorUnit());
-		
-		if(objDTO.getQtd() <= 10) {
-			objDTO.setNivel(NivelEstoque.BAIXO);
-		}else {
-		if (objDTO.getQtd() >10 && objDTO.getQtd() <=50) {
-				objDTO.setNivel(NivelEstoque.NORMAL);
-		}else
-			objDTO.setNivel(NivelEstoque.ALTO);
-			}
-		
+		objDTO.setNivel(nivelEstoque(objDTO.getQtd()));
 		BeanUtils.copyProperties(objDTO, produto);
 		return repository.save(produto);
 	}
@@ -60,6 +46,7 @@ public class ProdutoService {
 		objDTO.setId(id);
 		Produto oldObj = findById(id);
 		oldObj = new Produto();
+		objDTO.setNivel(nivelEstoque(objDTO.getQtd()));
 		BeanUtils.copyProperties(objDTO, oldObj);
 		return repository.save(oldObj);
 	}
@@ -67,6 +54,21 @@ public class ProdutoService {
 	public void delete(Integer id) {
 		Produto obj = findById(id);
 		repository.deleteById(id);
+	}
+	
+	public NivelEstoque nivelEstoque(Integer qtd) {
+		NivelEstoque nivel;
+		if(qtd <= 20) {
+			nivel = NivelEstoque.BAIXO;
+		}
+		else {
+			if (qtd >20 && qtd <=60) {
+				nivel = NivelEstoque.NORMAL;
+			}
+			else
+				nivel = NivelEstoque.ALTO;
+		}		
+		return nivel;
 	}
 
 }

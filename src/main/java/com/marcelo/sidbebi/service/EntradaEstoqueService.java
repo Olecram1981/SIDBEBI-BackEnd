@@ -3,17 +3,13 @@ package com.marcelo.sidbebi.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.EntradaEstoque;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.EntradaEstoqueDTO;
-import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
 import com.marcelo.sidbebi.repositories.EntradaEstoqueRespository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
@@ -26,6 +22,9 @@ public class EntradaEstoqueService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ProdutoService produtoService;
 	
 	public EntradaEstoque findById(Integer id) {
 		Optional<EntradaEstoque> obj = repository.findById(id);
@@ -48,6 +47,7 @@ public class EntradaEstoqueService {
 		Optional<Produto> obj = produtoRepository.findByNome(objDTO.getProduto());
 		obj.get().setQtd(obj.get().getQtd() + objDTO.getQtd());
 		obj.get().setValorUnit(objDTO.getValor());
+		obj.get().setNivel(produtoService.nivelEstoque(obj.get().getQtd()));
 		produtoRepository.save(obj.get());
 		EntradaEstoque newObj = new EntradaEstoque();
 		BeanUtils.copyProperties(objDTO, newObj);

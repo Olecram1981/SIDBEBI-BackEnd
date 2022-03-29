@@ -1,6 +1,7 @@
 package com.marcelo.sidbebi.resourcies;
 
 import java.net.URI;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.marcelo.sidbebi.domain.Agendamento;
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.service.AgendamentoService;
 
 @RestController

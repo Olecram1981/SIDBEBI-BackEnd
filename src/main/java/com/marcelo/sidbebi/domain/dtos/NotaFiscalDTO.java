@@ -1,9 +1,11 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.NotaFiscal;

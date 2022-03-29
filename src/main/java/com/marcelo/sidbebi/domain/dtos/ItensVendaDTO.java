@@ -1,10 +1,8 @@
 package com.marcelo.sidbebi.domain.dtos;
 
-
 import javax.validation.constraints.NotNull;
 
 import com.marcelo.sidbebi.domain.ItensVenda;
-import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Venda;
 
 public class ItensVendaDTO {

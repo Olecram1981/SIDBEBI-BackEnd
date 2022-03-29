@@ -1,6 +1,7 @@
 package com.marcelo.sidbebi.resourcies;
 
 import java.net.URI;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,14 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.EntradaEstoque;
-import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.EntradaEstoqueDTO;
-import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
 import com.marcelo.sidbebi.service.EntradaEstoqueService;
-import com.marcelo.sidbebi.service.ProdutoService;
 
 @RestController
 @RequestMapping(value="/entradas")
