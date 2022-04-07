@@ -1,10 +1,13 @@
 package com.marcelo.sidbebi.domain;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.domain.enums.Status;
@@ -23,6 +26,10 @@ public class Agendamento {
 	
 	private double valorTotal;
 	private String end;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDateTime dataHora = LocalDateTime.now();
+	
 	private Status status;
 	private String cliente;
 	private String telefone;
@@ -33,7 +40,7 @@ public class Agendamento {
 	}
 
 	public Agendamento(Integer id, double valorTotal, String end, Status status, String cliente,
-			List<ItensAgendamento> itens, String telefone, Pagamento pagamento) {
+			List<ItensAgendamento> itens, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
 		super();
 		
 		this.id = id;
@@ -44,6 +51,7 @@ public class Agendamento {
 		this.itens = itens;
 		this.telefone = telefone;
 		this.pagamento = pagamento;
+		this.dataHora = dataHora;
 	}
 
 	public Integer getId() {
@@ -108,6 +116,14 @@ public class Agendamento {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+	
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	@Override

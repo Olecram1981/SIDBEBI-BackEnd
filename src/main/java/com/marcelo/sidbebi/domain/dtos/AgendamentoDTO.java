@@ -47,7 +47,7 @@ public class AgendamentoDTO implements Serializable{
 	public AgendamentoDTO(Agendamento obj) {
 		super();
 		this.id = obj.getId();
-		//this.dataHora = LocalDateTime().now();
+		this.dataHora = obj.getDataHora();
 		this.valorTotal = obj.getValorTotal();
 		this.end = obj.getEnd();
 		this.status = obj.getStatus();
@@ -64,7 +64,7 @@ public class AgendamentoDTO implements Serializable{
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	/**
+	
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
@@ -72,7 +72,6 @@ public class AgendamentoDTO implements Serializable{
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-	**/
 
 	public double getValorTotal() {
 		return valorTotal;

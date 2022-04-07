@@ -19,7 +19,8 @@ public class SaidaEstoqueDTO {
     private Integer qtd;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-    //private LocalDateTime dataHora = LocalDateTime.now();
+    private LocalDateTime dataHora = LocalDateTime.now();
+	
     private String justificativa;
     
 	public SaidaEstoqueDTO() {
@@ -32,6 +33,7 @@ public class SaidaEstoqueDTO {
 		this.produto = obj.getProduto();
 		this.qtd = obj.getQtd();
 		this.justificativa = obj.getJustificativa();
+		this.dataHora = obj.getDataHora();
 	}
 
 	public Integer getId() {
@@ -56,6 +58,14 @@ public class SaidaEstoqueDTO {
 
 	public void setQtd(Integer qtd) {
 		this.qtd = qtd;
+	}
+
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	public String getJustificativa() {

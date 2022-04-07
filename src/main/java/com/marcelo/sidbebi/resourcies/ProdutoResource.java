@@ -34,7 +34,7 @@ public class ProdutoResource {
 	
 	@GetMapping
 	public ResponseEntity<ProdutoDTO> findByNome(@RequestBody ProdutoDTO objDTO){
-		Produto obj = service.findByNome(objDTO);
+		Produto obj = service.findByNome(objDTO.getNome());
 		return ResponseEntity.ok().body(new ProdutoDTO(obj));
 	}
 	/**

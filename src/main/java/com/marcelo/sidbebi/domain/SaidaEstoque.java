@@ -1,6 +1,7 @@
 package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,19 +16,20 @@ public class SaidaEstoque implements Serializable {
 	
     private String produto;
     private Integer qtd;
-    //private LocalDateTime dataHora = LocalDateTime.now();
+    private LocalDateTime dataHora = LocalDateTime.now();
     private String justificativa;
     
 	public SaidaEstoque() {
 		super();
 	}
 
-	public SaidaEstoque(Integer id, String produto, Integer qtd, String justificativa) {
+	public SaidaEstoque(Integer id, String produto, Integer qtd, String justificativa, LocalDateTime dataHora) {
 		super();
 		this.id = id;
 		this.produto = produto;
 		this.qtd = qtd;
 		this.justificativa = justificativa;
+		this.dataHora = dataHora;
 	}
 
 	public Integer getId() {
@@ -60,6 +62,14 @@ public class SaidaEstoque implements Serializable {
 
 	public void setJustificativa(String justificativa) {
 		this.justificativa = justificativa;
+	}
+	
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
 	}
 
 	@Override

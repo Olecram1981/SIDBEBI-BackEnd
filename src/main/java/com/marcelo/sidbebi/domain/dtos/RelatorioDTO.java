@@ -1,13 +1,11 @@
-package com.marcelo.sidbebi.domain;
+package com.marcelo.sidbebi.domain.dtos;
 
-import java.io.Serializable;
 import java.sql.Date;
 
+import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
-public class Relatorio implements Serializable {
-		
-	private static final long serialVersionUID = 1L;
+public class RelatorioDTO {
 	
 	private Date dataInicial;
     private Date dataFinal;
@@ -15,19 +13,19 @@ public class Relatorio implements Serializable {
     private Tipo tipo;
     private Integer qtdTotal;
     private double valorTotal;
-	
-    public Relatorio() {
+    
+	public RelatorioDTO() {
 		super();
 	}
 
-	public Relatorio(Date dataInicial, Date dataFinal, String item, Tipo tipo, Integer qtdTotal, double valorTotal) {
+	public RelatorioDTO(Relatorio obj) {
 		super();
-		this.dataInicial = dataInicial;
-		this.dataFinal = dataFinal;
-		this.item = item;
-		this.tipo = tipo;
-		this.qtdTotal = qtdTotal;
-		this.valorTotal = valorTotal;
+		this.dataInicial = obj.getDataInicial();
+		this.dataFinal = obj.getDataFinal();
+		this.item = obj.getItem();
+		this.tipo = obj.getTipo();
+		this.qtdTotal = obj.getQtdTotal();
+		this.valorTotal = obj.getValorTotal();
 	}
 
 	public Date getDataInicial() {

@@ -1,11 +1,14 @@
 package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 public class EntradaEstoque implements Serializable {
@@ -17,6 +20,10 @@ public class EntradaEstoque implements Serializable {
 	private Integer id;
 	
     private String produto;
+    
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDateTime dataHora = LocalDateTime.now();
+    
     private String fornecedor;
     private Integer qtd;
     private double valor;
@@ -25,13 +32,14 @@ public class EntradaEstoque implements Serializable {
 		super();
 	}
 
-	public EntradaEstoque(Integer id, String produto, String fornecedor, Integer qtd, double valor) {
+	public EntradaEstoque(Integer id, String produto, String fornecedor, Integer qtd, double valor, LocalDateTime dataHora) {
 		super();
 		this.id = id;
 		this.produto = produto;
 		this.fornecedor = fornecedor;
 		this.qtd = qtd;
 		this.valor = valor;
+		this.dataHora = dataHora;
 	}
 
 	public Integer getId() {
@@ -73,6 +81,14 @@ public class EntradaEstoque implements Serializable {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}	
+	
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
 
 	@Override
 	public int hashCode() {

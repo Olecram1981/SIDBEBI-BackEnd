@@ -9,8 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
+import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
+import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
@@ -31,6 +33,19 @@ public class ItensVendaService {
 	public ItensVenda findById(Integer id) {
 		Optional<ItensVenda> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
+	}
+	
+	public Relatorio findByItem(RelatorioDTO objDTO) {
+		List<ItensVenda> obj = repository.findByItem(objDTO.getItem());
+		objDTO.setQtdTotal(0);
+		objDTO.setValorTotal(0);
+		for(ItensVenda itens : obj) {
+			objDTO.setQtdTotal(objDTO.getQtdTotal() + itens.getQuantidade());
+			objDTO.setValorTotal(objDTO.getValorTotal() + itens.getSubTotal());
+		}
+		Relatorio relatorio = new Relatorio();
+		BeanUtils.copyProperties(objDTO, relatorio);
+		return relatorio;
 	}
 	
 	public ItensVenda create(ItensVendaDTO objItensDTO) {

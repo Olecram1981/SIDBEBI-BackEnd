@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 
@@ -17,6 +18,9 @@ public class Venda {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	@JsonIgnore
 	@OneToMany (mappedBy = "venda")	
@@ -35,7 +39,7 @@ public class Venda {
 			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
-		//this.dataHora = dataHora;
+		this.dataHora = dataHora;
 		this.itens = itens;
 		this.cliente = cliente;
 		this.valorTotal = valorTotal;
@@ -49,7 +53,7 @@ public class Venda {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	/**
+	
 	public LocalDateTime getDataHora() {
 		return dataHora;
 	}
@@ -57,7 +61,7 @@ public class Venda {
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
 	}
-	**/
+	
 	public List<ItensVenda> getItens() {
 		return itens;
 	}
@@ -89,7 +93,7 @@ public class Venda {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

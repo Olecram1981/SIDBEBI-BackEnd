@@ -40,7 +40,7 @@ public class VendaDTO {
 	public VendaDTO(Venda obj) {
 		super();
 		this.id = obj.getId();
-		// this.dataHora = obj
+		this.dataHora = obj.getDataHora();
 		this.itens = obj.getItens();
 		this.cliente = obj.getCliente();
 		this.valorTotal = obj.getValorTotal();
@@ -94,5 +94,15 @@ public class VendaDTO {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
+
+	public double getValorUnit() {
+		return valorUnit;
+	}
+
+	public void setValorUnit(double valorUnit) {
+		this.valorUnit = valorUnit;
+	}
+	
+	
 
 }

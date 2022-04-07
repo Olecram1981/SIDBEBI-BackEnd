@@ -35,14 +35,14 @@ public class VendaResource {
 		Venda obj = service.findById(id);
 		return ResponseEntity.ok().body(new VendaDTO(obj));
 	}
-	
+	/**
 	@GetMapping
 	public ResponseEntity<List<VendaDTO>> findAll(){
 		List<Venda> list = service.findAll();
 		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
+	**/
 	@PostMapping
 	public ResponseEntity<VendaDTO> create(@Valid @RequestBody VendaDTO objDTO){
 		Venda newObj = service.create(objDTO);		

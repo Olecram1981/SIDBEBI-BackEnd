@@ -24,9 +24,9 @@ public class ProdutoService {
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
 	
-	public Produto findByNome(ProdutoDTO produto) {
-		Optional<Produto> obj = repository.findByNome(produto.getNome());
-		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado: "+produto.getNome()));
+	public Produto findByNome(String produto) {
+		Optional<Produto> obj = repository.findByNome(produto);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado: "+produto));
 	}
 	
 	public List<Produto> findAll() {
