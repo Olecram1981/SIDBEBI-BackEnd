@@ -1,8 +1,5 @@
 package com.marcelo.sidbebi.resourcies;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,12 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Relatorio;
-import com.marcelo.sidbebi.domain.Venda;
-import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
-import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.service.ItensVendaService;
 import com.marcelo.sidbebi.service.VendaService;
 
