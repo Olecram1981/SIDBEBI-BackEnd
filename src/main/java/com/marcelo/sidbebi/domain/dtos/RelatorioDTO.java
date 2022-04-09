@@ -1,14 +1,20 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
 public class RelatorioDTO {
 	
-	private Date dataInicial;
-    private Date dataFinal;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataInicial;
+	
+	@JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataFinal;
+	
     private String item;
     private Tipo tipo;
     private Integer qtdTotal;
@@ -28,19 +34,19 @@ public class RelatorioDTO {
 		this.valorTotal = obj.getValorTotal();
 	}
 
-	public Date getDataInicial() {
+	public LocalDate getDataInicial() {
 		return dataInicial;
 	}
 
-	public void setDataInicial(Date dataInicial) {
+	public void setDataInicial(LocalDate dataInicial) {
 		this.dataInicial = dataInicial;
 	}
 
-	public Date getDataFinal() {
+	public LocalDate getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(Date dataFinal) {
+	public void setDataFinal(LocalDate dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

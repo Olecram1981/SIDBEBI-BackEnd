@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.repositories;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,6 @@ import com.marcelo.sidbebi.domain.Venda;
 public interface VendaRepository extends JpaRepository<Venda, Integer>{
 	
 	@Query("SELECT t FROM Venda t WHERE t.dataHora BETWEEN :di and :df")
-	List<Venda> findByIntervalo(@Param("di") Date dataInicial, @Param("df") Date dataFinal);
+	List<Venda> findByIntervalo(@Param("di") LocalDate dataInicial, @Param("df") LocalDate dataFinal);
 	
 }

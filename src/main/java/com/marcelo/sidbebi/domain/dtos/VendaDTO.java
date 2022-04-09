@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class VendaDTO {
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDateTime dataHora = LocalDateTime.now();
+	private LocalDate dataHora = LocalDate.now();
 	
 	@NotNull(message = "O campo ITENS é requerido")
 	private List<ItensVenda> itens;
@@ -55,11 +56,11 @@ public class VendaDTO {
 		this.id = id;
 	}
 
-	public LocalDateTime getDataHora() {
+	public LocalDate getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(LocalDateTime dataHora) {
+	public void setDataHora(LocalDate dataHora) {
 		this.dataHora = dataHora;
 	}
 
@@ -103,6 +104,4 @@ public class VendaDTO {
 		this.valorUnit = valorUnit;
 	}
 	
-	
-
 }

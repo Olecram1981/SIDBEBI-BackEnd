@@ -18,8 +18,6 @@ import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
-
 @Service
 public class ItensVendaService {
 	
@@ -38,7 +36,7 @@ public class ItensVendaService {
 	}
 	
 	public Relatorio findByItem(RelatorioDTO objDTO) {
-		if(objDTO.getDataInicial() == null && objDTO.getItem() != null) {
+		if(objDTO.getDataInicial() == null && objDTO.getItem() != "") {
 			//busca todas as vendas do item solicitado na pequisa
 			List<ItensVenda> obj = repository.findByItem(objDTO.getItem());
 			objDTO.setQtdTotal(0);
@@ -62,19 +60,23 @@ public class ItensVendaService {
 					}
 					objDTO.setValorTotal(objDTO.getValorTotal() + venda.getValorTotal());
 				}
+			
 			}
 			else {
-				if(objDTO.getDataInicial() != null && objDTO.getItem() != null) {
+				if(objDTO.getDataInicial() != null && objDTO.getItem() != "") {
 					//busca o item solicitado dentro do intervalo de datas indicado
 					//para isto eu busco uma lista de vendas do intervalo de datas requerido
 					List<Venda> vendas = vendaRepository.findByIntervalo(objDTO.getDataInicial(), objDTO.getDataFinal());
-					//itero esta lista de vendas buscada, procurando pelo produto solicitado					
-					for(Venda venda : vendas){
+					//itero esta lista de vendas buscada, procurando pelo produto solicitado	
+					objDTO.setQtdTotal(0);
+					objDTO.setValorTotal(0);
+					for(Venda venda : vendas) {
 						List<ItensVenda> itens = venda.getItens();
-						for(ItensVenda item : itens){
-							if(item.getItem() == objDTO.getItem()) {
+						for(ItensVenda item : itens) {
+							if(objDTO.getItem().equals(item.getItem())) {
 								objDTO.setQtdTotal(objDTO.getQtdTotal() + item.getQuantidade());
 								objDTO.setValorTotal(objDTO.getValorTotal() + item.getSubTotal());
+								objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
 							}
 						}
 					}

@@ -1,5 +1,5 @@
 package com.marcelo.sidbebi.domain;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -20,7 +20,7 @@ public class Venda {
 	private Integer id;
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDateTime dataHora = LocalDateTime.now();
+	private LocalDate dataHora = LocalDate.now();
 	
 	@JsonIgnore
 	@OneToMany (mappedBy = "venda")	
@@ -35,7 +35,7 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, LocalDateTime dataHora, List<ItensVenda> itens, String cliente, 
+	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, String cliente, 
 			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
@@ -54,11 +54,11 @@ public class Venda {
 		this.id = id;
 	}
 	
-	public LocalDateTime getDataHora() {
+	public LocalDate getDataHora() {
 		return dataHora;
 	}
 
-	public void setDataHora(LocalDateTime dataHora) {
+	public void setDataHora(LocalDate dataHora) {
 		this.dataHora = dataHora;
 	}
 	
