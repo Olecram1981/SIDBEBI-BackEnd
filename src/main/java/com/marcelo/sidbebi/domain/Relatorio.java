@@ -1,7 +1,6 @@
 package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
