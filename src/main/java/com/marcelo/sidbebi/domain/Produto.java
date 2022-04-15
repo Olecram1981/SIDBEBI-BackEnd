@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
@@ -20,6 +22,10 @@ public class Produto implements Serializable {
 	@Id		
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+	@JsonIgnore
+	@OneToMany (mappedBy = "produto")	
+	private List<ItensProduto> itens;
 	
 	private Tipo tipo;
 	private String nome;
@@ -34,11 +40,12 @@ public class Produto implements Serializable {
 	}
 
 	public Produto(Integer id, Tipo tipo, String nome, String tamanho, Integer qtd, double valorUnit, double valorTotal,
-			NivelEstoque nivel, List<ItensVenda> itemVenda, EntradaEstoque entrada) {
+			NivelEstoque nivel, List<ItensProduto> itens) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
 		this.nome = nome;
+		this.itens = itens;
 		this.tamanho = tamanho;
 		this.qtd = qtd;
 		this.valorUnit = valorUnit;
@@ -110,6 +117,14 @@ public class Produto implements Serializable {
 		this.nivel = nivel;
 	}
 	
+	public List<ItensProduto> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensProduto> itens) {
+		this.itens = itens;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

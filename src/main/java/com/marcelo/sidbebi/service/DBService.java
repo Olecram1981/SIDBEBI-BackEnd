@@ -35,9 +35,9 @@ public class DBService {
 		Fornecedor f3 = new Fornecedor(null, "ElmaChips", "9898765/0001", "Rua Trinta e dois", "6785 7898", "elmachips@mail.com");
 		fornecedorRepository.saveAll(Arrays.asList(f1, f2, f3));
 				
-		Produto prod1 = new Produto(null, Tipo.ALCOOLICA, "Cerveja", "500 ml", 150, 3.50, 450.00, NivelEstoque.ALTO, null, null);
-		Produto prod2 = new Produto(null, Tipo.NAOALCOOLICA, "Coca Cola", "1 L", 150, 3.50, 450.00, NivelEstoque.NORMAL, null, null);
-		Produto prod3 = new Produto(null, Tipo.COMIDA, "Salgado", "médio", 150, 3.50, 450.00, NivelEstoque.BAIXO, null, null);
+		Produto prod1 = new Produto(null, Tipo.ALCOOLICA, "Cerveja", "500 ml", 150, 3.50, 450.00, NivelEstoque.ALTO, null);
+		Produto prod2 = new Produto(null, Tipo.NAOALCOOLICA, "Coca Cola", "1 L", 150, 3.50, 450.00, NivelEstoque.NORMAL, null);
+		Produto prod3 = new Produto(null, Tipo.COMIDA, "Salgado", "médio", 150, 3.50, 450.00, NivelEstoque.BAIXO, null);
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 			
 	}
