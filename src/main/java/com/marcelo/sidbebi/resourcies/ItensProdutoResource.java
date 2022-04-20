@@ -24,7 +24,7 @@ import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.service.ItensProdutoService;
 
 @RestController
-@RequestMapping(value="/itensproduto")
+@RequestMapping(value="/itensprodutos")
 public class ItensProdutoResource {
 	
 	@Autowired
@@ -35,12 +35,18 @@ public class ItensProdutoResource {
 		ItensProduto obj = service.findById(id);
 		return ResponseEntity.ok().body(new ItensProdutoDTO(obj));
 	}
-	
+	/**
 	@GetMapping
 	public ResponseEntity<List<ItensProdutoDTO>> findAll(){
 		List<ItensProduto> list = service.findAll();
 		List<ItensProdutoDTO> listDTO = list.stream().map(obj -> new ItensProdutoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
+	}
+	**/
+	@GetMapping
+	public ResponseEntity<ItensProdutoDTO> findByCodBarra(@Valid @RequestBody ItensProdutoDTO objDTO){
+		ItensProduto obj = service.findByCodBarra(objDTO);
+		return ResponseEntity.ok().body(new ItensProdutoDTO(obj));
 	}
 	
 	@PostMapping

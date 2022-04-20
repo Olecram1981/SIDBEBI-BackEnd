@@ -1,5 +1,7 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import javax.validation.constraints.NotNull;
+
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 
@@ -9,6 +11,7 @@ public class ItensProdutoDTO {
 	
 	private Produto produto;
 	
+	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
 	private String codBarra;
 	
 	public ItensProdutoDTO() {

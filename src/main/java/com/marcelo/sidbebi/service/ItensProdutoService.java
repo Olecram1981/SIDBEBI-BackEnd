@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
+import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
@@ -27,9 +28,14 @@ public class ItensProdutoService {
 		Optional<ItensProduto> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
-
+	/**
 	public List<ItensProduto> findAll() {
 		return repository.findAll();
+	}
+	**/
+	public ItensProduto findByCodBarra(ItensProdutoDTO objDTO) {
+		Optional<ItensProduto> obj = repository.findByCodBarra(objDTO.getCodBarra());
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Código de Barra: "+objDTO.getCodBarra()));
 	}
 
 	public ItensProduto create(ItensProdutoDTO objDTO) {
@@ -37,6 +43,7 @@ public class ItensProdutoService {
 		Optional<Produto> produto = produtoRepository.findById(objDTO.getProduto().getId());
 		produto.get().setQtd(produto.get().getQtd() + 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
+		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
 		produtoRepository.save(produto.get());
 		ItensProduto newObj = new ItensProduto();
 		BeanUtils.copyProperties(objDTO, newObj);
@@ -55,9 +62,25 @@ public class ItensProdutoService {
 		Optional<Produto> produto = produtoRepository.findById(id);
 		produto.get().setQtd(produto.get().getQtd() - 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
+		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
 		produtoRepository.save(produto.get());
 		ItensProduto obj = findById(id);
 		repository.deleteById(id);
+	}
+	
+	public NivelEstoque nivelEstoque(Integer qtd) {
+		NivelEstoque nivel;
+		if(qtd <= 20) {
+			nivel = NivelEstoque.BAIXO;
+		}
+		else {
+			if (qtd >20 && qtd <=60) {
+				nivel = NivelEstoque.NORMAL;
+			}
+			else
+				nivel = NivelEstoque.ALTO;
+		}		
+		return nivel;
 	}
 	
 }
