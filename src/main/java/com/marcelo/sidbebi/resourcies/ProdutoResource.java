@@ -1,6 +1,8 @@
 package com.marcelo.sidbebi.resourcies;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,21 +32,15 @@ public class ProdutoResource {
 	public ResponseEntity<ProdutoDTO> findById(@PathVariable Integer id){
 		Produto obj = service.findById(id);
 		return ResponseEntity.ok().body(new ProdutoDTO(obj));
-	}
+	}	
 	
-	@GetMapping
-	public ResponseEntity<ProdutoDTO> findByNome(@RequestBody ProdutoDTO objDTO){
-		Produto obj = service.findByNome(objDTO.getNome());
-		return ResponseEntity.ok().body(new ProdutoDTO(obj));
-	}
-	/**
 	@GetMapping
 	public ResponseEntity<List<ProdutoDTO>> findAll(){
 		List<Produto> list = service.findAll();
 		List<ProdutoDTO> listDTO = list.stream().map(obj -> new ProdutoDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	**/
+	
 	@PostMapping
 	public ResponseEntity<ProdutoDTO> create(@Valid @RequestBody ProdutoDTO objDTO){
 		Produto newObj = service.create(objDTO);

@@ -28,11 +28,11 @@ public class ItensProdutoService {
 		Optional<ItensProduto> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
-	/**
+	
 	public List<ItensProduto> findAll() {
 		return repository.findAll();
 	}
-	**/
+	
 	public ItensProduto findByCodBarra(ItensProdutoDTO objDTO) {
 		Optional<ItensProduto> obj = repository.findByCodBarra(objDTO.getCodBarra());
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Código de Barra: "+objDTO.getCodBarra()));
