@@ -18,9 +18,9 @@ public class ItensProduto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@ManyToOne
-	@JoinColumn(name = "produto_id")
-	private Produto produto;
+	private String produto;
+		
+	private String fornecedor;
 	
 	private String codBarra;
 
@@ -28,10 +28,11 @@ public class ItensProduto implements Serializable {
 		super();
 	}
 
-	public ItensProduto(Integer id, Produto produto, String codBarra) {
+	public ItensProduto(Integer id, String produto, String fornecedor, String codBarra) {
 		super();
 		this.id = id;
 		this.produto = produto;
+		this.fornecedor = fornecedor;
 		this.codBarra = codBarra;
 	}
 
@@ -43,11 +44,11 @@ public class ItensProduto implements Serializable {
 		this.id = id;
 	}
 
-	public Produto getProduto() {
+	public String getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Produto produto) {
+	public void setProduto(String produto) {
 		this.produto = produto;
 	}
 
@@ -57,6 +58,14 @@ public class ItensProduto implements Serializable {
 
 	public void setCodBarra(String codBarra) {
 		this.codBarra = codBarra;
+	}
+
+	public String getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(String fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	@Override

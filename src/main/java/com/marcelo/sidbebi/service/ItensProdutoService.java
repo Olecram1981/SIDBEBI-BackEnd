@@ -40,7 +40,7 @@ public class ItensProdutoService {
 
 	public ItensProduto create(ItensProdutoDTO objDTO) {
 		objDTO.setId(null);
-		Optional<Produto> produto = produtoRepository.findById(objDTO.getProduto().getId());
+		Optional<Produto> produto = produtoRepository.findByNome(objDTO.getProduto());
 		produto.get().setQtd(produto.get().getQtd() + 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
 		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
