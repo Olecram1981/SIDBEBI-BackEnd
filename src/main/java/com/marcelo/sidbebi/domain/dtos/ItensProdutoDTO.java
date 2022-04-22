@@ -2,6 +2,7 @@ package com.marcelo.sidbebi.domain.dtos;
 
 import javax.validation.constraints.NotNull;
 
+import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 
@@ -10,10 +11,14 @@ public class ItensProdutoDTO {
 	private Integer id;
 	
 	@NotNull(message = "O campo PRODUTO é requerido")
-	private String produto;
+	private String nomeProduto;
 	
 	@NotNull(message = "O campo FORNECEDOR é requerido")
-	private String fornecedor;
+	private String nomeFornecedor;
+	
+	private Produto produto;
+	
+	private Fornecedor fornecedor;
 	
 	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
 	private String codBarra;
@@ -25,6 +30,8 @@ public class ItensProdutoDTO {
 	public ItensProdutoDTO(ItensProduto obj) {
 		super();
 		this.id = obj.getId();
+		this.nomeProduto = obj.getNomeProduto();
+		this.nomeFornecedor = obj.getNomeFornecedor();
 		this.produto = obj.getProduto();
 		this.fornecedor = obj.getFornecedor();
 		this.codBarra = obj.getCodBarra();
@@ -38,11 +45,11 @@ public class ItensProdutoDTO {
 		this.id = id;
 	}
 
-	public String getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProduto(String produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 
@@ -54,12 +61,28 @@ public class ItensProdutoDTO {
 		this.codBarra = codBarra;
 	}
 
-	public String getFornecedor() {
+	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(String fornecedor) {
+	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
-	
+
+	public String getNomeProduto() {
+		return nomeProduto;
+	}
+
+	public void setNomeProduto(String nomeProduto) {
+		this.nomeProduto = nomeProduto;
+	}
+
+	public String getNomeFornecedor() {
+		return nomeFornecedor;
+	}
+
+	public void setNomeFornecedor(String nomeFornecedor) {
+		this.nomeFornecedor = nomeFornecedor;
+	}
+		
 }

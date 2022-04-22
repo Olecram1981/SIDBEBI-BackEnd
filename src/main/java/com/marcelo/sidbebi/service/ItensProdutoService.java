@@ -7,10 +7,12 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
+import com.marcelo.sidbebi.repositories.FornecedorRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
@@ -23,6 +25,9 @@ public class ItensProdutoService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 	
 	public ItensProduto findById(Integer id) {
 		Optional<ItensProduto> obj = repository.findById(id);
@@ -40,11 +45,14 @@ public class ItensProdutoService {
 
 	public ItensProduto create(ItensProdutoDTO objDTO) {
 		objDTO.setId(null);
-		Optional<Produto> produto = produtoRepository.findByNome(objDTO.getProduto());
+		Optional<Produto> produto = produtoRepository.findByNome(objDTO.getNomeProduto());
 		produto.get().setQtd(produto.get().getQtd() + 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
 		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
 		produtoRepository.save(produto.get());
+		objDTO.setProduto(produto.get());
+		Optional<Fornecedor> fornecedor = fornecedorRepository.findByNome(objDTO.getNomeFornecedor());
+		objDTO.setFornecedor(fornecedor.get());
 		ItensProduto newObj = new ItensProduto();
 		BeanUtils.copyProperties(objDTO, newObj);
 		return repository.save(newObj);

@@ -25,12 +25,21 @@ public class RelatorioResource {
 	
 	@Autowired
 	private VendaService vendaService;
-		
+	
+	@Autowired
+	private ItensVendaService itensVendaService;
+	
+	@GetMapping
+	public ResponseEntity<RelatorioDTO> findByItem(@Valid @RequestBody RelatorioDTO objDTO){
+		Relatorio relatorio = itensVendaService.findByItem(objDTO);
+		return ResponseEntity.ok().body(new RelatorioDTO(relatorio));
+	}
+	/**	
 	@GetMapping
 	public ResponseEntity<List<VendaDTO>> findAll(){
 		List<Venda> list = vendaService.findAll();
 		List<VendaDTO> listDTO = list.stream().map(obj -> new VendaDTO(obj)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
 	}
-	
+	**/
 }
