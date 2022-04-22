@@ -22,8 +22,8 @@ public class ItensVenda implements Serializable{
 	@JoinColumn(name = "venda_id")
 	private Venda venda;
 	
+	private String codBarra;
 	private String item;
-	private Integer quantidade;
 	private double valorUnit;
 	private double subTotal;
 		
@@ -31,13 +31,13 @@ public class ItensVenda implements Serializable{
 		super();
 	}
 
-	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda, double subTotal) {
+	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda, String codBarra, double subTotal) {
 		super();
 		this.id = id;
 		this.item = item;
-		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.venda = venda;
+		this.codBarra = codBarra;
 		this.subTotal = subTotal;
 	}
 
@@ -57,14 +57,6 @@ public class ItensVenda implements Serializable{
 		this.item = item;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-	
 	public double getValorUnit() {
 		return valorUnit;
 	}
@@ -87,6 +79,14 @@ public class ItensVenda implements Serializable{
 
 	public void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
+	}
+
+	public String getCodBarra() {
+		return codBarra;
+	}
+
+	public void setCodBarra(String codBarra) {
+		this.codBarra = codBarra;
 	}
 
 	@Override

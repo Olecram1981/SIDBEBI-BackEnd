@@ -1,4 +1,5 @@
 package com.marcelo.sidbebi.domain;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -15,8 +16,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 
 @Entity
-public class Venda {
+public class Venda implements Serializable{
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -34,6 +37,7 @@ public class Venda {
 	@OneToMany (mappedBy = "venda")	
 	private List<ItensVenda> itens;
 	
+	private String[] itensVenda;	
 	private double valorTotal;
 	private Pagamento pagamento;
 	
@@ -41,12 +45,13 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, Cliente cliente, String nomeCliente, 
+	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, String[] itensVenda, Cliente cliente, String nomeCliente, 
 			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
 		this.itens = itens;
+		this.itensVenda = itensVenda;
 		this.cliente = cliente;
 		this.nomeCliente = nomeCliente;
 		this.valorTotal = valorTotal;
@@ -107,6 +112,14 @@ public class Venda {
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+	
+	public String[] getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(String[] itensVenda) {
+		this.itensVenda = itensVenda;
 	}
 
 	@Override

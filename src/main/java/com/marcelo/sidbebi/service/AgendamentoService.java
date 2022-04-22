@@ -68,7 +68,6 @@ public class AgendamentoService {
 			for(ItensAgendamento item : itensAgendamento) {
 				itensVenda.setId(item.getId());
 				itensVenda.setItem(item.getItem());
-				itensVenda.setQuantidade(item.getQuantidade());
 				itensVenda.setSubTotal(item.getSubTotal());
 				itensVenda.setValorUnit(item.getValorUnit());
 				itensVenda.setVenda(venda);

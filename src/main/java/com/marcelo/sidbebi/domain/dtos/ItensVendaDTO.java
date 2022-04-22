@@ -12,8 +12,8 @@ public class ItensVendaDTO {
 	@NotNull(message = "O campo ITEM DO PRODUTO é requerido")
 	private String item;
 	
-	@NotNull(message = "O campo QUANTIDADE é requerido")
-	private Integer quantidade;
+	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
+	private String codBarra;
 	
 	private double valorUnit;
 	private Venda venda;
@@ -27,7 +27,7 @@ public class ItensVendaDTO {
 		super();
 		this.id = obj.getId();
 		this.item = obj.getItem();
-		this.quantidade = obj.getQuantidade();
+		this.codBarra = obj.getCodBarra();
 		this.valorUnit = obj.getValorUnit();
 		this.venda = obj.getVenda();
 		this.subTotal = obj.getSubTotal();
@@ -39,14 +39,6 @@ public class ItensVendaDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public String getItem() {
@@ -80,5 +72,13 @@ public class ItensVendaDTO {
 	public void setSubTotal(double subTotal) {
 		this.subTotal = subTotal;
 	}
+
+	public String getCodBarra() {
+		return codBarra;
+	}
+
+	public void setCodBarra(String codBarra) {
+		this.codBarra = codBarra;
+	}	
 	
 }

@@ -19,8 +19,10 @@ public class VendaDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataHora = LocalDate.now();
 	
-	@NotNull(message = "O campo ITENS é requerido")
 	private List<ItensVenda> itens;
+	
+	@NotNull(message = "O campo ITENS DA VENDA é requerido")
+	private String[] itensVenda;
 	
 	private	Cliente cliente;
 	
@@ -44,6 +46,7 @@ public class VendaDTO {
 		this.id = obj.getId();
 		this.dataHora = obj.getDataHora();
 		this.itens = obj.getItens();
+		this.itensVenda = obj.getItensVenda();
 		this.nomeCliente = obj.getNomeCliente();
 		this.cliente = obj.getCliente();
 		this.valorTotal = obj.getValorTotal();
@@ -113,5 +116,13 @@ public class VendaDTO {
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
 	}
-	
+
+	public String[] getItensVenda() {
+		return itensVenda;
+	}
+
+	public void setItensVenda(String[] itensVenda) {
+		this.itensVenda = itensVenda;
+	}
+
 }

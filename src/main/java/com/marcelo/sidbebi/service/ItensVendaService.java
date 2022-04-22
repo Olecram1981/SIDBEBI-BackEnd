@@ -7,12 +7,15 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
+import com.marcelo.sidbebi.domain.dtos.VendaDTO;
+import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
@@ -26,6 +29,9 @@ public class ItensVendaService {
 	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItensProdutoRepository itensProdutoRepository;
 	
 	@Autowired
 	private VendaRepository vendaRepository;
@@ -42,7 +48,6 @@ public class ItensVendaService {
 			objDTO.setQtdTotal(0);
 			objDTO.setValorTotal(0);
 			for(ItensVenda itens : obj) {
-				objDTO.setQtdTotal(objDTO.getQtdTotal() + itens.getQuantidade());
 				objDTO.setValorTotal(objDTO.getValorTotal() + itens.getSubTotal());
 				objDTO.setTipo(produtoRepository.findByNome(itens.getItem()).get().getTipo());
 			}
@@ -54,10 +59,6 @@ public class ItensVendaService {
 				objDTO.setQtdTotal(0);
 				objDTO.setValorTotal(0);
 				for(Venda venda : vendas) {
-					List<ItensVenda> itens = venda.getItens();
-					for(ItensVenda item : itens){
-						objDTO.setQtdTotal(objDTO.getQtdTotal() + item.getQuantidade());
-					}
 					objDTO.setValorTotal(objDTO.getValorTotal() + venda.getValorTotal());
 				}
 			
@@ -74,7 +75,6 @@ public class ItensVendaService {
 						List<ItensVenda> itens = venda.getItens();
 						for(ItensVenda item : itens) {
 							if(objDTO.getItem().equals(item.getItem())) {
-								objDTO.setQtdTotal(objDTO.getQtdTotal() + item.getQuantidade());
 								objDTO.setValorTotal(objDTO.getValorTotal() + item.getSubTotal());
 								objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
 							}
@@ -88,20 +88,21 @@ public class ItensVendaService {
 		return relatorio;
 	}
 	
-	public ItensVenda create(ItensVendaDTO objItensDTO) {
-		objItensDTO.setId(null);
-		Optional<Produto> produto = produtoRepository.findByNome(objItensDTO.getItem());
-		objItensDTO.setValorUnit(produto.get().getValorUnit());
-		objItensDTO.setSubTotal(objItensDTO.getQuantidade() * objItensDTO.getValorUnit());
-		Optional<Venda> venda = vendaRepository.findById(objItensDTO.getVenda().getId());		
-		venda.get().setValorTotal(venda.get().getValorTotal() + objItensDTO.getSubTotal());
-		vendaRepository.save(venda.get());	
-		objItensDTO.setVenda(venda.get());	
-		produto.get().setQtd(produto.get().getQtd() - objItensDTO.getQuantidade());
-		produtoRepository.save(produto.get());
-		ItensVenda newObjItens = new ItensVenda();
-		BeanUtils.copyProperties(objItensDTO, newObjItens);
-		return repository.save(newObjItens);
+	public void create(VendaDTO vendaDTO) {
+		vendaDTO.setId(null);
+		ItensVenda itensVenda = new ItensVenda();
+		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){			
+			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(vendaDTO.getItensVenda()[x]);
+			itensVenda.setCodBarra(itensProduto.get().getCodBarra());
+			itensVenda.setItem(itensProduto.get().getNomeProduto());
+			itensVenda.setSubTotal(itensVenda.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
+			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
+			itensVenda.setId(vendaDTO.getId());
+			ItensVendaDTO objDTO = new ItensVendaDTO();
+			itensProdutoRepository.deleteById(itensProduto.get().getId());
+			BeanUtils.copyProperties(objDTO, itensVenda);
+			repository.save(itensVenda);
+		}		
 	}	
 	
 	public List<ItensVenda> findAll() {

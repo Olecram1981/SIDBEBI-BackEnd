@@ -21,6 +21,9 @@ public class VendaService {
 	private VendaRepository repository;
 	
 	@Autowired
+	private ItensVendaService itensVendaService;
+	
+	@Autowired
 	private ClienteRepository clienteRepository;
 	
 	public Venda findById(Integer id) {
@@ -37,6 +40,7 @@ public class VendaService {
 		Venda newObj = new Venda();
 		Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
 		objDTO.setCliente(cliente.get());
+		itensVendaService.create(objDTO);
 		BeanUtils.copyProperties(objDTO, newObj);
 		return repository.save(newObj);
 	}	
