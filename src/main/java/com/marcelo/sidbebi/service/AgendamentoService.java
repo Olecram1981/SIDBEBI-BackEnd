@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Agendamento;
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
@@ -16,6 +17,7 @@ import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.domain.enums.Status;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
+import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -23,6 +25,9 @@ public class AgendamentoService {
 	
 	@Autowired
 	private AgendamentoRepository repository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
 	private VendaService vendaService;
@@ -46,10 +51,13 @@ public class AgendamentoService {
 		return repository.save(newObj);
 	}	
 
-	public Agendamento update(Integer id, AgendamentoDTO objDTO) {
-		
+	public Agendamento update(Integer id, AgendamentoDTO objDTO) {		
 		if(objDTO.getStatus() == Status.ENTREGUE) {
-			Venda venda = new Venda(null, null, null, objDTO.getCliente(), 0.0, objDTO.getPagamento());
+			Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
+			Venda venda = new Venda();
+			venda.setCliente(cliente.get());
+			venda.setPagamento(objDTO.getPagamento());
+			venda.setNomeCliente(objDTO.getNomeCliente());
 			VendaDTO vendaDTO = new VendaDTO();
 			BeanUtils.copyProperties(venda, vendaDTO);
 			venda =	vendaService.create(vendaDTO);

@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.marcelo.sidbebi.domain.Agendamento;
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.domain.enums.Status;
@@ -29,7 +30,9 @@ public class AgendamentoDTO implements Serializable{
 	private Status status;
 	
 	@NotNull(message = "O campo CLIENTE é requerido")
-	private String cliente;
+	private String nomeCliente;
+	
+	private Cliente cliente;
 	
 	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private List<ItensAgendamento> itens;
@@ -97,11 +100,11 @@ public class AgendamentoDTO implements Serializable{
 		this.status = status;
 	}
 
-	public String getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
@@ -128,7 +131,14 @@ public class AgendamentoDTO implements Serializable{
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
 
 	@Override
 	public int hashCode() {

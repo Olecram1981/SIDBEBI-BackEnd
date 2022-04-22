@@ -7,7 +7,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
@@ -22,8 +22,10 @@ public class VendaDTO {
 	@NotNull(message = "O campo ITENS é requerido")
 	private List<ItensVenda> itens;
 	
+	private	Cliente cliente;
+	
 	@NotNull(message = "O campo CLIENTE é requerido")
-	private	String cliente;
+	private String nomeCliente;
 	
 	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
 	private double valorUnit;
@@ -42,6 +44,7 @@ public class VendaDTO {
 		this.id = obj.getId();
 		this.dataHora = obj.getDataHora();
 		this.itens = obj.getItens();
+		this.nomeCliente = obj.getNomeCliente();
 		this.cliente = obj.getCliente();
 		this.valorTotal = obj.getValorTotal();
 		this.pagamento = obj.getPagamento();
@@ -71,11 +74,11 @@ public class VendaDTO {
 		this.itens = itens;
 	}
 
-	public String getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
@@ -101,6 +104,14 @@ public class VendaDTO {
 
 	public void setValorUnit(double valorUnit) {
 		this.valorUnit = valorUnit;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
 	
 }

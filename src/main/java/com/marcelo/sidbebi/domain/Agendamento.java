@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -31,7 +33,12 @@ public class Agendamento {
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	private Status status;
-	private String cliente;
+	private String nomeCliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
 	private String telefone;
 	private Pagamento pagamento;
 	
@@ -39,7 +46,7 @@ public class Agendamento {
 		super();
 	}
 
-	public Agendamento(Integer id, double valorTotal, String end, Status status, String cliente,
+	public Agendamento(Integer id, double valorTotal, String end, Status status, String nomeCliente, Cliente cliente,
 			List<ItensAgendamento> itens, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
 		super();
 		
@@ -47,6 +54,8 @@ public class Agendamento {
 		this.valorTotal = valorTotal;
 		this.end = end;
 		this.status = status;
+		this.cliente = cliente;
+		this.nomeCliente = nomeCliente;
 		this.cliente = cliente;
 		this.itens = itens;
 		this.telefone = telefone;
@@ -86,14 +95,6 @@ public class Agendamento {
 		this.status = status;
 	}
 
-	public String getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(String cliente) {
-		this.cliente = cliente;
-	}
-	
 	public List<ItensAgendamento> getItens() {
 		return itens;
 	}
@@ -124,6 +125,22 @@ public class Agendamento {
 
 	public void setDataHora(LocalDateTime dataHora) {
 		this.dataHora = dataHora;
+	}
+	
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

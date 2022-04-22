@@ -52,12 +52,12 @@ public class ClienteService {
 	private void validaPorCpfEmail(ClienteDTO objDTO) {
 		Optional<Cliente> obj = repository.findByCpfCnpj(objDTO.getCpfCnpj());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("CPF/CNPJ já cadastrado no sitema.");
+			throw new DataIntegrityViolationException("CPF/CNPJ já cadastrado no sistema.");
 		}
 		
 		obj = repository.findByEmail(objDTO.getEmail());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
-			throw new DataIntegrityViolationException("E-mail já cadastrado no sitema.");
+			throw new DataIntegrityViolationException("E-mail já cadastrado no sistema.");
 		}
 	}
 

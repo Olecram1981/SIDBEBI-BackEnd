@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -22,11 +24,15 @@ public class Venda {
 	@JsonFormat(pattern = "dd/MM/yyyy")
 	private LocalDate dataHora = LocalDate.now();
 	
+	private String nomeCliente;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
+	
 	@JsonIgnore
 	@OneToMany (mappedBy = "venda")	
 	private List<ItensVenda> itens;
-	
-	private	String cliente;
 	
 	private double valorTotal;
 	private Pagamento pagamento;
@@ -35,13 +41,14 @@ public class Venda {
 		super();
 	}
 
-	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, String cliente, 
+	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, Cliente cliente, String nomeCliente, 
 			double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
 		this.itens = itens;
 		this.cliente = cliente;
+		this.nomeCliente = nomeCliente;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
 	}
@@ -70,11 +77,11 @@ public class Venda {
 		this.itens = itens;
 	}
 
-	public String getCliente() {
+	public Cliente getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(String cliente) {
+	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
 
@@ -94,6 +101,14 @@ public class Venda {
 		this.pagamento = pagamento;
 	}
 	
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
