@@ -10,11 +10,13 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Fornecedor;
+import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
+import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 
 @Service
@@ -22,10 +24,15 @@ public class DBService {
 
 	@Autowired
 	private ClienteRepository clienteRepository;
+	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
+	
 	@Autowired
 	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private ItensProdutoRepository itensProdutoRepository;
 	
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
@@ -44,6 +51,11 @@ public class DBService {
 		Produto prod2 = new Produto(null, Tipo.NAOALCOOLICA, "Coca Cola", "1 L", 150, 4.50, 450.00, NivelEstoque.ALTO, null);
 		Produto prod3 = new Produto(null, Tipo.COMIDA, "Salgado", "Médio", 40, 3.50, 100.00, NivelEstoque.BAIXO, null);
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
+		
+		ItensProduto itensProd1 = new ItensProduto(null, "Cerveja", "Ambev", prod1, f1, "123456789");
+		ItensProduto itensProd2 = new ItensProduto(null, "Coca Cola", "Coca Cola", prod2, f2, "987654321");
+		ItensProduto itensProd3 = new ItensProduto(null, "Salgado", "ElmaChips", prod3, f3, "234567891");
+		itensProdutoRepository.saveAll(Arrays.asList(itensProd1, itensProd2, itensProd3));
 			
 	}
 	

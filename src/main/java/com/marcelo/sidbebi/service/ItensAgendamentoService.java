@@ -9,10 +9,15 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.ItensAgendamento;
+import com.marcelo.sidbebi.domain.ItensProduto;
+import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
+import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
+import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
 import com.marcelo.sidbebi.repositories.ItensAgendamentoRepository;
+import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
@@ -28,23 +33,28 @@ public class ItensAgendamentoService {
 	@Autowired
 	private AgendamentoRepository agendamentoRepository;
 	
+	@Autowired
+	private ItensProdutoRepository itensProdutoRepository;
+	
 	public ItensAgendamento findById(Integer id) {
 		Optional<ItensAgendamento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
 	
-	public ItensAgendamento create(ItensAgendamentoDTO objDTO) {
-		objDTO.setId(null);
-		Optional<Produto> produto = produtoRepository.findByNome(objDTO.getItem());
-		objDTO.setValorUnit(produto.get().getValorUnit());
-		objDTO.setSubTotal(objDTO.getSubTotal() + (objDTO.getQuantidade() * objDTO.getValorUnit()));
-		Optional<Agendamento> agendamento = agendamentoRepository.findById(objDTO.getAgendamento().getId());		
-		agendamento.get().setValorTotal(agendamento.get().getValorTotal() + objDTO.getSubTotal());
-		agendamentoRepository.save(agendamento.get());	
-		objDTO.setAgendamento(agendamento.get());
-		ItensAgendamento newObjItens = new ItensAgendamento();
-		BeanUtils.copyProperties(objDTO, newObjItens);
-		return repository.save(newObjItens);
+	public void create(AgendamentoDTO agendamentoDTO) {
+		ItensAgendamento itensAgendamento = new ItensAgendamento();
+		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){			
+			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(agendamentoDTO.getItensAgendamento()[x]);
+			itensAgendamento.setCodBarra(itensProduto.get().getCodBarra());
+			itensAgendamento.setItem(itensProduto.get().getNomeProduto());
+			itensAgendamento.setSubTotal(itensAgendamento.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
+			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());
+			itensAgendamento.getAgendamento().setId(agendamentoDTO.getId());
+			ItensAgendamentoDTO objDTO = new ItensAgendamentoDTO();
+			itensProdutoRepository.deleteById(itensProduto.get().getId());
+			BeanUtils.copyProperties(objDTO, itensAgendamento);
+			repository.save(itensAgendamento);
+		}		
 	}	
 	
 	public List<ItensAgendamento> findAll() {

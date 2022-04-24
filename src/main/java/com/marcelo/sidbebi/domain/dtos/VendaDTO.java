@@ -29,8 +29,7 @@ public class VendaDTO {
 	@NotNull(message = "O campo CLIENTE é requerido")
 	private String nomeCliente;
 	
-	@NotNull(message = "O campo VALOR UNITÁRIO é requerido")
-	private double valorUnit;
+	private Integer qtdItens;
 	
 	private double valorTotal;
 	
@@ -49,6 +48,7 @@ public class VendaDTO {
 		this.itensVenda = obj.getItensVenda();
 		this.nomeCliente = obj.getNomeCliente();
 		this.cliente = obj.getCliente();
+		this.qtdItens = obj.getQtdItens();
 		this.valorTotal = obj.getValorTotal();
 		this.pagamento = obj.getPagamento();
 	}
@@ -101,14 +101,6 @@ public class VendaDTO {
 		this.pagamento = pagamento;
 	}
 
-	public double getValorUnit() {
-		return valorUnit;
-	}
-
-	public void setValorUnit(double valorUnit) {
-		this.valorUnit = valorUnit;
-	}
-
 	public String getNomeCliente() {
 		return nomeCliente;
 	}
@@ -123,6 +115,14 @@ public class VendaDTO {
 
 	public void setItensVenda(String[] itensVenda) {
 		this.itensVenda = itensVenda;
+	}
+
+	public Integer getQtdItens() {
+		return qtdItens;
+	}
+
+	public void setQtdItens(Integer qtdItens) {
+		this.qtdItens = qtdItens;
 	}
 
 }

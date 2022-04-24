@@ -1,6 +1,5 @@
 package com.marcelo.sidbebi.domain.dtos;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,9 +13,7 @@ import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.domain.enums.Status;
 
-public class AgendamentoDTO implements Serializable{
-
-	private static final long serialVersionUID = 1L;
+public class AgendamentoDTO {
 
 	private Integer id;
 	
@@ -34,8 +31,10 @@ public class AgendamentoDTO implements Serializable{
 	
 	private Cliente cliente;
 	
-	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private List<ItensAgendamento> itens;
+	
+	@NotNull(message = "O campo ITENS DO AGENDAMENTO é requerido")
+	private String[] itensAgendamento;
 	
 	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private String telefone;
@@ -56,6 +55,7 @@ public class AgendamentoDTO implements Serializable{
 		this.status = obj.getStatus();
 		this.cliente = obj.getCliente();
 		this.itens = obj.getItens();
+		this.itensAgendamento = obj.getItensAgendamento();
 		this.telefone = obj.getTelefone();
 		this.pagamento = obj.getPagamento();
 	}
@@ -138,6 +138,15 @@ public class AgendamentoDTO implements Serializable{
 
 	public void setNomeCliente(String nomeCliente) {
 		this.nomeCliente = nomeCliente;
+	}
+	
+
+	public String[] getItensAgendamento() {
+		return itensAgendamento;
+	}
+
+	public void setItensAgendamento(String[] itensAgendamento) {
+		this.itensAgendamento = itensAgendamento;
 	}
 
 	@Override

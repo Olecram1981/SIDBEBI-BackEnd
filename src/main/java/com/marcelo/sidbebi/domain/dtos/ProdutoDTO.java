@@ -1,9 +1,11 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
@@ -31,6 +33,8 @@ public class ProdutoDTO implements Serializable {
 	
 	private double valorTotal;
 	
+	private List<ItensProduto> itens;
+	
 	private NivelEstoque nivel;
 	
 	public ProdutoDTO() {
@@ -46,6 +50,7 @@ public class ProdutoDTO implements Serializable {
 		this.qtd = obj.getQtd();
 		this.valorUnit = obj.getValorUnit();
 		this.valorTotal = obj.getValorTotal();
+		this.itens = obj.getItens();
 		this.nivel = obj.getNivel();
 	}
 
@@ -111,6 +116,14 @@ public class ProdutoDTO implements Serializable {
 
 	public void setNivel(NivelEstoque nivel) {
 		this.nivel = nivel;
+	}
+
+	public List<ItensProduto> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensProduto> itens) {
+		this.itens = itens;
 	}	
 	
 }

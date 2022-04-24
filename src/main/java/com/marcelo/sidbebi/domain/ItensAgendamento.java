@@ -18,6 +18,7 @@ public class ItensAgendamento {
 	@JoinColumn(name = "agendamento_id")
 	private Agendamento agendamento;
 	
+	private String codBarra;
 	private String item;
 	private Integer quantidade;
 	private double valorUnit;
@@ -27,9 +28,10 @@ public class ItensAgendamento {
 		super();
 	}
 
-	public ItensAgendamento(Integer id, String item, Integer quantidade, double valorUnit, double subTotal, Agendamento agendamento) {
+	public ItensAgendamento(Integer id, String codBarra, String item, Integer quantidade, double valorUnit, double subTotal, Agendamento agendamento) {
 		super();
 		this.id = id;
+		this.codBarra = codBarra;
 		this.item = item;
 		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
@@ -83,6 +85,14 @@ public class ItensAgendamento {
 
 	public void setAgendamento(Agendamento agendamento) {
 		this.agendamento = agendamento;
+	}
+	
+	public String getCodBarra() {
+		return codBarra;
+	}
+
+	public void setCodBarra(String codBarra) {
+		this.codBarra = codBarra;
 	}
 
 	@Override

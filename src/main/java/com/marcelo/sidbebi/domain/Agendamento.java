@@ -26,6 +26,8 @@ public class Agendamento {
 	@OneToMany (mappedBy = "agendamento")	
 	private List<ItensAgendamento> itens;
 	
+	private String[] itensAgendamento;
+	
 	private double valorTotal;
 	private String end;
 	
@@ -47,7 +49,7 @@ public class Agendamento {
 	}
 
 	public Agendamento(Integer id, double valorTotal, String end, Status status, String nomeCliente, Cliente cliente,
-			List<ItensAgendamento> itens, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
+			List<ItensAgendamento> itens, String[] itensAgendamento, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
 		super();
 		
 		this.id = id;
@@ -58,6 +60,7 @@ public class Agendamento {
 		this.nomeCliente = nomeCliente;
 		this.cliente = cliente;
 		this.itens = itens;
+		this.itensAgendamento = itensAgendamento;
 		this.telefone = telefone;
 		this.pagamento = pagamento;
 		this.dataHora = dataHora;
@@ -141,6 +144,14 @@ public class Agendamento {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+
+	public String[] getItensAgendamento() {
+		return itensAgendamento;
+	}
+
+	public void setItensAgendamento(String[] itensAgendamento) {
+		this.itensAgendamento = itensAgendamento;
 	}
 
 	@Override

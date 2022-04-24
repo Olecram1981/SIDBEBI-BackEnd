@@ -35,6 +35,9 @@ public class AgendamentoService {
 	@Autowired
 	private ItensVendaService itensVendaService;
 	
+	@Autowired
+	private ItensAgendamentoService itensAgendamentoService;
+	
 	public Agendamento findById(Integer id) {
 		Optional<Agendamento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
@@ -47,8 +50,13 @@ public class AgendamentoService {
 	public Agendamento create(AgendamentoDTO objDTO) {
 		objDTO.setId(null);
 		Agendamento newObj = new Agendamento();
+		Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
+		objDTO.setCliente(cliente.get());
 		BeanUtils.copyProperties(objDTO, newObj);
-		return repository.save(newObj);
+		Agendamento agendamento = repository.save(newObj);
+		BeanUtils.copyProperties(agendamento, objDTO);
+		itensAgendamentoService.create(objDTO);
+		return agendamento;
 	}	
 
 	public Agendamento update(Integer id, AgendamentoDTO objDTO) {		
@@ -57,35 +65,17 @@ public class AgendamentoService {
 			Venda venda = new Venda();
 			venda.setCliente(cliente.get());
 			venda.setPagamento(objDTO.getPagamento());
-			venda.setNomeCliente(objDTO.getNomeCliente());
+			venda.setItensVenda(objDTO.getItensAgendamento());
 			VendaDTO vendaDTO = new VendaDTO();
 			BeanUtils.copyProperties(venda, vendaDTO);
 			venda =	vendaService.create(vendaDTO);
-			Agendamento agendamento = findById(id);
-			List<ItensAgendamento> itensAgendamento = agendamento.getItens();
-			agendamento.setValorTotal(0);
-			ItensVenda itensVenda = new ItensVenda();			
-			for(ItensAgendamento item : itensAgendamento) {
-				itensVenda.setId(item.getId());
-				itensVenda.setItem(item.getItem());
-				itensVenda.setSubTotal(item.getSubTotal());
-				itensVenda.setValorUnit(item.getValorUnit());
-				itensVenda.setVenda(venda);
-				ItensVendaDTO itensVendaDTO = new ItensVendaDTO();
-				BeanUtils.copyProperties(itensVenda, itensVendaDTO);
-				itensVendaService.create(itensVendaDTO);
-				agendamento.setValorTotal(agendamento.getValorTotal() + item.getSubTotal());
-				agendamento.setStatus(Status.ENTREGUE);
-			} 
-			return repository.save(agendamento);
+			itensVendaService.create(vendaDTO);
 		}
-		else {
-			objDTO.setId(id);
-			Agendamento oldObj = findById(id);
-			oldObj = new Agendamento();
-			BeanUtils.copyProperties(objDTO, oldObj);
-			return repository.save(oldObj);
-		}
+		objDTO.setId(id);
+		Agendamento oldObj = findById(id);
+		oldObj = new Agendamento();
+		BeanUtils.copyProperties(objDTO, oldObj);
+		return repository.save(oldObj);
 	}
 
 	public void delete(Integer id) {

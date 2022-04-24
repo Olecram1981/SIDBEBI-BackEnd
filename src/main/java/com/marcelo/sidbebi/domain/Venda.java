@@ -38,6 +38,7 @@ public class Venda implements Serializable{
 	private List<ItensVenda> itens;
 	
 	private String[] itensVenda;	
+	private Integer qtdItens;
 	private double valorTotal;
 	private Pagamento pagamento;
 	
@@ -46,7 +47,7 @@ public class Venda implements Serializable{
 	}
 
 	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, String[] itensVenda, Cliente cliente, String nomeCliente, 
-			double valorTotal, Pagamento pagamento) {
+			Integer qtdItens, double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
 		this.dataHora = dataHora;
@@ -54,6 +55,7 @@ public class Venda implements Serializable{
 		this.itensVenda = itensVenda;
 		this.cliente = cliente;
 		this.nomeCliente = nomeCliente;
+		this.qtdItens = qtdItens;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
 	}
@@ -120,6 +122,14 @@ public class Venda implements Serializable{
 
 	public void setItensVenda(String[] itensVenda) {
 		this.itensVenda = itensVenda;
+	}
+
+	public Integer getQtdItens() {
+		return qtdItens;
+	}
+
+	public void setQtdItens(Integer qtdItens) {
+		this.qtdItens = qtdItens;
 	}
 
 	@Override

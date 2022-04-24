@@ -3,6 +3,7 @@ package com.marcelo.sidbebi.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -88,21 +89,27 @@ public class ItensVendaService {
 		return relatorio;
 	}
 	
-	public void create(VendaDTO vendaDTO) {
-		vendaDTO.setId(null);
-		ItensVenda itensVenda = new ItensVenda();
-		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){			
+	public List<ItensVenda> create(VendaDTO vendaDTO) {
+		vendaDTO.setQtdItens(0);
+		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){
+			ItensVenda itensVenda = new ItensVenda();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(vendaDTO.getItensVenda()[x]);
 			itensVenda.setCodBarra(itensProduto.get().getCodBarra());
 			itensVenda.setItem(itensProduto.get().getNomeProduto());
 			itensVenda.setSubTotal(itensVenda.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			itensVenda.setId(vendaDTO.getId());
-			ItensVendaDTO objDTO = new ItensVendaDTO();
+			Venda venda = new Venda();		
+			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
+			vendaDTO.setValorTotal(vendaDTO.getValorTotal() + produto.get().getValorUnit());
+			vendaDTO.setQtdItens(vendaDTO.getQtdItens() + 1);
+			vendaDTO.setItens(vendaDTO.getItens());
+			BeanUtils.copyProperties(vendaDTO, venda);
+			itensVenda.setVenda(venda);
 			itensProdutoRepository.deleteById(itensProduto.get().getId());
-			BeanUtils.copyProperties(objDTO, itensVenda);
 			repository.save(itensVenda);
+			vendaRepository.save(venda);
 		}		
+		return vendaDTO.getItens();
 	}	
 	
 	public List<ItensVenda> findAll() {

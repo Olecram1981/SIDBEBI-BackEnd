@@ -43,13 +43,6 @@ public class ItensAgendamentoResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	@PostMapping
-	public ResponseEntity<ItensAgendamentoDTO> create(@Valid @RequestBody ItensAgendamentoDTO objDTO){
-		ItensAgendamento newObj = service.create(objDTO);		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObj.getId()).toUri();
-		return ResponseEntity.created(uri).build();
-	}
-	
 	@PutMapping(value = "/{id}")
 	public ResponseEntity<ItensAgendamentoDTO> update(@PathVariable Integer id, @Valid @RequestBody ItensAgendamentoDTO objDTO) {
 		ItensAgendamento obj = service.update(id, objDTO);

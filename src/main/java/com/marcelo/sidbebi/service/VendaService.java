@@ -40,9 +40,11 @@ public class VendaService {
 		Venda newObj = new Venda();
 		Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
 		objDTO.setCliente(cliente.get());
-		itensVendaService.create(objDTO);
 		BeanUtils.copyProperties(objDTO, newObj);
-		return repository.save(newObj);
+		Venda venda = repository.save(newObj);
+		BeanUtils.copyProperties(venda, objDTO);
+		venda.setItens(itensVendaService.create(objDTO));		;
+		return venda;
 	}	
 
 	public Venda update(Integer id, VendaDTO objDTO) {
