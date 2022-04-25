@@ -98,11 +98,11 @@ public class ItensVendaService {
 			itensVenda.setItem(itensProduto.get().getNomeProduto());
 			itensVenda.setSubTotal(itensVenda.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			Venda venda = new Venda();		
 			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
 			vendaDTO.setValorTotal(vendaDTO.getValorTotal() + produto.get().getValorUnit());
 			vendaDTO.setQtdItens(vendaDTO.getQtdItens() + 1);
 			vendaDTO.setItens(vendaDTO.getItens());
+			Venda venda = new Venda();		
 			BeanUtils.copyProperties(vendaDTO, venda);
 			itensVenda.setVenda(venda);
 			itensProdutoRepository.deleteById(itensProduto.get().getId());

@@ -12,6 +12,7 @@ import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
+import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
@@ -42,18 +43,23 @@ public class ItensAgendamentoService {
 	}
 	
 	public void create(AgendamentoDTO agendamentoDTO) {
-		ItensAgendamento itensAgendamento = new ItensAgendamento();
-		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){			
+		agendamentoDTO.setQtdItens(0);
+		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){	
+			ItensAgendamento itensAgendamento = new ItensAgendamento();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(agendamentoDTO.getItensAgendamento()[x]);
 			itensAgendamento.setCodBarra(itensProduto.get().getCodBarra());
 			itensAgendamento.setItem(itensProduto.get().getNomeProduto());
 			itensAgendamento.setSubTotal(itensAgendamento.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			itensAgendamento.getAgendamento().setId(agendamentoDTO.getId());
-			ItensAgendamentoDTO objDTO = new ItensAgendamentoDTO();
-			itensProdutoRepository.deleteById(itensProduto.get().getId());
-			BeanUtils.copyProperties(objDTO, itensAgendamento);
+			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
+			agendamentoDTO.setValorTotal(agendamentoDTO.getValorTotal() + produto.get().getValorUnit());
+			agendamentoDTO.setQtdItens(agendamentoDTO.getQtdItens() + 1);
+			agendamentoDTO.setItens(agendamentoDTO.getItens());
+			Agendamento agendamento = new Agendamento();		
+			BeanUtils.copyProperties(agendamentoDTO, agendamento);
+			itensAgendamento.setAgendamento(agendamento);
 			repository.save(itensAgendamento);
+			agendamentoRepository.save(agendamento);
 		}		
 	}	
 	

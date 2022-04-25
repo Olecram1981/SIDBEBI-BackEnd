@@ -11,9 +11,6 @@ public class ItensAgendamentoDTO {
 	@NotNull(message = "O campo ITEM DO PRODUTO é requerido")
 	private String item;
 	
-	@NotNull(message = "O campo QUANTIDADE é requerido")
-	private Integer quantidade;
-	
 	private double valorUnit;
 	private Agendamento agendamento;
 	private double subTotal;
@@ -26,7 +23,6 @@ public class ItensAgendamentoDTO {
 		super();
 		this.id = obj.getId();
 		this.item = obj.getItem();
-		this.quantidade = obj.getQuantidade();
 		this.valorUnit = obj.getValorUnit();
 		this.agendamento = obj.getAgendamento();
 		this.subTotal = obj.getSubTotal();
@@ -38,14 +34,6 @@ public class ItensAgendamentoDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
 	}
 
 	public String getItem() {

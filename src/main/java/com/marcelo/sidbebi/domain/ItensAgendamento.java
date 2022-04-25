@@ -20,7 +20,6 @@ public class ItensAgendamento {
 	
 	private String codBarra;
 	private String item;
-	private Integer quantidade;
 	private double valorUnit;
 	private double subTotal;
 		
@@ -33,7 +32,6 @@ public class ItensAgendamento {
 		this.id = id;
 		this.codBarra = codBarra;
 		this.item = item;
-		this.quantidade = quantidade;
 		this.valorUnit = valorUnit;
 		this.subTotal = subTotal;
 		this.agendamento = agendamento;
@@ -55,14 +53,6 @@ public class ItensAgendamento {
 		this.item = item;
 	}
 
-	public Integer getQuantidade() {
-		return quantidade;
-	}
-
-	public void setQuantidade(Integer quantidade) {
-		this.quantidade = quantidade;
-	}
-	
 	public double getValorUnit() {
 		return valorUnit;
 	}

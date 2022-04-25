@@ -69,7 +69,6 @@ public class AgendamentoService {
 			VendaDTO vendaDTO = new VendaDTO();
 			BeanUtils.copyProperties(venda, vendaDTO);
 			venda =	vendaService.create(vendaDTO);
-			itensVendaService.create(vendaDTO);
 		}
 		objDTO.setId(id);
 		Agendamento oldObj = findById(id);

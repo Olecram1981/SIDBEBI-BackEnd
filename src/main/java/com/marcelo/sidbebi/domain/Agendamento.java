@@ -27,7 +27,7 @@ public class Agendamento {
 	private List<ItensAgendamento> itens;
 	
 	private String[] itensAgendamento;
-	
+	private Integer qtdItens;	
 	private double valorTotal;
 	private String end;
 	
@@ -49,7 +49,7 @@ public class Agendamento {
 	}
 
 	public Agendamento(Integer id, double valorTotal, String end, Status status, String nomeCliente, Cliente cliente,
-			List<ItensAgendamento> itens, String[] itensAgendamento, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
+			List<ItensAgendamento> itens, String[] itensAgendamento, Integer qtdItens, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
 		super();
 		
 		this.id = id;
@@ -61,6 +61,7 @@ public class Agendamento {
 		this.cliente = cliente;
 		this.itens = itens;
 		this.itensAgendamento = itensAgendamento;
+		this.qtdItens = qtdItens;
 		this.telefone = telefone;
 		this.pagamento = pagamento;
 		this.dataHora = dataHora;
@@ -152,6 +153,14 @@ public class Agendamento {
 
 	public void setItensAgendamento(String[] itensAgendamento) {
 		this.itensAgendamento = itensAgendamento;
+	}
+
+	public Integer getQtdItens() {
+		return qtdItens;
+	}
+
+	public void setQtdItens(Integer qtdItens) {
+		this.qtdItens = qtdItens;
 	}
 
 	@Override

@@ -36,6 +36,8 @@ public class AgendamentoDTO {
 	@NotNull(message = "O campo ITENS DO AGENDAMENTO é requerido")
 	private String[] itensAgendamento;
 	
+	private Integer qtdItens;
+	
 	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private String telefone;
 	
@@ -53,7 +55,9 @@ public class AgendamentoDTO {
 		this.valorTotal = obj.getValorTotal();
 		this.end = obj.getEnd();
 		this.status = obj.getStatus();
+		this.qtdItens = obj.getQtdItens();
 		this.cliente = obj.getCliente();
+		this.nomeCliente = obj.getNomeCliente();
 		this.itens = obj.getItens();
 		this.itensAgendamento = obj.getItensAgendamento();
 		this.telefone = obj.getTelefone();
@@ -149,6 +153,14 @@ public class AgendamentoDTO {
 		this.itensAgendamento = itensAgendamento;
 	}
 
+	public Integer getQtdItens() {
+		return qtdItens;
+	}
+
+	public void setQtdItens(Integer qtdItens) {
+		this.qtdItens = qtdItens;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
