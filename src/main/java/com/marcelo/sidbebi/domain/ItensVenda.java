@@ -23,6 +23,7 @@ public class ItensVenda implements Serializable{
 	private Venda venda;
 	
 	private String codBarra;
+	private String fornecedor;
 	private String item;
 	private double valorUnit;
 	private double subTotal;
@@ -31,10 +32,11 @@ public class ItensVenda implements Serializable{
 		super();
 	}
 
-	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda, String codBarra, double subTotal) {
+	public ItensVenda(Integer id, String item, Integer quantidade, double valorUnit, Venda venda, String codBarra, String fornecedor, double subTotal) {
 		super();
 		this.id = id;
 		this.item = item;
+		this.fornecedor = fornecedor;
 		this.valorUnit = valorUnit;
 		this.venda = venda;
 		this.codBarra = codBarra;
@@ -87,6 +89,14 @@ public class ItensVenda implements Serializable{
 
 	public void setCodBarra(String codBarra) {
 		this.codBarra = codBarra;
+	}
+
+	public String getFornecedor() {
+		return fornecedor;
+	}
+
+	public void setFornecedor(String fornecedor) {
+		this.fornecedor = fornecedor;
 	}
 
 	@Override

@@ -8,9 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Cliente;
+import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
+import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
+import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
@@ -24,7 +27,13 @@ public class VendaService {
 	private ItensVendaService itensVendaService;
 	
 	@Autowired
+	private ItensVendaRepository itensVendaRepository;
+	
+	@Autowired
 	private ClienteRepository clienteRepository;
+	
+	@Autowired
+	private ItensProdutoService itensProdutoService;
 	
 	public Venda findById(Integer id) {
 		Optional<Venda> obj = repository.findById(id);
@@ -43,7 +52,7 @@ public class VendaService {
 		BeanUtils.copyProperties(objDTO, newObj);
 		Venda venda = repository.save(newObj);
 		BeanUtils.copyProperties(venda, objDTO);
-		venda.setItens(itensVendaService.create(objDTO));		;
+		venda.setItens(itensVendaService.create(objDTO));
 		return venda;
 	}	
 
@@ -57,6 +66,15 @@ public class VendaService {
 
 	public void delete(Integer id) {
 		Venda obj = findById(id);
+		List<ItensVenda> itensVenda = itensVendaRepository.findByVenda(obj);
+		for(ItensVenda itens : itensVenda) {
+			ItensProdutoDTO itensProdutoDTO = new ItensProdutoDTO();
+			itensProdutoDTO.setCodBarra(itens.getCodBarra());
+			itensProdutoDTO.setNomeProduto(itens.getItem());
+			itensProdutoDTO.setNomeFornecedor(itens.getFornecedor());
+			itensProdutoService.create(itensProdutoDTO);
+			itensVendaRepository.delete(itens);
+		}		
 		repository.deleteById(id);
 	}
 	

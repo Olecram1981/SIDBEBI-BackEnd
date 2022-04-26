@@ -12,6 +12,8 @@ public class ItensVendaDTO {
 	@NotNull(message = "O campo ITEM DO PRODUTO é requerido")
 	private String item;
 	
+	private String fornecedor;
+	
 	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
 	private String codBarra;
 	
@@ -27,6 +29,7 @@ public class ItensVendaDTO {
 		super();
 		this.id = obj.getId();
 		this.item = obj.getItem();
+		this.fornecedor = obj.getFornecedor();
 		this.codBarra = obj.getCodBarra();
 		this.valorUnit = obj.getValorUnit();
 		this.venda = obj.getVenda();

@@ -96,6 +96,7 @@ public class ItensVendaService {
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(vendaDTO.getItensVenda()[x]);
 			itensVenda.setCodBarra(itensProduto.get().getCodBarra());
 			itensVenda.setItem(itensProduto.get().getNomeProduto());
+			itensVenda.setFornecedor(itensProduto.get().getNomeFornecedor());
 			itensVenda.setSubTotal(itensVenda.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
 			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
@@ -128,5 +129,5 @@ public class ItensVendaService {
 		ItensVenda obj = findById(id);
 		repository.deleteById(id);
 	}
-
+	
 }
