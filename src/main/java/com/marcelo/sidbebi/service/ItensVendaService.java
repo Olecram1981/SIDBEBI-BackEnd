@@ -13,6 +13,7 @@ import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
+import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
@@ -33,6 +34,9 @@ public class ItensVendaService {
 	
 	@Autowired
 	private ItensProdutoRepository itensProdutoRepository;
+	
+	@Autowired
+	private ItensProdutoService itensProdutoService;
 	
 	@Autowired
 	private VendaRepository vendaRepository;
@@ -127,6 +131,11 @@ public class ItensVendaService {
 
 	public void delete(Integer id) {
 		ItensVenda obj = findById(id);
+		ItensProdutoDTO itensProdutoDTO = new  ItensProdutoDTO();
+		itensProdutoDTO.setCodBarra(obj.getCodBarra());
+		itensProdutoDTO.setNomeFornecedor(obj.getFornecedor());
+		itensProdutoDTO.setNomeProduto(obj.getItem());
+		itensProdutoService.create(itensProdutoDTO);
 		repository.deleteById(id);
 	}
 	
