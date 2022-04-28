@@ -1,12 +1,19 @@
 package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Set;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 public class Usuario implements Serializable {
@@ -21,15 +28,20 @@ public class Usuario implements Serializable {
 	protected String email;
 	protected String senha;
 	
+	@ElementCollection(fetch = FetchType.EAGER)	
+	protected Set<GrantedAuthority> authorities;
+	
 	public Usuario() {
 		super();
 	}
 
-	public Usuario(Integer id, String email, String senha) {
+	public Usuario(Integer id, String email, String senha, Set<GrantedAuthority> authorities) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
+		this.authorities = authorities;
+		
 	}
 
 	public Integer getId() {
@@ -54,6 +66,14 @@ public class Usuario implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public Set<GrantedAuthority> getAuthorities() {
+		return authorities;
+	}
+
+	public void setAuthorities(Set<GrantedAuthority> authorities) {
+		this.authorities = authorities;
 	}
 
 	@Override

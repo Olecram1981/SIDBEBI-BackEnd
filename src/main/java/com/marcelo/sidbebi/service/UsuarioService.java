@@ -19,7 +19,7 @@ public class UsuarioService {
 	private BCryptPasswordEncoder encoder;
 	
 	public Usuario update(UsuarioDTO objDTO) {
-		Usuario usuario = new Usuario(1, objDTO.getEmail(), encoder.encode(objDTO.getSenha()));		
+		Usuario usuario = new Usuario(1, objDTO.getEmail(), encoder.encode(objDTO.getSenha()), objDTO.getAuthorities());		
 		BeanUtils.copyProperties(objDTO, usuario);
 		return repository.save(usuario);
 	}
