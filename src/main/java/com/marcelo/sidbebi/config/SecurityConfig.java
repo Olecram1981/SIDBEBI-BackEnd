@@ -18,6 +18,8 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.marcelo.sidbebi.domain.security.JWTAuthenticationFilter;
+import com.marcelo.sidbebi.domain.security.JWTAuthorizationFilter;
+import com.marcelo.sidbebi.domain.security.JWTUtil;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
