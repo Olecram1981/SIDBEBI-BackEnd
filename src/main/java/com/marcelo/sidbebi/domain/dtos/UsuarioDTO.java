@@ -1,14 +1,14 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import com.marcelo.sidbebi.domain.Usuario;
+import com.marcelo.sidbebi.domain.enums.Perfil;
 
 public class UsuarioDTO implements Serializable {
 	
@@ -22,8 +22,11 @@ public class UsuarioDTO implements Serializable {
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
 	
+	protected Set<Integer> perfis = new HashSet<>();
+	
 	public UsuarioDTO() {
 		super();
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public UsuarioDTO(Usuario obj) {
@@ -31,6 +34,8 @@ public class UsuarioDTO implements Serializable {
 		this.id = obj.getId();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
+		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Integer getId() {
@@ -55,6 +60,14 @@ public class UsuarioDTO implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
+	}
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 	
 }
