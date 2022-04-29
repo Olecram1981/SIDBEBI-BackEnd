@@ -2,7 +2,9 @@ package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -14,6 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
+
+import com.marcelo.sidbebi.domain.enums.Perfil;
 
 @Entity
 public class Usuario implements Serializable {
@@ -28,20 +32,21 @@ public class Usuario implements Serializable {
 	protected String email;
 	protected String senha;
 	
-	@ElementCollection(fetch = FetchType.EAGER)	
-	protected Set<GrantedAuthority> authorities;
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
+	protected Set<Integer> perfis = new HashSet<>();
 	
 	public Usuario() {
 		super();
+		addPerfil(Perfil.USUARIO);
 	}
 
-	public Usuario(Integer id, String email, String senha, Set<GrantedAuthority> authorities) {
+	public Usuario(Integer id, String email, String senha) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.authorities = authorities;
-		
+		addPerfil(Perfil.USUARIO);		
 	}
 
 	public Integer getId() {
@@ -68,12 +73,12 @@ public class Usuario implements Serializable {
 		this.senha = senha;
 	}
 
-	public Set<GrantedAuthority> getAuthorities() {
-		return authorities;
+	public void addPerfil(Perfil perfil) {
+		this.perfis.add(perfil.getCodigo());
 	}
-
-	public void setAuthorities(Set<GrantedAuthority> authorities) {
-		this.authorities = authorities;
+	
+	public Set<Perfil> getPerfis() {
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
 	}
 
 	@Override

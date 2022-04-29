@@ -22,8 +22,6 @@ public class UsuarioDTO implements Serializable {
 	@NotNull(message = "O campo SENHA é requerido")
 	protected String senha;
 	
-	protected Set<GrantedAuthority> authorities;
-
 	public UsuarioDTO() {
 		super();
 	}
@@ -33,7 +31,6 @@ public class UsuarioDTO implements Serializable {
 		this.id = obj.getId();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
-		this.authorities = obj.getAuthorities();
 	}
 
 	public Integer getId() {
@@ -58,14 +55,6 @@ public class UsuarioDTO implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-
-	public Set<GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	public void setAuthorities(Set<GrantedAuthority> authorities) {
-		this.authorities = authorities;
 	}
 	
 }
