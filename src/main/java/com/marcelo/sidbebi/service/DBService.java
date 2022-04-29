@@ -1,23 +1,24 @@
 package com.marcelo.sidbebi.service;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
+import com.marcelo.sidbebi.domain.Usuario;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
+import com.marcelo.sidbebi.repositories.UsuarioRepository;
 
 @Service
 public class DBService {
@@ -34,8 +35,17 @@ public class DBService {
 	@Autowired
 	private ItensProdutoRepository itensProdutoRepository;
 	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
+		
+		Usuario login = new Usuario(null, "bebidas@mail.com", encoder.encode("123"), null);
+		usuarioRepository.save(login);
 		
 		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", new Date(1981/9/7), "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
 		Cliente cli2 = new Cliente(null, "Albert Eisntein", "12345678910", null, "9865 5632", "Rua Alemanha", "einstein@mail.com");
