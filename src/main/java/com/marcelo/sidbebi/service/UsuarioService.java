@@ -15,11 +15,8 @@ public class UsuarioService {
 	@Autowired
 	private UsuarioRepository repository;
 	
-	@Autowired
-	private BCryptPasswordEncoder encoder;
-	
 	public Usuario update(UsuarioDTO objDTO) {
-		Usuario usuario = new Usuario(1, objDTO.getEmail(), encoder.encode(objDTO.getSenha()));		
+		Usuario usuario = new Usuario(1, objDTO.getEmail(), objDTO.getSenha());		
 		BeanUtils.copyProperties(objDTO, usuario);
 		return repository.save(usuario);
 	}

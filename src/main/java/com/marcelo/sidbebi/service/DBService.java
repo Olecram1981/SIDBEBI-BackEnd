@@ -38,13 +38,10 @@ public class DBService {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
-	@Autowired
-	private BCryptPasswordEncoder encoder;
-	
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
 		
-		Usuario login = new Usuario(null, "bebidas@mail.com", encoder.encode("123"));
+		Usuario login = new Usuario(null, "bebidas@mail.com", "123");
 		usuarioRepository.save(login);
 		
 		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", new Date(1981/9/7), "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
