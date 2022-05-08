@@ -44,9 +44,9 @@ public class DBService {
 		Usuario login = new Usuario(null, "bebidas@mail.com", "123");
 		usuarioRepository.save(login);
 		
-		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", new Date(1981/9/7), "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
-		Cliente cli2 = new Cliente(null, "Albert Eisntein", "12345678910", null, "9865 5632", "Rua Alemanha", "einstein@mail.com");
-		Cliente cli3 = new Cliente(null, "Carl Sagan", "10987654321", null, "5555 8704", "Rua Cosmos", "sagan@mail.com");
+		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
+		Cliente cli2 = new Cliente(null, "Albert Eisntein", "12345678910", "9865 5632", "Rua Alemanha", "einstein@mail.com");
+		Cliente cli3 = new Cliente(null, "Carl Sagan", "10987654321", "5555 8704", "Rua Cosmos", "sagan@mail.com");
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3));	
 		
 		Fornecedor f1 = new Fornecedor(null, "Ambev", "768675/0001", "Rua das Acácias", "3613 6743", "ambev@mail.com");

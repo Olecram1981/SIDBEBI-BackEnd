@@ -28,9 +28,6 @@ public class Cliente implements Serializable {
 	@Column(unique = true)
 	private String cpfCnpj;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private Date dataNasc;
-	
 	private String telefone;
 	private String endereco;
 	
@@ -41,13 +38,12 @@ public class Cliente implements Serializable {
 		super();
 	}
 
-	public Cliente(Integer id, String nome, String cpfCnpj, Date dataNasc, String telefone, String endereco,
+	public Cliente(Integer id, String nome, String cpfCnpj, String telefone, String endereco,
 			String email) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.cpfCnpj = cpfCnpj;
-		this.dataNasc = dataNasc;
 		this.telefone = telefone;
 		this.endereco = endereco;
 		this.email = email;
@@ -75,14 +71,6 @@ public class Cliente implements Serializable {
 
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 
 	public String getTelefone() {

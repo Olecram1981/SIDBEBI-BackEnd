@@ -20,9 +20,6 @@ public class ClienteDTO implements Serializable {
 	@NotNull(message = "O campo CPF/CNPJ é requerido")
 	private String cpfCnpj;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")	
-	private Date dataNasc;
-	
 	@NotNull(message = "O campo TELEFONE é requerido")
 	private String telefone;
 	
@@ -40,7 +37,6 @@ public class ClienteDTO implements Serializable {
 		this.id = obj.getId();	
 		this.nome = obj.getNome();
 		this.cpfCnpj = obj.getCpfCnpj();
-		this.dataNasc = obj.getDataNasc();
 		this.telefone = obj.getTelefone();
 		this.endereco = obj.getEndereco();
 		this.email = obj.getEmail();
@@ -68,14 +64,6 @@ public class ClienteDTO implements Serializable {
 
 	public void setCpfCnpj(String cpfCnpj) {
 		this.cpfCnpj = cpfCnpj;
-	}
-
-	public Date getDataNasc() {
-		return dataNasc;
-	}
-
-	public void setDataNasc(Date dataNasc) {
-		this.dataNasc = dataNasc;
 	}
 
 	public String getTelefone() {
