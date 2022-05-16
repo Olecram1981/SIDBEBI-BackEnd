@@ -17,7 +17,7 @@ public class ProdutoDTO implements Serializable {
 	private Integer id;
 	
 	@NotNull(message = "O TIPO do produto é requerido")
-	private Tipo tipo;
+	private Integer tipo;
 	
 	@NotNull(message = "O NOME do produto é requerido")
 	private String nome;	
@@ -44,7 +44,7 @@ public class ProdutoDTO implements Serializable {
 	public ProdutoDTO(Produto obj) {
 		super();
 		this.id = obj.getId();
-		this.tipo = obj.getTipo();
+		this.tipo = obj.getTipo().getCodigo();
 		this.nome = obj.getNome();
 		this.tamanho = obj.getTamanho();
 		this.qtd = obj.getQtd();
@@ -62,11 +62,11 @@ public class ProdutoDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Tipo getTipo() {
+	public Integer getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(Tipo tipo) {
+	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
 	}
 

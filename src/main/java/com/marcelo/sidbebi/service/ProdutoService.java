@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
+import com.marcelo.sidbebi.domain.enums.NivelEstoque;
+import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
@@ -37,6 +39,7 @@ public class ProdutoService {
 		Produto produto = new Produto();
 		objDTO.setValorTotal(objDTO.getQtd() * objDTO.getValorUnit());
 		BeanUtils.copyProperties(objDTO, produto);
+		produto.setTipo(Tipo.toEnum(objDTO.getTipo()));
 		return repository.save(produto);
 	}
 
@@ -45,6 +48,7 @@ public class ProdutoService {
 		Produto oldObj = findById(id);
 		oldObj = new Produto();
 		BeanUtils.copyProperties(objDTO, oldObj);
+		oldObj.setTipo(Tipo.toEnum(objDTO.getTipo()));
 		return repository.save(oldObj);
 	}
 	
