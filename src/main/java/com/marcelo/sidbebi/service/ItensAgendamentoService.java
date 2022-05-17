@@ -48,7 +48,6 @@ public class ItensAgendamentoService {
 			ItensAgendamento itensAgendamento = new ItensAgendamento();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(agendamentoDTO.getItensAgendamento()[x]);
 			itensAgendamento.setCodBarra(itensProduto.get().getCodBarra());
-			itensAgendamento.setItem(itensProduto.get().getNomeProduto());
 			itensAgendamento.setSubTotal(itensAgendamento.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());
 			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());

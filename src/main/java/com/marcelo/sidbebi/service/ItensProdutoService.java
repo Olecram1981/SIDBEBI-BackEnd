@@ -45,13 +45,13 @@ public class ItensProdutoService {
 
 	public ItensProduto create(ItensProdutoDTO objDTO) {
 		objDTO.setId(null);
-		Optional<Produto> produto = produtoRepository.findByNome(objDTO.getNomeProduto());
+		Optional<Produto> produto = produtoRepository.findById(objDTO.getProduto().getId());
 		produto.get().setQtd(produto.get().getQtd() + 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
 		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
 		produtoRepository.save(produto.get());
 		objDTO.setProduto(produto.get());
-		Optional<Fornecedor> fornecedor = fornecedorRepository.findByNome(objDTO.getNomeFornecedor());
+		Optional<Fornecedor> fornecedor = fornecedorRepository.findById(objDTO.getFornecedor().getId());
 		objDTO.setFornecedor(fornecedor.get());
 		ItensProduto newObj = new ItensProduto();
 		BeanUtils.copyProperties(objDTO, newObj);

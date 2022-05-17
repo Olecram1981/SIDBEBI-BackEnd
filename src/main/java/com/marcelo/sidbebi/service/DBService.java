@@ -59,9 +59,9 @@ public class DBService {
 		Produto prod3 = new Produto(null, Tipo.COMIDA, "Salgado", "Médio", 40, 3.50, 100.00, NivelEstoque.BAIXO, null);
 		produtoRepository.saveAll(Arrays.asList(prod1, prod2, prod3));
 		
-		ItensProduto itensProd1 = new ItensProduto(null, "Cerveja", "Ambev", prod1, f1, "123456789");
-		ItensProduto itensProd2 = new ItensProduto(null, "Coca Cola", "Coca Cola", prod2, f2, "987654321");
-		ItensProduto itensProd3 = new ItensProduto(null, "Salgado", "ElmaChips", prod3, f3, "234567891");
+		ItensProduto itensProd1 = new ItensProduto(null, prod1, f1, "123456789");
+		ItensProduto itensProd2 = new ItensProduto(null, prod2, f2, "987654321");
+		ItensProduto itensProd3 = new ItensProduto(null, prod3, f3, "234567891");
 		itensProdutoRepository.saveAll(Arrays.asList(itensProd1, itensProd2, itensProd3));
 			
 	}

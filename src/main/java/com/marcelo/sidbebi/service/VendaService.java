@@ -70,8 +70,6 @@ public class VendaService {
 		for(ItensVenda itens : itensVenda) {
 			ItensProdutoDTO itensProdutoDTO = new ItensProdutoDTO();
 			itensProdutoDTO.setCodBarra(itens.getCodBarra());
-			itensProdutoDTO.setNomeProduto(itens.getItem());
-			itensProdutoDTO.setNomeFornecedor(itens.getFornecedor());
 			itensProdutoService.create(itensProdutoDTO);
 			itensVendaRepository.delete(itens);
 		}		
