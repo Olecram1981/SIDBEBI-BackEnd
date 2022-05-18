@@ -1,6 +1,7 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 public class CredenciaisDTO {
+	
 	private String email;
 	private String senha;
 

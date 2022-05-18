@@ -28,6 +28,8 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	protected Integer id;
 	
+	protected String nome;
+	
 	@Column(unique = true)
 	protected String email;
 	protected String senha;
@@ -41,9 +43,10 @@ public class Usuario implements Serializable {
 		addPerfil(Perfil.USUARIO);
 	}
 
-	public Usuario(Integer id, String email, String senha) {
+	public Usuario(Integer id, String nome, String email, String senha) {
 		super();
 		this.id = id;
+		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
 		addPerfil(Perfil.USUARIO);		
@@ -79,6 +82,18 @@ public class Usuario implements Serializable {
 	
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}	
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
 	}
 
 	@Override

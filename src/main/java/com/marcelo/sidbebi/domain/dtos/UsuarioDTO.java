@@ -16,6 +16,9 @@ public class UsuarioDTO implements Serializable {
 
 	protected Integer id;
 	
+	@NotNull(message = "O campo NOME é requerido")
+	protected String nome;
+	
 	@NotNull(message = "O campo EMAIL é requerido")
 	protected String email;
 	
@@ -32,6 +35,7 @@ public class UsuarioDTO implements Serializable {
 	public UsuarioDTO(Usuario obj) {
 		super();
 		this.id = obj.getId();
+		this.nome = obj.getNome();
 		this.email = obj.getEmail();
 		this.senha = obj.getSenha();
 		this.perfis = obj.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
@@ -68,6 +72,18 @@ public class UsuarioDTO implements Serializable {
 	
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
 	}
 	
 }

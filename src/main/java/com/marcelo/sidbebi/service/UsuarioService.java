@@ -16,7 +16,7 @@ public class UsuarioService {
 	private UsuarioRepository repository;
 	
 	public Usuario update(UsuarioDTO objDTO) {
-		Usuario usuario = new Usuario(1, objDTO.getEmail(), objDTO.getSenha());		
+		Usuario usuario = new Usuario(1, objDTO.getNome(), objDTO.getEmail(), objDTO.getSenha());		
 		BeanUtils.copyProperties(objDTO, usuario);
 		return repository.save(usuario);
 	}
