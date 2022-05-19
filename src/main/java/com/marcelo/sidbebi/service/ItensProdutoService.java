@@ -67,7 +67,8 @@ public class ItensProdutoService {
 	}
 
 	public void delete(Integer id) {
-		Optional<Produto> produto = produtoRepository.findById(id);
+		Optional<ItensProduto> itens = repository.findById(id);
+		Optional<Produto> produto = produtoRepository.findById(itens.get().getProduto().getId());
 		produto.get().setQtd(produto.get().getQtd() - 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
 		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
