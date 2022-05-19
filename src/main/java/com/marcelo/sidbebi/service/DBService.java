@@ -52,9 +52,9 @@ public class DBService {
 		Cliente cli3 = new Cliente(null, "Carl Sagan", "10987654321", "5555 8704", "Rua Cosmos", "sagan@mail.com");
 		clienteRepository.saveAll(Arrays.asList(cli1, cli2, cli3));	
 		
-		Fornecedor f1 = new Fornecedor(null, "Ambev", "768675/0001", "Rua das Acácias", "3613 6743", "ambev@mail.com");
-		Fornecedor f2 = new Fornecedor(null, "Coca Cola", "7565643/0001", "Av. Mario Andreaza", "3682 6545", "coke@mail.com");
-		Fornecedor f3 = new Fornecedor(null, "ElmaChips", "9898765/0001", "Rua Trinta e dois", "6785 7898", "elmachips@mail.com");
+		Fornecedor f1 = new Fornecedor(null, "Ambev", "768675/0001", "Rua das Acácias", "3613 6743", "ambev@mail.com", null);
+		Fornecedor f2 = new Fornecedor(null, "Coca Cola", "7565643/0001", "Av. Mario Andreaza", "3682 6545", "coke@mail.com", null);
+		Fornecedor f3 = new Fornecedor(null, "ElmaChips", "9898765/0001", "Rua Trinta e dois", "6785 7898", "elmachips@mail.com", null);
 		fornecedorRepository.saveAll(Arrays.asList(f1, f2, f3));
 				
 		Produto prod1 = new Produto(null, Tipo.ALCOOLICA, "Cerveja", "300 ml", 50, 3.00, 150.00, NivelEstoque.NORMAL, null);

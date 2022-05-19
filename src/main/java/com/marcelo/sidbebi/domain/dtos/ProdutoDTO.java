@@ -8,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
-import com.marcelo.sidbebi.domain.enums.Tipo;
 
 public class ProdutoDTO implements Serializable {
 

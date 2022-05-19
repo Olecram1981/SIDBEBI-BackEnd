@@ -1,10 +1,12 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import com.marcelo.sidbebi.domain.Fornecedor;
+import com.marcelo.sidbebi.domain.ItensProduto;
 
 public class FornecedorDTO implements Serializable {
 
@@ -25,6 +27,8 @@ public class FornecedorDTO implements Serializable {
 	@NotNull(message = "O campo E-MAIL é requerido")
 	private String email;
 	
+	private List<ItensProduto> itens;
+	
 	public FornecedorDTO() {
 		super();
 	}
@@ -37,6 +41,7 @@ public class FornecedorDTO implements Serializable {
 		this.end = obj.getEnd();
 		this.telefone = obj.getTelefone();
 		this.email = obj.getEmail();
+		this.itens = obj.getItens();
 	}
 
 	public Integer getId() {
@@ -86,5 +91,13 @@ public class FornecedorDTO implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public List<ItensProduto> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensProduto> itens) {
+		this.itens = itens;
+	}	
 	
 }

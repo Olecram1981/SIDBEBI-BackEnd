@@ -47,6 +47,9 @@ public class FornecedorService {
 
 	public void delete(Integer id) {
 		Fornecedor obj = findById(id);
+		if (obj.getItens().size() > 0) {
+			throw new DataIntegrityViolationException("Este Fornecedor possui itens associados a ele e não pode ser deletado!");
+		}
 		repository.deleteById(id);
 	}
 	

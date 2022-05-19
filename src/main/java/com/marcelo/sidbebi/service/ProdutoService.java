@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.ProdutoDTO;
-import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
+import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -54,6 +54,10 @@ public class ProdutoService {
 	
 	public void delete(Integer id) {
 		Produto obj = findById(id);
+
+		if (obj.getItens().size() > 0) {
+			throw new DataIntegrityViolationException("Este Produto possui itens associados a ele e não pode ser deletado!");
+		}
 		repository.deleteById(id);
 	}
 	

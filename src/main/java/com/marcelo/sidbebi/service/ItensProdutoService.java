@@ -7,14 +7,17 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
+import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
+import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -45,6 +48,7 @@ public class ItensProdutoService {
 
 	public ItensProduto create(ItensProdutoDTO objDTO) {
 		objDTO.setId(null);
+		validaPorCodBarras(objDTO);
 		Optional<Produto> produto = produtoRepository.findById(objDTO.getProduto());
 		produto.get().setQtd(produto.get().getQtd() + 1);
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
@@ -90,6 +94,13 @@ public class ItensProdutoService {
 				nivel = NivelEstoque.ALTO;
 		}		
 		return nivel;
+	}
+	
+	private void validaPorCodBarras(ItensProdutoDTO objDTO) {
+		Optional<ItensProduto> obj = repository.findByCodBarra(objDTO.getCodBarra());
+		if(obj.isPresent()) {
+			throw new DataIntegrityViolationException("Código de Barras já cadastrado no sistema.");
+		}
 	}
 	
 }

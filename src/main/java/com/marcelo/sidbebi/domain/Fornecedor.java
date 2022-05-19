@@ -1,11 +1,16 @@
 package com.marcelo.sidbebi.domain;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Fornecedor implements Serializable {
@@ -28,15 +33,20 @@ public class Fornecedor implements Serializable {
 	@Column(unique = true)
 	private String email;
 	
+	@JsonIgnore
+	@OneToMany (mappedBy = "fornecedor")	
+	private List<ItensProduto> itens;
+	
 	public Fornecedor() {
 		super();
 	}
 	
 	public Fornecedor(Integer id, String nome, String cpfCnpj, String end, String telefone,
-			String email) {
+			String email, List<ItensProduto> itens) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.itens = itens;
 		this.cpfCnpj = cpfCnpj;		
 		this.end = end;
 		this.telefone = telefone;
@@ -89,6 +99,14 @@ public class Fornecedor implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	public List<ItensProduto> getItens() {
+		return itens;
+	}
+
+	public void setItens(List<ItensProduto> itens) {
+		this.itens = itens;
 	}
 	
 	@Override
