@@ -13,6 +13,7 @@ import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Usuario;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
+import com.marcelo.sidbebi.domain.enums.Perfil;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
@@ -44,7 +45,7 @@ public class DBService {
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
 		
-		Usuario login = new Usuario(null, "Marcelo", "bebidas@mail.com", encoder.encode("123"));
+		Usuario login = new Usuario(null, "Marcelo Moraes Machado", "marcelomoraesmachado@yahoo.com.br", encoder.encode("123"));
 		usuarioRepository.save(login);
 		
 		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
