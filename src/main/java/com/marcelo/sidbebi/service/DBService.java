@@ -2,6 +2,8 @@ package com.marcelo.sidbebi.service;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -36,16 +38,18 @@ public class DBService {
 	@Autowired
 	private ItensProdutoRepository itensProdutoRepository;
 	
-	@Autowired
+	@Autowired 
 	private UsuarioRepository usuarioRepository;
 	
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	protected Set<Integer> perfil = new HashSet<>();
+	
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
-		
-		Usuario login = new Usuario(null, "Marcelo Moraes Machado", "marcelomoraesmachado@yahoo.com.br", encoder.encode("123"));
+		perfil.add(0);
+		Usuario login = new Usuario(null, "Marcelo Moraes Machado", "marcelomoraesmachado@yahoo.com.br", encoder.encode("123"), perfil);
 		usuarioRepository.save(login);
 		
 		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");

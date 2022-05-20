@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Cliente;
@@ -13,14 +14,19 @@ import com.marcelo.sidbebi.domain.dtos.UsuarioDTO;
 import com.marcelo.sidbebi.repositories.UsuarioRepository;
 import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 
+import ch.qos.logback.core.encoder.Encoder;
+
 @Service
 public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	
 	public Usuario create(UsuarioDTO objDTO) {
 		objDTO.setId(null);
+		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
 		validaPorEmail(objDTO);
 		Usuario newObj = new Usuario();
 		BeanUtils.copyProperties(objDTO, newObj);

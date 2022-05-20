@@ -43,13 +43,14 @@ public class Usuario implements Serializable {
 		addPerfil(Perfil.USUARIO);
 	}
 
-	public Usuario(Integer id, String nome, String email, String senha) {
+	public Usuario(Integer id, String nome, String email, String senha, Set<Integer> perfis) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
-		addPerfil(Perfil.USUARIO);		
+		this.perfis = perfis;
+		addPerfil(Perfil.USUARIO);
 	}
 
 	public Integer getId() {
