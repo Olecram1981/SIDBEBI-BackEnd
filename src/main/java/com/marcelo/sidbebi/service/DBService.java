@@ -49,8 +49,9 @@ public class DBService {
 	//istancia e persiste os objetos no Banco de Dados
 	public void instanciaDB() { 
 		perfil.add(0);
-		Usuario login = new Usuario(null, "Marcelo Moraes Machado", "marcelomoraesmachado@yahoo.com.br", encoder.encode("123"), perfil);
-		usuarioRepository.save(login);
+		Usuario usuario = new Usuario(null, "Marcelo Moraes Machado", "marcelomoraesmachado@yahoo.com.br", encoder.encode("123"));
+		usuario.addPerfil(Perfil.ADMIN);
+		usuarioRepository.save(usuario);
 		
 		Cliente cli1 = new Cliente(null, "Marcelo Machado", "987654321", "9282 2316", "Rua Fernando de Noronha", "marcelo@mail.com");
 		Cliente cli2 = new Cliente(null, "Albert Eisntein", "12345678910", "9865 5632", "Rua Alemanha", "einstein@mail.com");

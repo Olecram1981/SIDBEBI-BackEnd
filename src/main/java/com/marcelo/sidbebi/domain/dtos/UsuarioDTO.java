@@ -81,9 +81,5 @@ public class UsuarioDTO implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public void setPerfis(Set<Integer> perfis) {
-		this.perfis = perfis;
-	}
 	
 }

@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -13,6 +14,7 @@ import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.UsuarioDTO;
 import com.marcelo.sidbebi.repositories.UsuarioRepository;
 import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
+import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 import ch.qos.logback.core.encoder.Encoder;
 
@@ -24,6 +26,11 @@ public class UsuarioService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	public Usuario findById(Integer id) {
+		Optional<Usuario> obj = repository.findById(id);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
+	}	
+	
 	public Usuario create(UsuarioDTO objDTO) {
 		objDTO.setId(null);
 		objDTO.setSenha(encoder.encode(objDTO.getSenha()));
@@ -33,17 +40,25 @@ public class UsuarioService {
 		return repository.save(newObj);
 	}	
 	
-	public Usuario update(UsuarioDTO objDTO) {
-		Usuario usuario = new Usuario();		
-		BeanUtils.copyProperties(objDTO, usuario);
-		return repository.save(usuario);
-	}
-	
 	private void validaPorEmail(UsuarioDTO objDTO) {		
 		Optional<Usuario> obj = repository.findByEmail(objDTO.getEmail());
 		if(obj.isPresent() && obj.get().getId() != objDTO.getId()) {
 			throw new DataIntegrityViolationException("E-mail já cadastrado.");
 		}
+	}
+
+	public Usuario findByEmail(String email) {
+		Optional<Usuario> obj = repository.findByEmail(email);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. E-mail: "+email));
+	}
+
+	public List<Usuario> findAll() {
+		return repository.findAll();
+	}
+	
+	public void delete(Integer id) {
+		Usuario obj = findById(id);
+		repository.deleteById(id);
 	}
 
 }
