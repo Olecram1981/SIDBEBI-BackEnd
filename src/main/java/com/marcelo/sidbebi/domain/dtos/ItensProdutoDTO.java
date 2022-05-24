@@ -10,11 +10,9 @@ public class ItensProdutoDTO {
 	
 	private Integer id;
 	
-	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
-	private Integer produto;
+	private Produto produto;
 	
-	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
-	private Integer fornecedor;
+	private Fornecedor fornecedor;
 	
 	@NotNull(message = "O campo CÓDIGO DE BARRAS é requerido")
 	private String codBarra;
@@ -29,8 +27,8 @@ public class ItensProdutoDTO {
 	public ItensProdutoDTO(ItensProduto obj) {
 		super();
 		this.id = obj.getId();
-		this.produto = obj.getProduto().getId();
-		this.fornecedor = obj.getFornecedor().getId();
+		this.produto = obj.getProduto();
+		this.fornecedor = obj.getFornecedor();
 		this.codBarra = obj.getCodBarra();
 		this.nomeProduto = obj.getProduto().getNome();
 		this.nomeFornecedor = obj.getFornecedor().getNome();
@@ -44,11 +42,11 @@ public class ItensProdutoDTO {
 		this.id = id;
 	}
 
-	public Integer getProduto() {
+	public Produto getProduto() {
 		return produto;
 	}
 
-	public void setProduto(Integer produto) {
+	public void setProduto(Produto produto) {
 		this.produto = produto;
 	}
 
@@ -60,11 +58,11 @@ public class ItensProdutoDTO {
 		this.codBarra = codBarra;
 	}
 
-	public Integer getFornecedor() {
+	public Fornecedor getFornecedor() {
 		return fornecedor;
 	}
 
-	public void setFornecedor(Integer fornecedor) {
+	public void setFornecedor(Fornecedor fornecedor) {
 		this.fornecedor = fornecedor;
 	}
 
