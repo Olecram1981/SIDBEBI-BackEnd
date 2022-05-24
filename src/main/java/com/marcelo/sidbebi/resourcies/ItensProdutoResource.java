@@ -31,9 +31,9 @@ public class ItensProdutoResource {
 	@Autowired
 	private ItensProdutoService service;
 	
-	@GetMapping(value = "/{id}") 
-	public ResponseEntity<ItensProdutoDTO> findById(@PathVariable Integer id){
-		ItensProduto obj = service.findById(id);
+	@GetMapping(value = "/{codBarra}") 
+	public ResponseEntity<ItensProdutoDTO> findByCodBarra(@PathVariable String codBarra){
+		ItensProduto obj = service.findByCodBarra(codBarra);
 		return ResponseEntity.ok().body(new ItensProdutoDTO(obj));
 	}
 	

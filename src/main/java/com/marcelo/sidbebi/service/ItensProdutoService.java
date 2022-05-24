@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Fornecedor;
+import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
@@ -35,6 +36,11 @@ public class ItensProdutoService {
 	public ItensProduto findById(Integer id) {
 		Optional<ItensProduto> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
+	}
+	
+	public ItensProduto findByCodBarra(String codBarra) {
+		Optional<ItensProduto> obj = repository.findByCodBarra(codBarra);
+		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Item: "+codBarra));
 	}
 	
 	public List<ItensProduto> findAll() {
