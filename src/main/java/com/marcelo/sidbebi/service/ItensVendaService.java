@@ -53,7 +53,6 @@ public class ItensVendaService {
 			objDTO.setQtdTotal(0);
 			objDTO.setValorTotal(0);
 			for(ItensVenda itens : obj) {
-				objDTO.setValorTotal(objDTO.getValorTotal() + itens.getSubTotal());
 				objDTO.setTipo(produtoRepository.findByNome(itens.getItem()).get().getTipo());
 			}
 		}
@@ -80,7 +79,6 @@ public class ItensVendaService {
 						List<ItensVenda> itens = venda.getItens();
 						for(ItensVenda item : itens) {
 							if(objDTO.getItem().equals(item.getItem())) {
-								objDTO.setValorTotal(objDTO.getValorTotal() + item.getSubTotal());
 								objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
 							}
 						}
@@ -99,11 +97,9 @@ public class ItensVendaService {
 			ItensVenda itensVenda = new ItensVenda();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(vendaDTO.getItensVenda()[x]);
 			itensVenda.setCodBarra(itensProduto.get().getCodBarra());
-			itensVenda.setSubTotal(itensVenda.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
 			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
-			vendaDTO.setValorTotal(vendaDTO.getValorTotal() + produto.get().getValorUnit());
-			vendaDTO.setQtdItens(vendaDTO.getQtdItens() + 1);
+			vendaDTO.setValorTotal(vendaDTO.getValorTotal());
+			vendaDTO.setQtdItens(vendaDTO.getQtdItens());
 			vendaDTO.setItens(vendaDTO.getItens());
 			Venda venda = new Venda();		
 			BeanUtils.copyProperties(vendaDTO, venda);
