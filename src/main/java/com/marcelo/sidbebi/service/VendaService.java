@@ -46,13 +46,7 @@ public class VendaService {
 	
 	public Venda create(VendaDTO objDTO) {
 		objDTO.setId(null);		
-		Optional<Cliente> cliente = clienteRepository.findById(objDTO.getCliente());
-		objDTO.setCliente(cliente.get().getId());
-		Venda newObj = new Venda();
-		BeanUtils.copyProperties(objDTO, newObj);
-		Venda venda = repository.save(newObj);
-		BeanUtils.copyProperties(venda, objDTO);
-		venda.setItens(itensVendaService.create(objDTO));
+		Venda venda = itensVendaService.create(objDTO);
 		return venda;
 	}	
 

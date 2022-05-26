@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
@@ -17,6 +18,7 @@ import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
+import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
@@ -40,6 +42,9 @@ public class ItensVendaService {
 	
 	@Autowired
 	private VendaRepository vendaRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public ItensVenda findById(Integer id) {
 		Optional<ItensVenda> obj = repository.findById(id);
@@ -91,24 +96,27 @@ public class ItensVendaService {
 		return relatorio;
 	}
 	
-	public List<ItensVenda> create(VendaDTO vendaDTO) {
+	public Venda create(VendaDTO vendaDTO) {
 		vendaDTO.setQtdItens(0);
-		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){
+		Optional<Cliente> cliente = clienteRepository.findById(vendaDTO.getCliente());
+		Venda venda = new Venda();		
+		BeanUtils.copyProperties(vendaDTO, venda);
+		venda.setCliente(cliente.get());	
+		venda = vendaRepository.save(venda);
+		
+		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){						
 			ItensVenda itensVenda = new ItensVenda();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(vendaDTO.getItensVenda()[x]);
 			itensVenda.setCodBarra(itensProduto.get().getCodBarra());
-			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			vendaDTO.setValorTotal(vendaDTO.getValorTotal());
-			vendaDTO.setQtdItens(vendaDTO.getQtdItens());
-			vendaDTO.setItens(vendaDTO.getItens());
-			Venda venda = new Venda();		
-			BeanUtils.copyProperties(vendaDTO, venda);
-			itensVenda.setVenda(venda);
+			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());			
+			itensVenda.setFornecedor(itensProduto.get().getFornecedor().getNome());
+			itensVenda.setItem(itensProduto.get().getProduto().getNome());
+			itensVenda.setVenda(venda);			
 			itensProdutoRepository.deleteById(itensProduto.get().getId());
-			repository.save(itensVenda);
-			vendaRepository.save(venda);
+			repository.save(itensVenda);			
 		}		
-		return vendaDTO.getItens();
+		
+		return venda;
 	}	
 	
 	public List<ItensVenda> findAll() {

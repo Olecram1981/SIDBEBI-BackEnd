@@ -19,6 +19,8 @@ public class ItensProdutoDTO {
 	
 	private String nomeProduto;
 	private String nomeFornecedor;
+	private String tamanho;
+	private double valor;
 	
 	public ItensProdutoDTO() {
 		super();
@@ -32,6 +34,8 @@ public class ItensProdutoDTO {
 		this.codBarra = obj.getCodBarra();
 		this.nomeProduto = obj.getProduto().getNome();
 		this.nomeFornecedor = obj.getFornecedor().getNome();
+		this.tamanho = obj.getProduto().getTamanho();
+		this.valor = obj.getProduto().getValorUnit();
 	}
 
 	public Integer getId() {
@@ -80,6 +84,22 @@ public class ItensProdutoDTO {
 
 	public void setNomeFornecedor(String nomeFornecedor) {
 		this.nomeFornecedor = nomeFornecedor;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
 	}
 	
 }
