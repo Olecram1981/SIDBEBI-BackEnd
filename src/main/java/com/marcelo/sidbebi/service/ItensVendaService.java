@@ -111,6 +111,7 @@ public class ItensVendaService {
 			itensVenda.setValorUnit(itensProduto.get().getProduto().getValorUnit());			
 			itensVenda.setFornecedor(itensProduto.get().getFornecedor().getNome());
 			itensVenda.setItem(itensProduto.get().getProduto().getNome());
+			itensVenda.setTamanho(itensProduto.get().getProduto().getTamanho());
 			itensVenda.setVenda(venda);			
 			itensProdutoRepository.deleteById(itensProduto.get().getId());
 			repository.save(itensVenda);			

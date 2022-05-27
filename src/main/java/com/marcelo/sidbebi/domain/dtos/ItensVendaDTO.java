@@ -17,7 +17,7 @@ public class ItensVendaDTO {
 	
 	private double valorUnit;
 	private Venda venda;
-	private double subTotal;
+	private String tamanho;
 	
 	public ItensVendaDTO() {
 		super();
@@ -62,15 +62,7 @@ public class ItensVendaDTO {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
-	}
-
-	public double getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(double subTotal) {
-		this.subTotal = subTotal;
-	}
+	}	
 
 	public String getCodBarra() {
 		return codBarra;
@@ -78,6 +70,14 @@ public class ItensVendaDTO {
 
 	public void setCodBarra(String codBarra) {
 		this.codBarra = codBarra;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
 	}	
 	
 }
