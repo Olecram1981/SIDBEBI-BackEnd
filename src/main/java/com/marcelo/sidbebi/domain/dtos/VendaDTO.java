@@ -31,7 +31,7 @@ public class VendaDTO {
 	private double valorTotal;
 	
 	@NotNull(message = "O campo FORMA DO PAGAMENTO é requerido")
-	private Pagamento pagamento;
+	private Integer pagamento;
 	
 	public VendaDTO() {
 		super();
@@ -46,7 +46,7 @@ public class VendaDTO {
 		this.nomeCliente = obj.getNomeCliente();
 		this.qtdItens = obj.getQtdItens();
 		this.valorTotal = obj.getValorTotal();
-		this.pagamento = obj.getPagamento();
+		this.pagamento = obj.getPagamento().getCodigoInteger();
 	}
 
 	public Integer getId() {
@@ -81,11 +81,11 @@ public class VendaDTO {
 		this.valorTotal = valorTotal;
 	}
 
-	public Pagamento getPagamento() {
+	public Integer getPagamento() {
 		return pagamento;
 	}
 
-	public void setPagamento(Pagamento pagamento) {
+	public void setPagamento(Integer pagamento) {
 		this.pagamento = pagamento;
 	}
 

@@ -7,13 +7,13 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
-import com.marcelo.sidbebi.repositories.ClienteRepository;
+import com.marcelo.sidbebi.repositories.FornecedorRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
+import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
@@ -31,6 +31,12 @@ public class VendaService {
 	
 	@Autowired
 	private ItensProdutoService itensProdutoService;
+	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private FornecedorRepository fornecedorRepository;
 	
 	public Venda findById(Integer id) {
 		Optional<Venda> obj = repository.findById(id);
@@ -60,6 +66,10 @@ public class VendaService {
 		List<ItensVenda> itensVenda = itensVendaRepository.findByVenda(obj);
 		for(ItensVenda itens : itensVenda) {
 			ItensProdutoDTO itensProdutoDTO = new ItensProdutoDTO();
+			itensProdutoDTO.setNomeProduto(itens.getItem());
+			itensProdutoDTO.setNomeFornecedor(itens.getFornecedor());
+			itensProdutoDTO.setProduto(produtoRepository.findByNome(itens.getItem()).get().getId());
+			itensProdutoDTO.setFornecedor(fornecedorRepository.findByNome(itens.getFornecedor()).get().getId());
 			itensProdutoDTO.setCodBarra(itens.getCodBarra());
 			itensProdutoService.create(itensProdutoDTO);
 			itensVendaRepository.delete(itens);

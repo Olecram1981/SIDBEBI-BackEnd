@@ -18,6 +18,8 @@ import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
+import com.marcelo.sidbebi.domain.enums.Pagamento;
+import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
@@ -102,6 +104,7 @@ public class ItensVendaService {
 		BeanUtils.copyProperties(vendaDTO, venda);
 		venda.setCliente(cliente.get());	
 		venda.setNomeCliente(cliente.get().getNome());
+		venda.setPagamento(Pagamento.toEnum(vendaDTO.getPagamento()));
 		venda = vendaRepository.save(venda);
 		
 		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){						
