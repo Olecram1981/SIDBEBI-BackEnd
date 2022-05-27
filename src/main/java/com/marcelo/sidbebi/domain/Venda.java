@@ -1,6 +1,6 @@
 package com.marcelo.sidbebi.domain;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -24,8 +24,8 @@ public class Venda implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataHora = LocalDate.now();
+	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	private String nomeCliente;
 	
@@ -46,15 +46,14 @@ public class Venda implements Serializable{
 		super();
 	}
 
-	public Venda(Integer id, LocalDate dataHora, List<ItensVenda> itens, String[] itensVenda, Cliente cliente, String nomeCliente, 
+	public Venda(Integer id, List<ItensVenda> itens, String[] itensVenda, Cliente cliente, String nomeCliente, 
 			Integer qtdItens, double valorTotal, Pagamento pagamento) {
 		super();
 		this.id = id;
-		this.dataHora = dataHora;
 		this.itens = itens;
 		this.itensVenda = itensVenda;
 		this.cliente = cliente;
-		this.nomeCliente = nomeCliente;
+		this.nomeCliente = cliente.getNome();
 		this.qtdItens = qtdItens;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
@@ -66,14 +65,6 @@ public class Venda implements Serializable{
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-	
-	public LocalDate getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(LocalDate dataHora) {
-		this.dataHora = dataHora;
 	}
 	
 	public List<ItensVenda> getItens() {

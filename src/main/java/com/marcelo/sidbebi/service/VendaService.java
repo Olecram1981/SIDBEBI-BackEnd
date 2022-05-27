@@ -30,9 +30,6 @@ public class VendaService {
 	private ItensVendaRepository itensVendaRepository;
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@Autowired
 	private ItensProdutoService itensProdutoService;
 	
 	public Venda findById(Integer id) {

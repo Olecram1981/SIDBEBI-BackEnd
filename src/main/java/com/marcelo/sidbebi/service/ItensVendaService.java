@@ -97,11 +97,11 @@ public class ItensVendaService {
 	}
 	
 	public Venda create(VendaDTO vendaDTO) {
-		vendaDTO.setQtdItens(0);
 		Optional<Cliente> cliente = clienteRepository.findById(vendaDTO.getCliente());
 		Venda venda = new Venda();		
 		BeanUtils.copyProperties(vendaDTO, venda);
 		venda.setCliente(cliente.get());	
+		venda.setNomeCliente(cliente.get().getNome());
 		venda = vendaRepository.save(venda);
 		
 		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){						

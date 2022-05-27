@@ -1,13 +1,11 @@
 package com.marcelo.sidbebi.domain.dtos;
 
-import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
@@ -16,8 +14,8 @@ public class VendaDTO {
 	
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
-	private LocalDate dataHora = LocalDate.now();
+	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
+	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	private List<ItensVenda> itens;
 	
@@ -25,6 +23,8 @@ public class VendaDTO {
 	private String[] itensVenda;
 	
 	private	Integer cliente;
+	
+	private String nomeCliente;
 	
 	private Integer qtdItens;
 	
@@ -40,10 +40,10 @@ public class VendaDTO {
 	public VendaDTO(Venda obj) {
 		super();
 		this.id = obj.getId();
-		this.dataHora = obj.getDataHora();
 		this.itens = obj.getItens();
 		this.itensVenda = obj.getItensVenda();
 		this.cliente = obj.getCliente().getId();
+		this.nomeCliente = obj.getNomeCliente();
 		this.qtdItens = obj.getQtdItens();
 		this.valorTotal = obj.getValorTotal();
 		this.pagamento = obj.getPagamento();
@@ -55,14 +55,6 @@ public class VendaDTO {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public LocalDate getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(LocalDate dataHora) {
-		this.dataHora = dataHora;
 	}
 
 	public List<ItensVenda> getItens() {
@@ -113,4 +105,12 @@ public class VendaDTO {
 		this.qtdItens = qtdItens;
 	}
 
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+	
 }
