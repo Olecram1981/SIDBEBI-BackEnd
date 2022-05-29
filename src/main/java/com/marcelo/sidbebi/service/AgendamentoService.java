@@ -33,9 +33,6 @@ public class AgendamentoService {
 	private VendaService vendaService;
 	
 	@Autowired
-	private ItensVendaService itensVendaService;
-	
-	@Autowired
 	private ItensAgendamentoService itensAgendamentoService;
 	
 	public Agendamento findById(Integer id) {
@@ -48,22 +45,14 @@ public class AgendamentoService {
 	}
 
 	public Agendamento create(AgendamentoDTO objDTO) {
-		objDTO.setId(null);
-		Agendamento newObj = new Agendamento();
-		Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
-		objDTO.setCliente(cliente.get());
-		BeanUtils.copyProperties(objDTO, newObj);
-		Agendamento agendamento = repository.save(newObj);
-		BeanUtils.copyProperties(agendamento, objDTO);
-		itensAgendamentoService.create(objDTO);
+		objDTO.setId(null);		
+		Agendamento agendamento = itensAgendamentoService.create(objDTO);
 		return agendamento;
 	}	
 
 	public Agendamento update(Integer id, AgendamentoDTO objDTO) {		
 		if(objDTO.getStatus() == Status.ENTREGUE) {
-			Optional<Cliente> cliente = clienteRepository.findByNome(objDTO.getNomeCliente());
 			Venda venda = new Venda();
-			venda.setCliente(cliente.get());
 			venda.setPagamento(objDTO.getPagamento());
 			venda.setItensVenda(objDTO.getItensAgendamento());
 			VendaDTO vendaDTO = new VendaDTO();

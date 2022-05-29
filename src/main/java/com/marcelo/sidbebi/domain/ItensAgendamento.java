@@ -21,19 +21,17 @@ public class ItensAgendamento {
 	private String codBarra;
 	private String item;
 	private double valorUnit;
-	private double subTotal;
 		
 	public ItensAgendamento() {
 		super();
 	}
 
-	public ItensAgendamento(Integer id, String codBarra, String item, Integer quantidade, double valorUnit, double subTotal, Agendamento agendamento) {
+	public ItensAgendamento(Integer id, String codBarra, String item, Integer quantidade, double valorUnit, Agendamento agendamento) {
 		super();
 		this.id = id;
 		this.codBarra = codBarra;
 		this.item = item;
 		this.valorUnit = valorUnit;
-		this.subTotal = subTotal;
 		this.agendamento = agendamento;
 	}
 
@@ -61,14 +59,6 @@ public class ItensAgendamento {
 		this.valorUnit = valorUnit;
 	}
 	
-	public double getSubTotal() {
-		return subTotal;
-	}
-
-	public void setSubTotal(double subTotal) {
-		this.subTotal = subTotal;
-	}
-
 	public Agendamento getAgendamento() {
 		return agendamento;
 	}

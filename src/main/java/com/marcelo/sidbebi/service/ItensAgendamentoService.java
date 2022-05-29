@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Agendamento;
+import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
@@ -16,7 +17,9 @@ import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
+import com.marcelo.sidbebi.domain.enums.Pagamento;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
+import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensAgendamentoRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
@@ -29,38 +32,41 @@ public class ItensAgendamentoService {
 	private ItensAgendamentoRepository repository;
 	
 	@Autowired
-	private ProdutoRepository produtoRepository;
-	
-	@Autowired
 	private AgendamentoRepository agendamentoRepository;
 	
 	@Autowired
 	private ItensProdutoRepository itensProdutoRepository;
+	
+	@Autowired
+	private ClienteRepository clienteRepository;
 	
 	public ItensAgendamento findById(Integer id) {
 		Optional<ItensAgendamento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
 	
-	public void create(AgendamentoDTO agendamentoDTO) {
-		agendamentoDTO.setQtdItens(0);
-		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){	
+	public Agendamento create(AgendamentoDTO agendamentoDTO) {
+		Optional<Cliente> cliente = clienteRepository.findById(agendamentoDTO.getCliente());
+		Agendamento agendamento = new Agendamento();		
+		BeanUtils.copyProperties(agendamentoDTO, agendamento);
+		agendamento.setCliente(cliente.get());	
+		agendamento.setNomeCliente(cliente.get().getNome());
+		agendamento.setPagamento(agendamentoDTO.getPagamento());
+		agendamento = agendamentoRepository.save(agendamento);
+		
+		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){						
 			ItensAgendamento itensAgendamento = new ItensAgendamento();
 			Optional<ItensProduto> itensProduto = itensProdutoRepository.findByCodBarra(agendamentoDTO.getItensAgendamento()[x]);
 			itensAgendamento.setCodBarra(itensProduto.get().getCodBarra());
-			itensAgendamento.setSubTotal(itensAgendamento.getSubTotal() + itensProduto.get().getProduto().getValorUnit());
-			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());
-			Optional<Produto> produto = produtoRepository.findById(itensProduto.get().getProduto().getId());
-			agendamentoDTO.setValorTotal(agendamentoDTO.getValorTotal() + produto.get().getValorUnit());
-			agendamentoDTO.setQtdItens(agendamentoDTO.getQtdItens() + 1);
-			agendamentoDTO.setItens(agendamentoDTO.getItens());
-			Agendamento agendamento = new Agendamento();		
-			BeanUtils.copyProperties(agendamentoDTO, agendamento);
-			itensAgendamento.setAgendamento(agendamento);
-			repository.save(itensAgendamento);
-			agendamentoRepository.save(agendamento);
-		}		
-	}	
+			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());			
+			itensAgendamento.setItem(itensProduto.get().getProduto().getNome());
+			itensAgendamento.setAgendamento(agendamento);			
+			itensProdutoRepository.deleteById(itensProduto.get().getId());
+			repository.save(itensAgendamento);			
+		}
+		
+		return agendamento;
+	}
 	
 	public List<ItensAgendamento> findAll() {
 		return repository.findAll();

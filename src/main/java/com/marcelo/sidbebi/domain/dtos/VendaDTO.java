@@ -22,10 +22,6 @@ public class VendaDTO {
 	@NotNull(message = "O campo ITENS DA VENDA é requerido")
 	private String[] itensVenda;
 	
-	private	Integer cliente;
-	
-	private String nomeCliente;
-	
 	private Integer qtdItens;
 	
 	private double valorTotal;
@@ -42,8 +38,6 @@ public class VendaDTO {
 		this.id = obj.getId();
 		this.itens = obj.getItens();
 		this.itensVenda = obj.getItensVenda();
-		this.cliente = obj.getCliente().getId();
-		this.nomeCliente = obj.getNomeCliente();
 		this.qtdItens = obj.getQtdItens();
 		this.valorTotal = obj.getValorTotal();
 		this.pagamento = obj.getPagamento().getCodigoInteger();
@@ -63,14 +57,6 @@ public class VendaDTO {
 
 	public void setItens(List<ItensVenda> itens) {
 		this.itens = itens;
-	}
-
-	public Integer getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Integer cliente) {
-		this.cliente = cliente;
 	}
 
 	public double getValorTotal() {
@@ -105,12 +91,4 @@ public class VendaDTO {
 		this.qtdItens = qtdItens;
 	}
 
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-	
 }

@@ -25,7 +25,6 @@ public class ItensAgendamentoDTO {
 		this.item = obj.getItem();
 		this.valorUnit = obj.getValorUnit();
 		this.agendamento = obj.getAgendamento();
-		this.subTotal = obj.getSubTotal();
 	}
 
 	public Integer getId() {

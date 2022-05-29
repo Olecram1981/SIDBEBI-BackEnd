@@ -31,11 +31,10 @@ public class Agendamento {
 	private double valorTotal;
 	private String end;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	private Status status;
-	private String nomeCliente;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
@@ -43,13 +42,14 @@ public class Agendamento {
 	
 	private String telefone;
 	private Pagamento pagamento;
+	private String nomeCliente;
 	
 	public Agendamento() {
 		super();
 	}
 
-	public Agendamento(Integer id, double valorTotal, String end, Status status, String nomeCliente, Cliente cliente,
-			List<ItensAgendamento> itens, String[] itensAgendamento, Integer qtdItens, String telefone, Pagamento pagamento, LocalDateTime dataHora) {
+	public Agendamento(Integer id, double valorTotal, String end, Status status, Cliente cliente, String nomeCliente,
+			List<ItensAgendamento> itens, String[] itensAgendamento, Integer qtdItens, String telefone, Pagamento pagamento) {
 		super();
 		
 		this.id = id;
@@ -57,14 +57,12 @@ public class Agendamento {
 		this.end = end;
 		this.status = status;
 		this.cliente = cliente;
-		this.nomeCliente = nomeCliente;
-		this.cliente = cliente;
 		this.itens = itens;
 		this.itensAgendamento = itensAgendamento;
 		this.qtdItens = qtdItens;
 		this.telefone = telefone;
 		this.pagamento = pagamento;
-		this.dataHora = dataHora;
+		this.nomeCliente = nomeCliente;
 	}
 
 	public Integer getId() {
@@ -123,22 +121,6 @@ public class Agendamento {
 		this.pagamento = pagamento;
 	}
 	
-	public LocalDateTime getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
-	}
-	
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -169,6 +151,14 @@ public class Agendamento {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public class AgendamentoDTO {
 
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
+	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
 	private double valorTotal;
@@ -26,10 +26,7 @@ public class AgendamentoDTO {
 	@NotNull(message = "O campo STATUS DO AGENDAMENTO é requerido")
 	private Status status;
 	
-	@NotNull(message = "O campo CLIENTE é requerido")
-	private String nomeCliente;
-	
-	private Cliente cliente;
+	private Integer cliente;
 	
 	private List<ItensAgendamento> itens;
 	
@@ -38,11 +35,13 @@ public class AgendamentoDTO {
 	
 	private Integer qtdItens;
 	
-	@NotNull(message = "O campo ITENS DA VENDA é requerido")
+	@NotNull(message = "O campo TELEFONE é requerido")
 	private String telefone;
 	
 	@NotNull(message = "O campo FORMA DE PAGAMENTO é requerido")
 	private Pagamento pagamento;
+	
+	private String nomeCliente;
 	
 	public AgendamentoDTO() {
 		super();
@@ -51,17 +50,16 @@ public class AgendamentoDTO {
 	public AgendamentoDTO(Agendamento obj) {
 		super();
 		this.id = obj.getId();
-		this.dataHora = obj.getDataHora();
 		this.valorTotal = obj.getValorTotal();
 		this.end = obj.getEnd();
 		this.status = obj.getStatus();
 		this.qtdItens = obj.getQtdItens();
-		this.cliente = obj.getCliente();
-		this.nomeCliente = obj.getNomeCliente();
+		this.cliente = obj.getCliente().getId();
 		this.itens = obj.getItens();
 		this.itensAgendamento = obj.getItensAgendamento();
 		this.telefone = obj.getTelefone();
 		this.pagamento = obj.getPagamento();
+		this.nomeCliente = obj.getCliente().getNome();
 	}
 
 	public Integer getId() {
@@ -72,14 +70,6 @@ public class AgendamentoDTO {
 		this.id = id;
 	}
 	
-	public LocalDateTime getDataHora() {
-		return dataHora;
-	}
-
-	public void setDataHora(LocalDateTime dataHora) {
-		this.dataHora = dataHora;
-	}
-
 	public double getValorTotal() {
 		return valorTotal;
 	}
@@ -104,11 +94,11 @@ public class AgendamentoDTO {
 		this.status = status;
 	}
 
-	public Cliente getCliente() {
+	public Integer getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Cliente cliente) {
+	public void setCliente(Integer cliente) {
 		this.cliente = cliente;
 	}
 
@@ -136,15 +126,6 @@ public class AgendamentoDTO {
 		this.pagamento = pagamento;
 	}
 
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
-	}
-	
-
 	public String[] getItensAgendamento() {
 		return itensAgendamento;
 	}
@@ -161,6 +142,14 @@ public class AgendamentoDTO {
 		this.qtdItens = qtdItens;
 	}
 	
+	public String getNomeCliente() {
+		return nomeCliente;
+	}
+
+	public void setNomeCliente(String nomeCliente) {
+		this.nomeCliente = nomeCliente;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -27,12 +27,6 @@ public class Venda implements Serializable{
 	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
 	private LocalDateTime dataHora = LocalDateTime.now();
 	
-	private String nomeCliente;
-	
-	@ManyToOne
-	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
-	
 	@JsonIgnore
 	@OneToMany (mappedBy = "venda")	
 	private List<ItensVenda> itens;
@@ -52,8 +46,6 @@ public class Venda implements Serializable{
 		this.id = id;
 		this.itens = itens;
 		this.itensVenda = itensVenda;
-		this.cliente = cliente;
-		this.nomeCliente = cliente.getNome();
 		this.qtdItens = qtdItens;
 		this.valorTotal = valorTotal;
 		this.pagamento = pagamento;
@@ -75,14 +67,6 @@ public class Venda implements Serializable{
 		this.itens = itens;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-
 	public double getValorTotal() {
 		return valorTotal;
 	}
@@ -97,14 +81,6 @@ public class Venda implements Serializable{
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
-	}
-	
-	public String getNomeCliente() {
-		return nomeCliente;
-	}
-
-	public void setNomeCliente(String nomeCliente) {
-		this.nomeCliente = nomeCliente;
 	}
 	
 	public String[] getItensVenda() {
