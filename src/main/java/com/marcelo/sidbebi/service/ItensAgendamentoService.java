@@ -18,6 +18,8 @@ import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
+import com.marcelo.sidbebi.domain.enums.Status;
+import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensAgendamentoRepository;
@@ -52,6 +54,7 @@ public class ItensAgendamentoService {
 		agendamento.setCliente(cliente.get());	
 		agendamento.setNomeCliente(cliente.get().getNome());
 		agendamento.setPagamento(agendamentoDTO.getPagamento());
+		agendamento.setStatus(agendamentoDTO.getStatus());
 		agendamento = agendamentoRepository.save(agendamento);
 		
 		for(int x = 0; x < agendamentoDTO.getItensAgendamento().length; x++){						
@@ -60,8 +63,7 @@ public class ItensAgendamentoService {
 			itensAgendamento.setCodBarra(itensProduto.get().getCodBarra());
 			itensAgendamento.setValorUnit(itensProduto.get().getProduto().getValorUnit());			
 			itensAgendamento.setItem(itensProduto.get().getProduto().getNome());
-			itensAgendamento.setAgendamento(agendamento);			
-			itensProdutoRepository.deleteById(itensProduto.get().getId());
+			itensAgendamento.setAgendamento(agendamento);				
 			repository.save(itensAgendamento);			
 		}
 		

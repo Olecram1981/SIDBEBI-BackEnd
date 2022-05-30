@@ -35,6 +35,9 @@ public class AgendamentoService {
 	@Autowired
 	private ItensAgendamentoService itensAgendamentoService;
 	
+	@Autowired
+	private ItensVendaService itensVendaService;
+	
 	public Agendamento findById(Integer id) {
 		Optional<Agendamento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
@@ -54,10 +57,12 @@ public class AgendamentoService {
 		if(objDTO.getStatus() == Status.ENTREGUE) {
 			Venda venda = new Venda();
 			venda.setPagamento(objDTO.getPagamento());
+			venda.setQtdItens(objDTO.getQtdItens());
+			venda.setValorTotal(objDTO.getValorTotal());
 			venda.setItensVenda(objDTO.getItensAgendamento());
 			VendaDTO vendaDTO = new VendaDTO();
 			BeanUtils.copyProperties(venda, vendaDTO);
-			venda =	vendaService.create(vendaDTO);
+			venda =	itensVendaService.create(vendaDTO);
 		}
 		objDTO.setId(id);
 		Agendamento oldObj = findById(id);
