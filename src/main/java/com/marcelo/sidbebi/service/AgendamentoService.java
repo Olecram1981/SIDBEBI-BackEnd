@@ -27,12 +27,6 @@ public class AgendamentoService {
 	private AgendamentoRepository repository;
 	
 	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	@Autowired
-	private VendaService vendaService;
-	
-	@Autowired
 	private ItensAgendamentoService itensAgendamentoService;
 	
 	@Autowired
@@ -55,20 +49,29 @@ public class AgendamentoService {
 
 	public Agendamento update(Integer id, AgendamentoDTO objDTO) {		
 		if(objDTO.getStatus() == Status.ENTREGUE) {
-			Venda venda = new Venda();
-			venda.setPagamento(objDTO.getPagamento());
-			venda.setQtdItens(objDTO.getQtdItens());
-			venda.setValorTotal(objDTO.getValorTotal());
-			venda.setItensVenda(objDTO.getItensAgendamento());
 			VendaDTO vendaDTO = new VendaDTO();
-			BeanUtils.copyProperties(venda, vendaDTO);
-			venda =	itensVendaService.create(vendaDTO);
-		}
-		objDTO.setId(id);
-		Agendamento oldObj = findById(id);
-		oldObj = new Agendamento();
-		BeanUtils.copyProperties(objDTO, oldObj);
-		return repository.save(oldObj);
+			vendaDTO.setPagamento(objDTO.getPagamento().getCodigoInteger());
+			vendaDTO.setQtdItens(objDTO.getQtdItens());
+			vendaDTO.setValorTotal(objDTO.getValorTotal());
+			vendaDTO.setItensVenda(objDTO.getItensAgendamento());
+			itensVendaService.create(vendaDTO);
+			objDTO.setId(id);
+			Agendamento oldObj = findById(id);
+			Cliente cliente = oldObj.getCliente();
+			oldObj = new Agendamento();
+			BeanUtils.copyProperties(objDTO, oldObj);	
+			oldObj.setCliente(cliente);
+			return repository.save(oldObj);
+			
+		}else {
+			objDTO.setId(id);
+			Agendamento oldObj = findById(id);
+			Cliente cliente = oldObj.getCliente();
+			oldObj = new Agendamento();
+			BeanUtils.copyProperties(objDTO, oldObj);	
+			oldObj.setCliente(cliente);
+			return repository.save(oldObj);
+		}		
 	}
 
 	public void delete(Integer id) {

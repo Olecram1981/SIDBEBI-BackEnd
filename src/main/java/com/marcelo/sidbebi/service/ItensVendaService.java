@@ -112,9 +112,9 @@ public class ItensVendaService {
 			itensVenda.setFornecedor(itensProduto.get().getFornecedor().getNome());
 			itensVenda.setItem(itensProduto.get().getProduto().getNome());
 			itensVenda.setTamanho(itensProduto.get().getProduto().getTamanho());
-			itensVenda.setVenda(venda);			
+			itensVenda.setVenda(venda);		
+			repository.save(itensVenda);
 			itensProdutoRepository.deleteById(itensProduto.get().getId());
-			repository.save(itensVenda);			
 		}		
 		
 		return venda;
