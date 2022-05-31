@@ -2,7 +2,7 @@ package com.marcelo.sidbebi.domain.enums;
 
 public enum Tipo {
 	
-	ALCOOLICA(0, "ALCOOLICA"), NAOALCOOLICA(1, "NAO_ALCOOLICA"), COMIDA(2, "COMIDA");
+	ALCOOLICA(0, "ALCOOLICA"), NAOALCOOLICA(1, "NAO_ALCOOLICA"), COMIDA(2, "COMIDA"), DIVERSOS(3, "DIVERSOS");
 	
 	private Integer codigo;
 	private String descricao;
