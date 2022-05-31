@@ -16,8 +16,9 @@ public class Relatorio implements Serializable {
 	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFinal;
 	
-    private String item;
+    private Produto produto;
     private Tipo tipo;
+    private String tamanho;
     private Integer qtdTotal;
     private double valorTotal;
 	
@@ -25,12 +26,13 @@ public class Relatorio implements Serializable {
 		super();
 	}
 
-	public Relatorio(LocalDate dataInicial, LocalDate dataFinal, String item, Tipo tipo, Integer qtdTotal, double valorTotal) {
+	public Relatorio(LocalDate dataInicial, LocalDate dataFinal, Produto produto, Tipo tipo, String tamanho, Integer qtdTotal, double valorTotal) {
 		super();
 		this.dataInicial = dataInicial;
 		this.dataFinal = dataFinal;
-		this.item = item;
+		this.produto = produto;
 		this.tipo = tipo;
+		this.tamanho = tamanho;
 		this.qtdTotal = qtdTotal;
 		this.valorTotal = valorTotal;
 	}
@@ -51,12 +53,12 @@ public class Relatorio implements Serializable {
 		this.dataFinal = dataFinal;
 	}
 
-	public String getItem() {
-		return item;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setItem(String item) {
-		this.item = item;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Tipo getTipo() {
@@ -81,6 +83,14 @@ public class Relatorio implements Serializable {
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
 	}
 
 }

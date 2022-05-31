@@ -3,6 +3,7 @@ package com.marcelo.sidbebi.domain.dtos;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.enums.Tipo;
 
@@ -14,8 +15,9 @@ public class RelatorioDTO {
 	@JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate dataFinal;
 	
-    private String item;
+    private Produto produto;
     private Tipo tipo;
+    private String tamanho;
     private Integer qtdTotal;
     private double valorTotal;
     
@@ -27,8 +29,9 @@ public class RelatorioDTO {
 		super();
 		this.dataInicial = obj.getDataInicial();
 		this.dataFinal = obj.getDataFinal();
-		this.item = obj.getItem();
+		this.produto = obj.getProduto();
 		this.tipo = obj.getTipo();
+		this.tamanho = obj.getTamanho();
 		this.qtdTotal = obj.getQtdTotal();
 		this.valorTotal = obj.getValorTotal();
 	}
@@ -49,12 +52,12 @@ public class RelatorioDTO {
 		this.dataFinal = dataFinal;
 	}
 
-	public String getItem() {
-		return item;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setItem(String item) {
-		this.item = item;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Tipo getTipo() {
@@ -79,6 +82,14 @@ public class RelatorioDTO {
 
 	public void setValorTotal(double valorTotal) {
 		this.valorTotal = valorTotal;
+	}
+
+	public String getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(String tamanho) {
+		this.tamanho = tamanho;
 	}
 
 }
