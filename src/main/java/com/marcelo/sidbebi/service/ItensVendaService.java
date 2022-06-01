@@ -50,49 +50,59 @@ public class ItensVendaService {
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
 	
-	public Relatorio findByItem(RelatorioDTO objDTO) {
+	public List<RelatorioDTO> findByItem(RelatorioDTO objDTO) {
+		List<RelatorioDTO> relatorioDTO = null;
 		if(objDTO.getDataInicial() == null && objDTO.getProduto().getNome() != "") {
 			//busca todas as vendas do item solicitado na pequisa
-			Optional<ItensVenda> obj = repository.findById(objDTO.getProduto().getId());
-			objDTO.setQtdTotal(0);
-			objDTO.setValorTotal(0);
-			for(ItensVenda itens : obj) {
-				objDTO.setTipo(produtoRepository.findByNome(itens.getItem()).get().getTipo());
+			List<ItensVenda> itens = repository.findByItem(objDTO.getProduto().getNome());
+			
+			for(ItensVenda item : itens) {
+				objDTO.getProduto().setNome(item.getItem());
+				objDTO.setQtdTotal(item.getVenda().getQtdItens());
+				objDTO.setTamanho(item.getTamanho());
+				objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
+				objDTO.setValorTotal(item.getVenda().getValorTotal());
+				relatorioDTO.add(objDTO);
 			}
+			return relatorioDTO;
 		}
 		else {
 			if(objDTO.getDataInicial() != null && objDTO.getProduto() == null) {
 				//busca qualquer item vendido no intervalo de data solicitado na pesquisa
 				List<Venda> vendas = vendaRepository.findByIntervalo(objDTO.getDataInicial(), objDTO.getDataFinal());
-				objDTO.setQtdTotal(0);
-				objDTO.setValorTotal(0);
+				
 				for(Venda venda : vendas) {
-					objDTO.setValorTotal(objDTO.getValorTotal() + venda.getValorTotal());
+					objDTO.setQtdTotal(venda.getQtdItens());
+					objDTO.setValorTotal(venda.getValorTotal());
+					relatorioDTO.add(objDTO);
 				}
-			
+				return relatorioDTO;			
 			}
 			else {
-				if(objDTO.getDataInicial() != null && objDTO.getProduto() != "") {
+				if(objDTO.getDataInicial() != null && objDTO.getProduto().getNome() != "") {
 					//busca o item solicitado dentro do intervalo de datas indicado
 					//para isto eu busco uma lista de vendas do intervalo de datas requerido
 					List<Venda> vendas = vendaRepository.findByIntervalo(objDTO.getDataInicial(), objDTO.getDataFinal());
 					//itero esta lista de vendas buscada, procurando pelo produto solicitado	
-					objDTO.setQtdTotal(0);
-					objDTO.setValorTotal(0);
+					
 					for(Venda venda : vendas) {
 						List<ItensVenda> itens = venda.getItens();
 						for(ItensVenda item : itens) {
 							if(objDTO.getProduto().equals(item.getItem())) {
+								objDTO.getProduto().setNome(item.getItem());
+								objDTO.setQtdTotal(item.getVenda().getQtdItens());
+								objDTO.setTamanho(item.getTamanho());
 								objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
+								objDTO.setValorTotal(item.getVenda().getValorTotal());
+								relatorioDTO.add(objDTO);
 							}
 						}
 					}
-				}
+					return relatorioDTO;
+				}				
 			}
 		}
-		Relatorio relatorio = new Relatorio();
-		BeanUtils.copyProperties(objDTO, relatorio);
-		return relatorio;
+		return relatorioDTO;
 	}
 	
 	public Venda create(VendaDTO vendaDTO) {

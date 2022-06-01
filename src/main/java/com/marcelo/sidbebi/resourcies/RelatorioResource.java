@@ -20,7 +20,7 @@ import com.marcelo.sidbebi.service.ItensVendaService;
 import com.marcelo.sidbebi.service.VendaService;
 
 @RestController
-@RequestMapping(value="/relatorio")
+@RequestMapping(value="/relatorios")
 public class RelatorioResource {
 	
 	@Autowired
@@ -30,9 +30,9 @@ public class RelatorioResource {
 	private ItensVendaService itensVendaService;
 	
 	@GetMapping
-	public ResponseEntity<RelatorioDTO> findByItem(@Valid @RequestBody RelatorioDTO objDTO){
-		Relatorio relatorio = itensVendaService.findByItem(objDTO);
-		return ResponseEntity.ok().body(new RelatorioDTO(relatorio));
+	public ResponseEntity<List<RelatorioDTO>> findByItem(@Valid @RequestBody RelatorioDTO objDTO){
+		List<RelatorioDTO> relatorio = itensVendaService.findByItem(objDTO);
+		return ResponseEntity.ok().body(relatorio);
 	}
 	/**	
 	@GetMapping
