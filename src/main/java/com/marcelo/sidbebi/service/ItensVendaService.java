@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +35,6 @@ public class ItensVendaService {
 	private ItensVendaRepository repository;
 	
 	@Autowired
-	private ProdutoRepository produtoRepository;
-	
-	@Autowired
 	private ItensProdutoRepository itensProdutoRepository;
 	
 	@Autowired
@@ -48,62 +46,7 @@ public class ItensVendaService {
 	public ItensVenda findById(Integer id) {
 		Optional<ItensVenda> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
-	}
-	
-	public List<Relatorio> findByItem(Relatorio obj) {
-		List<Relatorio> relatorio = null;
-		if(obj.getDataInicial() == null && obj.getProduto().getNome() != "") {
-			//busca todas as vendas do item solicitado na pequisa
-			List<ItensVenda> itens = repository.findByItem(obj.getProduto().getNome());
-			
-			for(ItensVenda item : itens) {
-				obj.getProduto().setNome(item.getItem());
-				obj.setQtdTotal(item.getVenda().getQtdItens());
-				obj.setTamanho(item.getTamanho());
-				obj.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
-				obj.setValorTotal(item.getVenda().getValorTotal());
-				relatorio.add(obj);
-			}
-			return relatorio;
-		}
-		else {
-			if(obj.getDataInicial() != null && obj.getProduto() == null) {
-				//busca qualquer item vendido no intervalo de data solicitado na pesquisa
-				List<Venda> vendas = vendaRepository.findByIntervalo(obj.getDataInicial(), obj.getDataFinal());
-				
-				for(Venda venda : vendas) {
-					obj.setQtdTotal(venda.getQtdItens());
-					obj.setValorTotal(venda.getValorTotal());
-					relatorio.add(obj);
-				}
-				return relatorio;			
-			}
-			else {
-				if(obj.getDataInicial() != null && obj.getProduto().getNome() != "") {
-					//busca o item solicitado dentro do intervalo de datas indicado
-					//para isto eu busco uma lista de vendas do intervalo de datas requerido
-					List<Venda> vendas = vendaRepository.findByIntervalo(obj.getDataInicial(), obj.getDataFinal());
-					//itero esta lista de vendas buscada, procurando pelo produto solicitado	
-					
-					for(Venda venda : vendas) {
-						List<ItensVenda> itens = venda.getItens();
-						for(ItensVenda item : itens) {
-							if(obj.getProduto().equals(item.getItem())) {
-								obj.getProduto().setNome(item.getItem());
-								obj.setQtdTotal(item.getVenda().getQtdItens());
-								obj.setTamanho(item.getTamanho());
-								obj.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
-								obj.setValorTotal(item.getVenda().getValorTotal());
-								relatorio.add(obj);
-							}
-						}
-					}
-					return relatorio;
-				}				
-			}
-		}
-		return relatorio;
-	}
+	}	
 	
 	public Venda create(VendaDTO vendaDTO) {
 		Venda venda = new Venda();		

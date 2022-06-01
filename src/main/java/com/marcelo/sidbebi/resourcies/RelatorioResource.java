@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.resourcies;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,10 +32,10 @@ public class RelatorioResource {
 	@Autowired
 	private ItensVendaService itensVendaService;
 	
-	@GetMapping(value = "/{relatorio}") 
-	public ResponseEntity<RelatorioDTO> find(@PathVariable Relatorio relatorio){
-		List<Relatorio> obj = itensVendaService.findByItem(relatorio);
-		return ResponseEntity.ok().body(new RelatorioDTO(relatorio));
+	@GetMapping(value = "/{dataInicial}{dataFinal}") 
+	public ResponseEntity<List<VendaDTO>> find(@PathVariable LocalDate dataInicial, LocalDate dataFinal){
+		List<VendaDTO> obj = vendaService.find(dataInicial, dataFinal);
+		return ResponseEntity.ok().body(obj);
 	}
 	
 	/**	

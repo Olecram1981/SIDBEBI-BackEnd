@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.ItensVenda;
+import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
+import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
@@ -37,6 +40,7 @@ public class VendaService {
 	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
+
 	
 	public Venda findById(Integer id) {
 		Optional<Venda> obj = repository.findById(id);
@@ -59,6 +63,15 @@ public class VendaService {
 		oldObj = new Venda();
 		BeanUtils.copyProperties(objDTO, oldObj);
 		return repository.save(oldObj);
+	}
+	
+	public List<VendaDTO> find(LocalDate dataIncial, LocalDate dataFinal){
+		List<VendaDTO> vendasDTO = repository.findByIntervalo(dataIncial, dataFinal);
+		List<VendaDTO> listaVendasDTO = null;
+		for(VendaDTO venda : vendasDTO) {
+			listaVendasDTO.add(venda);			
+		}		
+		return listaVendasDTO;		
 	}
 
 	public void delete(Integer id) {
