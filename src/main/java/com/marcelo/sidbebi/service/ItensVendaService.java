@@ -50,59 +50,59 @@ public class ItensVendaService {
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
 	
-	public List<RelatorioDTO> findByItem(RelatorioDTO objDTO) {
-		List<RelatorioDTO> relatorioDTO = null;
-		if(objDTO.getDataInicial() == null && objDTO.getProduto().getNome() != "") {
+	public List<Relatorio> findByItem(Relatorio obj) {
+		List<Relatorio> relatorio = null;
+		if(obj.getDataInicial() == null && obj.getProduto().getNome() != "") {
 			//busca todas as vendas do item solicitado na pequisa
-			List<ItensVenda> itens = repository.findByItem(objDTO.getProduto().getNome());
+			List<ItensVenda> itens = repository.findByItem(obj.getProduto().getNome());
 			
 			for(ItensVenda item : itens) {
-				objDTO.getProduto().setNome(item.getItem());
-				objDTO.setQtdTotal(item.getVenda().getQtdItens());
-				objDTO.setTamanho(item.getTamanho());
-				objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
-				objDTO.setValorTotal(item.getVenda().getValorTotal());
-				relatorioDTO.add(objDTO);
+				obj.getProduto().setNome(item.getItem());
+				obj.setQtdTotal(item.getVenda().getQtdItens());
+				obj.setTamanho(item.getTamanho());
+				obj.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
+				obj.setValorTotal(item.getVenda().getValorTotal());
+				relatorio.add(obj);
 			}
-			return relatorioDTO;
+			return relatorio;
 		}
 		else {
-			if(objDTO.getDataInicial() != null && objDTO.getProduto() == null) {
+			if(obj.getDataInicial() != null && obj.getProduto() == null) {
 				//busca qualquer item vendido no intervalo de data solicitado na pesquisa
-				List<Venda> vendas = vendaRepository.findByIntervalo(objDTO.getDataInicial(), objDTO.getDataFinal());
+				List<Venda> vendas = vendaRepository.findByIntervalo(obj.getDataInicial(), obj.getDataFinal());
 				
 				for(Venda venda : vendas) {
-					objDTO.setQtdTotal(venda.getQtdItens());
-					objDTO.setValorTotal(venda.getValorTotal());
-					relatorioDTO.add(objDTO);
+					obj.setQtdTotal(venda.getQtdItens());
+					obj.setValorTotal(venda.getValorTotal());
+					relatorio.add(obj);
 				}
-				return relatorioDTO;			
+				return relatorio;			
 			}
 			else {
-				if(objDTO.getDataInicial() != null && objDTO.getProduto().getNome() != "") {
+				if(obj.getDataInicial() != null && obj.getProduto().getNome() != "") {
 					//busca o item solicitado dentro do intervalo de datas indicado
 					//para isto eu busco uma lista de vendas do intervalo de datas requerido
-					List<Venda> vendas = vendaRepository.findByIntervalo(objDTO.getDataInicial(), objDTO.getDataFinal());
+					List<Venda> vendas = vendaRepository.findByIntervalo(obj.getDataInicial(), obj.getDataFinal());
 					//itero esta lista de vendas buscada, procurando pelo produto solicitado	
 					
 					for(Venda venda : vendas) {
 						List<ItensVenda> itens = venda.getItens();
 						for(ItensVenda item : itens) {
-							if(objDTO.getProduto().equals(item.getItem())) {
-								objDTO.getProduto().setNome(item.getItem());
-								objDTO.setQtdTotal(item.getVenda().getQtdItens());
-								objDTO.setTamanho(item.getTamanho());
-								objDTO.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
-								objDTO.setValorTotal(item.getVenda().getValorTotal());
-								relatorioDTO.add(objDTO);
+							if(obj.getProduto().equals(item.getItem())) {
+								obj.getProduto().setNome(item.getItem());
+								obj.setQtdTotal(item.getVenda().getQtdItens());
+								obj.setTamanho(item.getTamanho());
+								obj.setTipo(produtoRepository.findByNome(item.getItem()).get().getTipo());
+								obj.setValorTotal(item.getVenda().getValorTotal());
+								relatorio.add(obj);
 							}
 						}
 					}
-					return relatorioDTO;
+					return relatorio;
 				}				
 			}
 		}
-		return relatorioDTO;
+		return relatorio;
 	}
 	
 	public Venda create(VendaDTO vendaDTO) {
