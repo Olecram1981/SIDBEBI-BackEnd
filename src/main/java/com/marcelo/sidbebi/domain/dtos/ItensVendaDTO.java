@@ -30,6 +30,7 @@ public class ItensVendaDTO {
 		this.codBarra = obj.getCodBarra();
 		this.valorUnit = obj.getValorUnit();
 		this.venda = obj.getVenda();
+		this.tamanho = obj.getTamanho();
 	}
 
 	public Integer getId() {

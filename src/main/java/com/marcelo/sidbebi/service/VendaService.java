@@ -2,9 +2,11 @@ package com.marcelo.sidbebi.service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
+import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
@@ -67,7 +70,7 @@ public class VendaService {
 		return repository.save(oldObj);
 	}
 	
-	public List<VendaDTO> find(String data){
+	public List<ItensVendaDTO> find(String data){
 		String dia1 = data.substring(0, 2);
 		String mes1 = data.substring(2, 4);
 		String ano1 = data.substring(4, 8);
@@ -82,9 +85,17 @@ public class VendaService {
 		LocalDate dataInicial = LocalDate.parse(inicial);
 		LocalDate dataFinal = LocalDate.parse(finall);
 		
-		List<VendaDTO> vendasDTO = repository.findByIntervalo(dataInicial, dataFinal);		
-		
-		return vendasDTO;		
+		List<Venda> vendas = repository.findByIntervalo(dataInicial, dataFinal);
+		List<ItensVendaDTO> itensVendaDTO = new ArrayList();		
+		for(Venda venda : vendas) {				
+			List<ItensVenda> listItensVenda = itensVendaRepository.findByVenda(venda);
+			for(ItensVenda itensVenda : listItensVenda) {
+				ItensVendaDTO itensDTO = new ItensVendaDTO();
+				BeanUtils.copyProperties(itensVenda, itensDTO);
+				itensVendaDTO.add(itensDTO);
+			}
+		}		
+		return itensVendaDTO;		
 	}
 
 	public void delete(Integer id) {

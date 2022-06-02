@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
+import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.service.ItensVendaService;
@@ -33,8 +34,8 @@ public class RelatorioResource {
 	private ItensVendaService itensVendaService;
 	
 	@GetMapping(value = "/{data}") 
-	public ResponseEntity<List<VendaDTO>> find(@PathVariable String data){
-		List<VendaDTO> obj = vendaService.find(data);
+	public ResponseEntity<List<ItensVendaDTO>> find(@PathVariable String data){
+		List<ItensVendaDTO> obj = vendaService.find(data);
 		return ResponseEntity.ok().body(obj);
 	}
 	
