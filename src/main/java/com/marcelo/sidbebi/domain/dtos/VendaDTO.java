@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain.dtos;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -14,8 +15,8 @@ public class VendaDTO {
 	
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
-	private LocalDateTime dataHora = LocalDateTime.now();
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataHora = LocalDate.now();
 	
 	private List<ItensVenda> itens;
 	

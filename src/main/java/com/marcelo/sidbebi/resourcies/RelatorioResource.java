@@ -32,9 +32,9 @@ public class RelatorioResource {
 	@Autowired
 	private ItensVendaService itensVendaService;
 	
-	@GetMapping(value = "/{dataInicial}{dataFinal}") 
-	public ResponseEntity<List<VendaDTO>> find(@PathVariable LocalDate dataInicial, LocalDate dataFinal){
-		List<VendaDTO> obj = vendaService.find(dataInicial, dataFinal);
+	@GetMapping(value = "/{data}") 
+	public ResponseEntity<List<VendaDTO>> find(@PathVariable String data){
+		List<VendaDTO> obj = vendaService.find(data);
 		return ResponseEntity.ok().body(obj);
 	}
 	

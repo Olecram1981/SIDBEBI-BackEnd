@@ -1,5 +1,6 @@
 package com.marcelo.sidbebi.domain;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class Venda implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@JsonFormat(pattern = "dd/MM/yyyy - HH:mm")
-	private LocalDateTime dataHora = LocalDateTime.now();
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private LocalDate dataHora = LocalDate.now();
 	
 	@JsonIgnore
 	@OneToMany (mappedBy = "venda")	

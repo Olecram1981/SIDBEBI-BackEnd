@@ -1,7 +1,9 @@
 package com.marcelo.sidbebi.service;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -65,13 +67,24 @@ public class VendaService {
 		return repository.save(oldObj);
 	}
 	
-	public List<VendaDTO> find(LocalDate dataIncial, LocalDate dataFinal){
-		List<VendaDTO> vendasDTO = repository.findByIntervalo(dataIncial, dataFinal);
-		List<VendaDTO> listaVendasDTO = null;
-		for(VendaDTO venda : vendasDTO) {
-			listaVendasDTO.add(venda);			
-		}		
-		return listaVendasDTO;		
+	public List<VendaDTO> find(String data){
+		String dia1 = data.substring(0, 2);
+		String mes1 = data.substring(2, 4);
+		String ano1 = data.substring(4, 8);
+		
+		String dia2 = data.substring(8, 10);
+		String mes2 = data.substring(10, 12);
+		String ano2 = data.substring(12, 16);
+		
+		String inicial = ano1+"-"+mes1+"-"+dia1;
+		String finall = ano2+"-"+mes2+"-"+dia2;
+		
+		LocalDate dataInicial = LocalDate.parse(inicial);
+		LocalDate dataFinal = LocalDate.parse(finall);
+		
+		List<VendaDTO> vendasDTO = repository.findByIntervalo(dataInicial, dataFinal);		
+		
+		return vendasDTO;		
 	}
 
 	public void delete(Integer id) {
