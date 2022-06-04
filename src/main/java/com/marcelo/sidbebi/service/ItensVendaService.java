@@ -43,6 +43,9 @@ public class ItensVendaService {
 	@Autowired
 	private VendaRepository vendaRepository;
 	
+	@Autowired
+	private ProdutoRepository produtoRepository;
+	
 	public ItensVenda findById(Integer id) {
 		Optional<ItensVenda> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
@@ -51,8 +54,16 @@ public class ItensVendaService {
 	public Venda create(VendaDTO vendaDTO) {
 		Venda venda = new Venda();		
 		BeanUtils.copyProperties(vendaDTO, venda);
-		venda.setPagamento(Pagamento.toEnum(vendaDTO.getPagamento()));
+		venda.setPagamento(Pagamento.toEnum(vendaDTO.getPagamento()));		
 		venda = vendaRepository.save(venda);
+		
+		for(String codBarras : venda.getItensVenda()) {			
+			Optional<ItensProduto> item = itensProdutoRepository.findByCodBarra(codBarras);
+			Produto produto = item.get().getProduto();
+			produto.setQtd(produto.getQtd()-1);
+			produto.setValorTotal(produto.getValorTotal() - produto.getValorUnit());
+			produtoRepository.save(produto);
+		}
 		
 		for(int x = 0; x < vendaDTO.getItensVenda().length; x++){						
 			ItensVenda itensVenda = new ItensVenda();
@@ -63,9 +74,9 @@ public class ItensVendaService {
 			itensVenda.setItem(itensProduto.get().getProduto().getNome());
 			itensVenda.setTamanho(itensProduto.get().getProduto().getTamanho());
 			itensVenda.setVenda(venda);		
-			repository.save(itensVenda);
+			repository.save(itensVenda);			
 			itensProdutoRepository.deleteById(itensProduto.get().getId());
-		}		
+		}	
 		
 		return venda;
 	}	

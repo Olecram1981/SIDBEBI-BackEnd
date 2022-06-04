@@ -8,11 +8,14 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
+import com.marcelo.sidbebi.domain.Produto;
 import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
@@ -20,6 +23,7 @@ import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
+import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
@@ -45,7 +49,6 @@ public class VendaService {
 	
 	@Autowired
 	private FornecedorRepository fornecedorRepository;
-
 	
 	public Venda findById(Integer id) {
 		Optional<Venda> obj = repository.findById(id);
@@ -58,7 +61,7 @@ public class VendaService {
 	
 	public Venda create(VendaDTO objDTO) {
 		objDTO.setId(null);		
-		Venda venda = itensVendaService.create(objDTO);
+		Venda venda = itensVendaService.create(objDTO);		
 		return venda;
 	}	
 
@@ -112,6 +115,7 @@ public class VendaService {
 			itensVendaRepository.delete(itens);
 		}		
 		repository.deleteById(id);
+		
 	}
 	
 }
