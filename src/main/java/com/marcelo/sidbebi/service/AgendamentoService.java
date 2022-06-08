@@ -9,15 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.Cliente;
-import com.marcelo.sidbebi.domain.ItensAgendamento;
-import com.marcelo.sidbebi.domain.ItensVenda;
-import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
-import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.domain.enums.Status;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
-import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -75,6 +70,7 @@ public class AgendamentoService {
 	}
 
 	public void delete(Integer id) {
+		@SuppressWarnings("unused")
 		Agendamento obj = findById(id);
 		repository.deleteById(id);
 	}

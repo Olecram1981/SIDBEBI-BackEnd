@@ -8,15 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Usuario;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.UsuarioDTO;
 import com.marcelo.sidbebi.repositories.UsuarioRepository;
 import com.marcelo.sidbebi.service.exceptions.DataIntegrityViolationException;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
-
-import ch.qos.logback.core.encoder.Encoder;
 
 @Service
 public class UsuarioService {
@@ -57,6 +53,7 @@ public class UsuarioService {
 	}
 	
 	public void delete(Integer id) {
+		@SuppressWarnings("unused")
 		Usuario obj = findById(id);
 		repository.deleteById(id);
 	}

@@ -2,9 +2,7 @@ package com.marcelo.sidbebi.domain.dtos;
 
 import javax.validation.constraints.NotNull;
 
-import com.marcelo.sidbebi.domain.Fornecedor;
 import com.marcelo.sidbebi.domain.ItensProduto;
-import com.marcelo.sidbebi.domain.Produto;
 
 public class ItensProdutoDTO {
 	

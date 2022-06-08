@@ -11,20 +11,12 @@ import com.marcelo.sidbebi.domain.Agendamento;
 import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensProduto;
-import com.marcelo.sidbebi.domain.ItensVenda;
-import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.AgendamentoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensAgendamentoDTO;
-import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
-import com.marcelo.sidbebi.domain.enums.Pagamento;
-import com.marcelo.sidbebi.domain.enums.Status;
-import com.marcelo.sidbebi.domain.enums.Tipo;
 import com.marcelo.sidbebi.repositories.AgendamentoRepository;
 import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensAgendamentoRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
-import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.service.exceptions.ObjectnotFoundException;
 
 @Service
@@ -83,6 +75,7 @@ public class ItensAgendamentoService {
 	}
 
 	public void delete(Integer id) {
+		@SuppressWarnings("unused")
 		ItensAgendamento obj = findById(id);
 		repository.deleteById(id);
 	}

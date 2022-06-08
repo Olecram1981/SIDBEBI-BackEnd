@@ -1,7 +1,6 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -9,7 +8,6 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Venda;
-import com.marcelo.sidbebi.domain.enums.Pagamento;
 
 public class VendaDTO {
 	

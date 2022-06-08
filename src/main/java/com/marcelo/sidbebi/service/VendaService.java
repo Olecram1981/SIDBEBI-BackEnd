@@ -1,29 +1,20 @@
 package com.marcelo.sidbebi.service;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
-import java.util.Set;
 
-import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
-import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
-import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
-import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;
 import com.marcelo.sidbebi.repositories.VendaRepository;
@@ -73,6 +64,7 @@ public class VendaService {
 		return repository.save(oldObj);
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public List<ItensVendaDTO> find(String data){
 		String dia1 = data.substring(0, 2);
 		String mes1 = data.substring(2, 4);

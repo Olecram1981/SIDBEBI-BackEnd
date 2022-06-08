@@ -1,27 +1,20 @@
 package com.marcelo.sidbebi.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.ItensVenda;
 import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.Relatorio;
 import com.marcelo.sidbebi.domain.Venda;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensVendaDTO;
-import com.marcelo.sidbebi.domain.dtos.RelatorioDTO;
 import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 import com.marcelo.sidbebi.domain.enums.Pagamento;
-import com.marcelo.sidbebi.domain.enums.Tipo;
-import com.marcelo.sidbebi.repositories.ClienteRepository;
 import com.marcelo.sidbebi.repositories.ItensProdutoRepository;
 import com.marcelo.sidbebi.repositories.ItensVendaRepository;
 import com.marcelo.sidbebi.repositories.ProdutoRepository;

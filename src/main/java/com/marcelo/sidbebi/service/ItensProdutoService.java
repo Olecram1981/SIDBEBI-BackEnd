@@ -7,12 +7,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Fornecedor;
-import com.marcelo.sidbebi.domain.ItensAgendamento;
 import com.marcelo.sidbebi.domain.ItensProduto;
 import com.marcelo.sidbebi.domain.Produto;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.ItensProdutoDTO;
 import com.marcelo.sidbebi.domain.enums.NivelEstoque;
 import com.marcelo.sidbebi.repositories.FornecedorRepository;
@@ -83,6 +80,7 @@ public class ItensProdutoService {
 		produto.get().setValorTotal(produto.get().getValorUnit() * produto.get().getQtd());
 		produto.get().setNivel(nivelEstoque(produto.get().getQtd()));
 		produtoRepository.save(produto.get());
+		@SuppressWarnings("unused")
 		ItensProduto obj = findById(id);
 		repository.deleteById(id);
 	}

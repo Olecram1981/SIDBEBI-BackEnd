@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.marcelo.sidbebi.domain.Venda;
-import com.marcelo.sidbebi.domain.dtos.VendaDTO;
 
 @Repository
 public interface VendaRepository extends JpaRepository<Venda, Integer>{

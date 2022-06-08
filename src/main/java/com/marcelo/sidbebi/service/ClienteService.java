@@ -45,6 +45,7 @@ public class ClienteService {
 	}
 
 	public void delete(Integer id) {
+		@SuppressWarnings("unused")
 		Cliente obj = findById(id);
 		repository.deleteById(id);
 	}

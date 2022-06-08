@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.marcelo.sidbebi.domain.Cliente;
 import com.marcelo.sidbebi.domain.Usuario;
-import com.marcelo.sidbebi.domain.dtos.ClienteDTO;
 import com.marcelo.sidbebi.domain.dtos.UsuarioDTO;
 import com.marcelo.sidbebi.service.UsuarioService;
 

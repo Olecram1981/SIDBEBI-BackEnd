@@ -1,11 +1,9 @@
 package com.marcelo.sidbebi.domain.dtos;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.marcelo.sidbebi.domain.Cliente;
 
 public class ClienteDTO implements Serializable {
