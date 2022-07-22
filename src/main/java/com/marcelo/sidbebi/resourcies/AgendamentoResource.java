@@ -35,7 +35,7 @@ public class AgendamentoResource {
 		Agendamento obj = service.findById(id);
 		return ResponseEntity.ok().body(new AgendamentoDTO(obj));
 	}
-	
+		
 	@GetMapping
 	public ResponseEntity<List<AgendamentoDTO>> findAll(){
 		List<Agendamento> list = service.findAll();

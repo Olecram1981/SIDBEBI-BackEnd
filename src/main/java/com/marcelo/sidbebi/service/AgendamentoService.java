@@ -31,7 +31,7 @@ public class AgendamentoService {
 		Optional<Agendamento> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ObjectnotFoundException("Objeto não encontrado. Id: "+id));
 	}
-	
+		
 	public List<Agendamento> findAll() {
 		return repository.findAll();
 	}
